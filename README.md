@@ -1,5 +1,7 @@
 # Cytosim Cloning algorithm
 
+Cytosim repository: https://gitlab.com/f.nedelec/cytosim
+
 ## Current files:
 
 - `cloning_cytosim.cpp`: main cloning algorithm file
