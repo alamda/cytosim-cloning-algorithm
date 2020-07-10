@@ -12,7 +12,7 @@ Outline:
 - For each trajectory when simulation complete:
     - extract cross-linker binding data (see `read_link.cpp`) - parser
         - or use existing cytosim report code to extract data directly from binary
-    - calculate $`\dot{w}$` for each step of the trajectory
+    - calculate $`\dot{w}`$ for each step of the trajectory
     - calculate $`s_a`$
 - Calculate sum of $`s_a`$ values for all trajectories
 - Again, for each trajectory:
