@@ -41,17 +41,16 @@ void check_simulations()
 	cout << "there aint nothing to check yet" << endl;
 }
 
-constexpr unsigned int str2int(const char* str, int h = 0)
-{
-    return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
-}
-
-
 int main(int argc, char *argv[])
 {
 	/*
 	 *
 	 */
+
+	int N_clones = launch_simulations();
+
+	// Some test code (that does not work) below:
+	/*
 	cout << "Usage: ./a.out #, where # is an integer corresponding to an option" << endl ;
 	cout << "0: launch\t1: check"<<endl ;
 
@@ -69,7 +68,7 @@ int main(int argc, char *argv[])
 			cout << "Please specify either launch or check when executing the program.";
 
 	}
-
+	*/
 
 
 	return 0;
