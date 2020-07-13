@@ -32,3 +32,10 @@ Outline:
 		- clone trajectory with cytosim: `frametool objects.cmo frame_number > objects.cmi`
 	- randomly duplicate/delete trajectories to match desired total number of clones $`N`$
 - Launch the simulations again, and repeat. Number of times to repeat is specified in the `*.clones` configuration file.
+
+## Most recent notes
+
+### Cytosim source code files of interest:
+
+- `simul.h`: defines the simulator class `Simul` which contains all objects of the simulations
+- `sim.cc`: source code for the `sim` executable which launches the simulation
