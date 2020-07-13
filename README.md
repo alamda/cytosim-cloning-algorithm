@@ -9,6 +9,15 @@ Cytosim repository: https://gitlab.com/f.nedelec/cytosim
 - `link.txt`: example of cytosim output file for cross-linkers linking two filaments
 - `suri_code`: Suri's cloning code (for reference)
 
+## Concise outline for cloning **SCRIPT**
+
+1. c++ script calls cytosim to launch several trajectories [already have the code for this]
+2. cytosim runs and outputs data
+3. c++ script parses the output file [item that needs most work]
+4. c++ script calculates trajectory-dependent quantities [similar to the code that Suri sent, might be able to reuse some of it]
+5. c++ script clones/deletes trajectories based on the quantities that were calculated  [code similar to that for step 1, fairly straightforward]
+6. repeat steps 2-5
+
 ## Proposed program structure
 
 Outline:
