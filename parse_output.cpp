@@ -10,7 +10,7 @@
 #include <fstream>
 #include <string>
 
-using namespace std; // considered bad practice (particularly in *.h files), avoid doing this
+//using namespace std; // considered bad practice (particularly in *.h files), avoid doing this
 // see https://stackoverflow.com/questions/1452721/why-is-using-namespace-std-considered-bad-practice
 
 struct Frame
