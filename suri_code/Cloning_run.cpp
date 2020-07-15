@@ -39,7 +39,8 @@ int main( int argc, char *argv[])
 		exit(1);
 	}
 
-	int N_max = atoi(argv[1]);
+	// Initialize variables from user input
+	int N_max = atoi(argv[1]); // max number of clones?
 	double t_analysis = atof(argv[2]);
 	long int randomseed  = atoi(argv[3]);
 	double dt = atof(argv[4]);
@@ -48,33 +49,44 @@ int main( int argc, char *argv[])
 	double tau = atof(argv[7]);
 	int soft = atoi(argv[8]);
 	double ksoft = atof(argv[9]);
-	int N_snapshots = atoi(argv[10]); //number of clones
+	int N_snapshots = atoi(argv[10]); //number of timesteps? not clones?
 
 	// Simulation box size
 	double Lx = 4.0 ;
 	double Ly = 4.0 ;
 
-	// Initiating gsl
+	/* Initiating gsl (GNU Scientific Library)
+	 *
+	 * https://www.gnu.org/software/gsl/doc/html/rng.html#random-number-generator-initialization
+	 * Initialize a random number generator
+	 * "This function returns a pointer to a newly-created instance of a random number generator of type" gsl_rng_taus2
+	 *
+	 * Random number generator using Tausworthe's algorithm. This is L'Ecuyer's version of Tausworthe's algorithm (or something like that). Period is 10 ** 26.
+	 *
+	 * See also: https://www.gnu.org/software/gsl/doc/html/
+	 */
 	gsl_rng *r = gsl_rng_alloc(gsl_rng_taus2);
 	gsl_rng_set(r, randomseed) ;
 
 	// Initiate N_snapshots or clones of mylattice
 	Langevin_dynamics mylattice[N_snapshots] ;
 
+	// Why are there all of these doubles?
 	double y[N_snapshots] ;
 	double yc[N_snapshots] ;
 	double yc2[N_snapshots] ;
 	double sumy = 0 ;
 
-	vector< vector< vector< vector<double> > > > tpos; // 4D vector
-	vector< vector< vector<double> > > ttheta; // 3D vector
+	vector <vector <vector <vector <double> > > > tpos; // 4D vector
+	vector <vector <vector <double> > > ttheta; // 3D vector
 
+	// ?????
 	int N_type = 1; // Number of particle type
 	int Ntype[0] ;
 
 	Ntype[0] = N_max ; // Number of particles of type 1 input by user
 
-
+	// Does this for loop create a bunch of zero vectors?
 	for (int i=0; i<N_snapshots; i++) // Loop over each clone to add position for each particle?
 	// set position to 0????
 	{
@@ -100,7 +112,7 @@ int main( int argc, char *argv[])
 	}
 
 	for (int i=0; i<N_snapshots; i++) // Loop over reach clone
-	//set position to 0???
+	//set theta to 0???
 	{
 		vector< vector<double> > pos ;
 
@@ -123,12 +135,17 @@ int main( int argc, char *argv[])
 	cout << "Clone > Equilibrating master\n" ;
 	masterlattice.equilibrate(Pe, tau);
 
+	// Define string to use as filename
 	char outputfile[100];
 
-	sprintf(outputfile, "SnaoshotsN%d.N2%d.S%.3f.Lx%.2f.Clone%d.Soft%d.E10,ktracer%.2f.lammpstrj", N_max, Ntype[0], S, Lx, N_snapshots, soft, ksoft);
+	// Build file name string
+	sprintf(outputfile, "SnapshotsN%d.N2%d.S%.3f.Lx%.2f.Clone%d.Soft%d.E10,ktracer%.2f.lammpstrj", N_max, Ntype[0], S, Lx, N_snapshots, soft, ksoft);
 
+	// Open outputfile
 	ofstream fileout;
+	// Name output file
 	fileout.open(outputfile);
+	// Open 200 output files for clones -> Why 200???
 	ofstream fileoutclone[200];
 	ofstream clonestate[200];
 
@@ -146,6 +163,8 @@ int main( int argc, char *argv[])
     	}
 	*/
 
+	// ------ GENERATE CLONES ------- //
+
 	// Loop to generate i clones; N_snapshots = number of clones
 	for (int i=0; i<N_snapshots; i++)
 	{
@@ -158,6 +177,7 @@ int main( int argc, char *argv[])
 
 		sprintf(outputfile,"MultipleCloneStatesN%d.N2%d.S%.3f.Lx%.2f.Clone%d.Soft%d.E10.ktracer%.2f.Clone%d.lammpstrj", N_max, Ntype[0], S, Lx, N_snapshots, soft, ksoft, i);
 
+		// Why is loopi used here?
 		clonestate[loopi].open(outputfile);
 
 		// The master lattice is run for 100/(dt*N_snapshots) steps
@@ -210,6 +230,8 @@ int main( int argc, char *argv[])
 	int countdt = 0;
 	int dumpdt = 0;
 
+	// ----- START CLONING LOOP ----- //
+
 	// Main cloning loop starts here
 	// teetotaler: time counter?
 	for (double teetotaler=0; teetotaler<t_analysis; teetotaler += dt)
@@ -218,6 +240,7 @@ int main( int argc, char *argv[])
 		sumy = 0;
 		double sumyc = 0;
 
+		// what is dumpdt ???
 		if (countdt > dumpdt)
 		{
 			for (int loopj=0; loopj<N_snapshots; loopj++)
@@ -229,7 +252,7 @@ int main( int argc, char *argv[])
 				for (int localtime=0; localtime<20; localtime++)
 				{
 					// Propagate clone, store value of the trajectory dependent variable \cal E in y[loopi]
-					y[loopj] += mylattice[loopj].propagate_dynamics(dt, Pe, teetotaler, tau);
+					y[loopj] +=  mylattice[loopj].propagate_dynamics( dt, Pe, teetotaler, tau );
 				}
 
 				tpos[loopj] = mylattice[loopj].pos; // storing clone positions for switching

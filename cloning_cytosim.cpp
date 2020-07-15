@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -21,8 +22,8 @@ int launch_simulations() // seems to be done?
 
 	//Query the user for the number of clones/trajectories to simulate
 	int N_clones ;
-	cout << "Enter the number of trajectory copies (integer value):" << endl;
-	cin >> N_clones;
+	std::cout << "Enter the number of trajectory copies (integer value):" << endl;
+	std::cin >> N_clones;
 
 	char buffer[255];
 
@@ -38,7 +39,21 @@ int launch_simulations() // seems to be done?
 
 void check_simulations()
 {
-	cout << "there aint nothing to check yet" << endl;
+	std::cout << "there aint nothing to check yet" << endl;
+}
+
+int calculate_clone_number(int N_clones)
+{
+	int clone_number = rand()%N_clones ;
+	return clone_number;
+}
+
+int clone_trajectories(int N_clones)
+{
+	int clone_counter = 0;
+
+	for ( int i=0; i<N_clones; i++)
+	return 0;
 }
 
 int main(int argc, char *argv[])
@@ -48,6 +63,12 @@ int main(int argc, char *argv[])
 	 */
 
 	int N_clones = launch_simulations();
+
+	for ( int i=0; i<N_clones; i++)
+	{
+		int clone_number = calculate_clone_number(N_clones);
+		std::cout << clone_number << endl;
+	}
 
 	// Some test code (that does not work) below:
 	/*
