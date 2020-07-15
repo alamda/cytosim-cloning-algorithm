@@ -30,7 +30,7 @@ int launch_simulations() // seems to be done?
 	for (int i=0; i<N_clones; i++)
 	{
 		// Create string of shell commands and run the commands
-		sprintf(buffer, "mkdir -p sims/%03d; cp config.cym cytosim.sbatch sims/%03d; cd sims/%03d; pwd; sbatch cytosim.sbatch", i, i, i);
+		std::sprintf(buffer, "mkdir -p sims/%03d; cp config.cym cytosim.sbatch sims/%03d; cd sims/%03d; pwd; sbatch cytosim.sbatch", i, i, i);
 		system(buffer);
 	}
 
@@ -53,6 +53,11 @@ int clone_trajectories(int N_clones)
 	int clone_counter = 0;
 
 	for ( int i=0; i<N_clones; i++)
+	{
+		char buffer[255];
+		std::sprintf(buffer, "cd sims; %03d", i);
+
+	}
 	return 0;
 }
 
