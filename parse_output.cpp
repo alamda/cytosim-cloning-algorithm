@@ -52,7 +52,7 @@ struct Frame
 	std::vector <std::string> dataLines ;
 };
 
-void process_frame(std::vector <std::vector> & vectorOfFrameContent, std::vector <Frame> & vectorOfFrameObjects)
+void process_frame(std::vector <std::string> & vectorOfFrameContent, std::vector <Frame> & vectorOfFrameObjects)
 {
 	Frame frame ;
 
