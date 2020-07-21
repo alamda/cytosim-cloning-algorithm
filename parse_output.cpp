@@ -34,25 +34,29 @@ void process_line(std::string line, Frame & frame)
 	std::smatch match ;
 
 	if (line.find(frame.frameStr) != std::string::npos)
-	{
+	{	// Extract int with frame number
 		std::regex rgx("[0-9]+");
 
 		if (std::regex_search(line, match, rgx))
 			frame.frameNumber =  std::stoi(match.str(0));
-			
+
 	}
 	else if (line.find(frame.timeStr) != std::string::npos)
-	{
+	{	// Extract float with time stamp
 		std::regex rgx("[0-9]+.[0-9]+");
 
 		if (std::regex_search(line, match, rgx))
 			frame.timeStamp =  std::stof(match.str(0));
 
 	}
-	// else if ()
-	// {
-	// 	// Extract string with report command used to generate data file
-	// }
+	else if (line.find(frame.reportStr) != std::string::npos)
+	{	// Extract string with report command used to generate data file
+		std::regex rgx("[a-z]+:[a-z]+");
+
+		if (std::regex_search(line, match, rgx))
+			frame.reportCommand = match.str(0);
+
+	}
 	// else if ()
 	// {
 	// 	// Extract string with category names of data in file
@@ -103,13 +107,13 @@ void process_line(std::string line, Frame & frame)
 				// will remove vector of frames
 				vectorOfFrameObjects.push_back(frame);
 
-				printf("end of frame %d, pushing back frame objects to vector\n", frame_idx);
+				// printf("end of frame %d, pushing back frame objects to vector\n", frame_idx);
 
 				frame_idx++ ;
 
 				if (frame_idx > 1)
 				{
-					std::cout << frame.frameNumber << " "<< previousFrame.frameNumber << std::endl;
+					// std::cout << frame.frameNumber << " "<< previousFrame.frameNumber << std::endl;
 				}
 
 				// Create new frame object
