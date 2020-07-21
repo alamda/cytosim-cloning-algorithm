@@ -6,22 +6,28 @@
 #include <regex>
 #include "parse_output.h"
 
-struct Frame
+typedef struct Frame
 {
 	int frameNumber ;
-	const std::string frameStr = "frame";
+	static std::string frameStr ;
 
 	float timeStamp ;
-	const std::string timeStr = "time";
+	static std::string timeStr ;
 
 	std::string reportCommand ;
-	const std::string reportStr = "report";
+	static std::string reportStr ;
 
 	std::string dataCategories ;
-	const std::string categoriesStr = "class";
+	static std::string categoriesStr ;
 
 	std::vector <std::string> dataLines ;
-};
+
+} Frame_t ;
+
+std::string Frame::frameStr = "frame";
+std::string Frame::timeStr = "time";
+std::string Frame::reportStr = "report";
+std::string Frame::categoriesStr = "class";
 
 void process_line(std::string line, Frame & frame)
 {
@@ -34,19 +40,20 @@ void process_line(std::string line, Frame & frame)
 		if (std::regex_search(line, match, rgx))
 		{
 			frame.frameNumber =  std::stoi(match.str(0));
+			printf("%d\n", frame.frameNumber);
 		}
 	}
-	else if (line.find(frame.timeStr) != std::string::npos)
-	{
-		std::regex rgx("[0-9]+.[0-9]+");
-
-		if (std::regex_search(line, match, rgx))
-		{
-			frame.timeStamp =  std::stof(match.str(0));
-			printf("%s\n", line);
-			printf("%d\n", frame.timeStamp);
-		}
-	}
+	// else if (line.find(frame.timeStr) != std::string::npos)
+	// {
+	// 	std::regex rgx("[0-9]+.[0-9]+");
+	//
+	// 	if (std::regex_search(line, match, rgx))
+	// 	{
+	// 		frame.timeStamp =  std::stof(match.str(0));
+	// 		printf("%s\n", line);
+	// 		printf("%d\n", frame.timeStamp);
+	// 	}
+	// }
 	// else if ()
 	// {
 	// 	// Extract string with report command used to generate data file
@@ -65,7 +72,6 @@ void process_line(std::string line, Frame & frame)
 
 // Used as reference: https://thispointer.com/c-how-to-read-a-file-line-by-line-into-a-vector/
  void get_file_contents( std::string fileName,
-						std::string const startSubstring,
 						std::string const endString,
 						std::vector <std::vector <std::string> > & vectorOfFrames,
 						std::vector <Frame> & vectorOfFrameObjects )
@@ -73,59 +79,48 @@ void process_line(std::string line, Frame & frame)
 	// open file
 	std::ifstream dataFile(fileName.c_str());
 
-	// define vector for storing content of a single frames
-	std::vector <std::string> vectorOfFrameContent;
-
 	while (dataFile)
 	{
 		// Define string variable
 		std::string line ;
-		int frameNumber = 0;
+		int frame_idx = 0;
+
+		// static const Frame emptyFrame;
+		Frame frame;
 
 		// Read line by line and sort into frames
+		// line ins a c string
 		while (std::getline(dataFile, line))
 		{
 			std::size_t found_end ;
-			std::size_t found_start ;
 
 			found_end = line.find(endString);
 
 			// If the line does not match endString
-			if(found_end = std::string::npos)
+			if (!(found_end != std::string::npos))
 			{
-				// check if the line contains the string denoting the start of the frame
-				found_start = line.find(startSubstring);
-
-				// if start substring is found in the line
-				if (found_start != std::string::npos)
-				{
-					// Create new frame object
-					Frame frame; // needs to be available to other scopes
-					//would like to initialize object in this scope tho
-
-					printf("start of frame %d, frame object created\n", frameNumber);
-				}
-
 				process_line(line, frame);
+			}
+			else // If line matches endString
+			{
 
+				// will remove vector of frames
+				vectorOfFrameObjects.push_back(frame);
 
-				if (found_end != std::string::npos)
+				printf("end of frame %d, pushing back frame objects to vector\n", frame_idx);
+
+				frame_idx++ ;
+
+				if (frame_idx > 1)
 				{
-					// will remove vector of frames
-					vectorOfFrameObjects.push_back(frame);
-
-					printf("end of frame %d, pushing back frame objects to vector", frameNumber);
-
-					frameNumber++ ;
-
-					if (frameNumber > 1)
-					{
-						// do calculations on two adjacent frames
-					}
+					// do calculations on two adjacent frames
 				}
+
+				// Create new frame object
+				frame = Frame() ;
 			}
 		}
-	printf("Total number of frames: %d\n", frameNumber);
+	printf("Total number of frames: %d\n", frame_idx);
 	}
 
 	//Close The File
@@ -136,8 +131,7 @@ int main()
 {
 	// Name of data file to be read:
 	const std::string fileName = "link.txt";
-	const std::string startSubstring = "% frame";
-	const std::string endString = "% end";
+	const std::string endString = "end";
 
 	// define vector for storing frames which store lines corresponding to the frames
 	// will eventually remove vector of frames  discard frame data after doing mafs
@@ -145,8 +139,7 @@ int main()
 
 	std::vector <Frame> vectorOfFrameObjects ;
 
-	get_file_contents(fileName, startSubstring, endString, vectorOfFrames,
-					  vectorOfFrameObjects);
+	get_file_contents(fileName, endString, vectorOfFrames, vectorOfFrameObjects);
 
 	return 0;
 }
