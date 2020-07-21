@@ -4,7 +4,18 @@
 #include <vector>
 #include <cstdio>
 #include <regex>
+#include <iterator>
 #include "parse_output.h"
+
+typedef struct Linker
+{
+	int classOfObject, linkerIdentity, fiberOneIdentity, fiberTwoIdentity ;
+	float abscissaOne , abscissaTwo ;
+	float posOneX, posOneY, posOneZ;
+	float posTwoX, posTwoY, posTwoZ;
+	float force, cos_angle ;
+
+} Linker_t ;
 
 typedef struct Frame
 {
@@ -20,7 +31,7 @@ typedef struct Frame
 	std::string dataCategories ;
 	static std::string categoriesStr ;
 
-	std::vector <std::string> dataLines ;
+	std::vector <Linker> linkerObjects ;
 
 } Frame_t ;
 
@@ -28,6 +39,8 @@ std::string Frame::frameStr = "frame";
 std::string Frame::timeStr = "time";
 std::string Frame::reportStr = "report";
 std::string Frame::categoriesStr = "class";
+
+
 
 void process_line(std::string line, Frame & frame)
 {
@@ -57,14 +70,26 @@ void process_line(std::string line, Frame & frame)
 			frame.reportCommand = match.str(0);
 
 	}
-	// else if ()
-	// {
-	// 	// Extract string with category names of data in file
-	// }
-	// else if ()
-	// {
-	// 	// Extract vector of strings of data lines for the frame
-	// }
+	else if (line.find(frame.categoriesStr) != std::string::npos)
+	{
+		// Extract string with category names of data in file
+	}
+	else
+	{
+		// Extract vector of strings of data lines for the frame
+		std::regex rgx("[0-9]+.[0-9]*");
+
+		// https://en.cppreference.com/w/cpp/regex/regex_iterator
+		auto dataBegin = std::sregex_iterator(line.begin(), line.end(),  rgx);
+		auto dataEnd = std::sregex_iterator();
+
+		for (std::sregex_iterator i = dataBegin; i != dataEnd; ++i)
+		{
+			match = *i ;
+			std::string match_str = match.str();
+			std::cout << match_str << " ";
+		}
+	}
 
 
 }
@@ -119,6 +144,7 @@ void process_line(std::string line, Frame & frame)
 				// Create new frame object
 				previousFrame = frame ;
 				frame = Frame() ;
+				std::cout << std::endl;
 			}
 		}
 	printf("Total number of frames: %d\n", frame_idx);
