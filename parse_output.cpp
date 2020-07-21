@@ -4,7 +4,7 @@
 #include <vector>
 #include <cstdio>
 #include <regex>
-#include <iterator>
+#include <iterator> // for sregex_iterator
 #include "parse_output.h"
 
 typedef struct Linker
@@ -40,8 +40,6 @@ std::string Frame::timeStr = "time";
 std::string Frame::reportStr = "report";
 std::string Frame::categoriesStr = "class";
 
-
-
 void process_line(std::string line, Frame & frame)
 {
 	std::smatch match ;
@@ -73,6 +71,10 @@ void process_line(std::string line, Frame & frame)
 	else if (line.find(frame.categoriesStr) != std::string::npos)
 	{
 		// Extract string with category names of data in file
+		// not going to do anything for now
+
+		// maybe eventually will have some code which auto-detects categories
+		// and creates a linker class with appropriate variables
 	}
 	else
 	{
@@ -83,21 +85,22 @@ void process_line(std::string line, Frame & frame)
 		auto dataBegin = std::sregex_iterator(line.begin(), line.end(),  rgx);
 		auto dataEnd = std::sregex_iterator();
 
+		// need to work on the code below - store retrieved values in Linker object
+
 		for (std::sregex_iterator i = dataBegin; i != dataEnd; ++i)
 		{
 			match = *i ;
 			std::string match_str = match.str();
-			std::cout << match_str << " ";
+			std::cout << match_str << " " ;
 		}
+
+		std::cout << std::endl;
 	}
-
-
 }
 
 // Used as reference: https://thispointer.com/c-how-to-read-a-file-line-by-line-into-a-vector/
  void get_file_contents( std::string fileName,
 						std::string const endString,
-						std::vector <std::vector <std::string> > & vectorOfFrames,
 						std::vector <Frame> & vectorOfFrameObjects )
 {
 	// open file
@@ -132,18 +135,20 @@ void process_line(std::string line, Frame & frame)
 				// will remove vector of frames
 				vectorOfFrameObjects.push_back(frame);
 
-				// printf("end of frame %d, pushing back frame objects to vector\n", frame_idx);
-
 				frame_idx++ ;
 
 				if (frame_idx > 1)
 				{
-					// std::cout << frame.frameNumber << " "<< previousFrame.frameNumber << std::endl;
+					// do calculations on frame and previousFrame
 				}
 
-				// Create new frame object
+				// Move current frame object to previousFrame
 				previousFrame = frame ;
+				// Create new frame object
 				frame = Frame() ;
+
+				// new line to separate frames
+				std::cout << std::endl;
 				std::cout << std::endl;
 			}
 		}
@@ -160,13 +165,9 @@ int main()
 	const std::string fileName = "link.txt";
 	const std::string endString = "end";
 
-	// define vector for storing frames which store lines corresponding to the frames
-	// will eventually remove vector of frames  discard frame data after doing mafs
-	std::vector <std::vector <std::string> >  vectorOfFrames;
-
 	std::vector <Frame> vectorOfFrameObjects ;
 
-	get_file_contents(fileName, endString, vectorOfFrames, vectorOfFrameObjects);
+	get_file_contents(fileName, endString, vectorOfFrameObjects);
 
 	return 0;
 }
