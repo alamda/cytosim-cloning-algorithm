@@ -38,22 +38,17 @@ void process_line(std::string line, Frame & frame)
 		std::regex rgx("[0-9]+");
 
 		if (std::regex_search(line, match, rgx))
-		{
 			frame.frameNumber =  std::stoi(match.str(0));
-			printf("%d\n", frame.frameNumber);
-		}
+			
 	}
-	// else if (line.find(frame.timeStr) != std::string::npos)
-	// {
-	// 	std::regex rgx("[0-9]+.[0-9]+");
-	//
-	// 	if (std::regex_search(line, match, rgx))
-	// 	{
-	// 		frame.timeStamp =  std::stof(match.str(0));
-	// 		printf("%s\n", line);
-	// 		printf("%d\n", frame.timeStamp);
-	// 	}
-	// }
+	else if (line.find(frame.timeStr) != std::string::npos)
+	{
+		std::regex rgx("[0-9]+.[0-9]+");
+
+		if (std::regex_search(line, match, rgx))
+			frame.timeStamp =  std::stof(match.str(0));
+
+	}
 	// else if ()
 	// {
 	// 	// Extract string with report command used to generate data file
@@ -87,6 +82,7 @@ void process_line(std::string line, Frame & frame)
 
 		// static const Frame emptyFrame;
 		Frame frame;
+		Frame previousFrame ;
 
 		// Read line by line and sort into frames
 		// line ins a c string
@@ -113,10 +109,11 @@ void process_line(std::string line, Frame & frame)
 
 				if (frame_idx > 1)
 				{
-					// do calculations on two adjacent frames
+					std::cout << frame.frameNumber << " "<< previousFrame.frameNumber << std::endl;
 				}
 
 				// Create new frame object
+				previousFrame = frame ;
 				frame = Frame() ;
 			}
 		}
