@@ -11,7 +11,7 @@ typedef struct Head
 {
 	int fiberIdentity ;
 	float abscissa ;
-	float position ;
+	std::vector <float> positionVector  ;
 } Head_t ;
 
 typedef struct Linker
@@ -39,7 +39,7 @@ typedef struct Frame
 	std::vector <std::string> dataCategories ;
 	static std::string categoriesStr ;
 
-	std::vector <std::string> dataEntries;
+	std::vector <std::vector <std::string> > dataLines;
 
 	static std::string endStr ;
 
@@ -111,20 +111,96 @@ void process_line(std::string line, Frame & frame)
 		auto dataBegin = std::sregex_iterator(line.begin(), line.end(),  rgx);
 		auto dataEnd = std::sregex_iterator();
 
+		std::vector <std::string> dataEntries ;
+
 		for (std::sregex_iterator i = dataBegin; i != dataEnd; ++i)
 		{
 			match = *i ;
 			std::string match_str = match.str();
-			frame.dataEntries.push_back(match_str) ;
+			dataEntries.push_back(match_str) ;
 		}
 
+		frame.dataLines.push_back(dataEntries) ;
+
 	}
+}
+
+// Check if simulation is 3D, returns true if 3D
+// Works with 3D output file, need to check that it returns false for 2D output file
+bool check_dimension(Frame & frame)
+{
+	std::regex rgx("pos[12]Z"); // check if Z coordinate is present
+	std::smatch match ;
+
+	bool threeD_data ;
+
+	std::vector <std::string>::iterator data_ptr = frame.dataCategories.begin(),
+										end_ptr = frame.dataCategories.end() ;
+
+	do
+	{
+			threeD_data = std::regex_search(*data_ptr, match, rgx) ;
+			++data_ptr ;
+
+	} while (!threeD_data && data_ptr != end_ptr) ;
+
+	return threeD_data ;
 }
 
 // Takes info from Frame object and populates Linker objects
 void process_frame(Frame & frame)
 {
-	//
+	bool threeD_data = check_dimension(frame) ;
+
+	for (auto line : frame.dataLines)
+	{
+		if (line.size() > 0)
+		{
+			Linker linker ;
+
+			linker.classOfObject = std::stoi(line.at(0)) ;
+			linker.linkerIdentity = std::stoi(line.at(1)) ;
+
+			linker.headOne.fiberIdentity = std::stoi(line.at(2)) ;
+			linker.headOne.abscissa  = std::stof(line.at(3)) ;
+
+			if (threeD_data)
+			{
+				linker.headOne.positionVector.push_back( stof( line.at(4) ) ) ;
+				linker.headOne.positionVector.push_back( stof( line.at(5) ) ) ;
+				linker.headOne.positionVector.push_back( stof( line.at(6) ) ) ;
+
+				linker.headTwo.fiberIdentity = std::stoi(line.at(7)) ;
+				linker.headTwo.abscissa  = std::stof(line.at(8)) ;
+				linker.headTwo.positionVector.push_back( stof( line.at(9) ) ) ;
+				linker.headTwo.positionVector.push_back( stof( line.at(10) ) ) ;
+				linker.headTwo.positionVector.push_back( stof( line.at(11) ) ) ;
+
+				linker.force = stof( line.at(12) ) ;
+				linker.cos_angle = stof( line.at(13) ) ;
+			}
+			else
+			{
+				linker.headOne.positionVector.push_back( stof( line.at(4) ) ) ;
+				linker.headOne.positionVector.push_back( stof( line.at(5) ) ) ;
+
+
+				linker.headTwo.fiberIdentity = std::stoi(line.at(6)) ;
+				linker.headTwo.abscissa  = std::stof(line.at(7)) ;
+				linker.headTwo.positionVector.push_back( stof( line.at(8) ) ) ;
+				linker.headTwo.positionVector.push_back( stof( line.at(9) ) ) ;
+
+
+				linker.force = stof( line.at(10) ) ;
+				linker.cos_angle = stof( line.at(11) ) ;
+			}
+
+			frame.linkerObjects.push_back(linker) ;
+		}
+
+	}
+
+
 }
 
 // Takes info from Linker object and populates Hand objects
