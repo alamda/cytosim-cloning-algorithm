@@ -7,13 +7,22 @@
 #include <iterator> // for sregex_iterator
 #include "parse_output.h"
 
+typedef struct Head
+{
+	int fiberIdentity ;
+	float abscissa ;
+	float position ;
+} Head_t ;
+
 typedef struct Linker
 {
-	int classOfObject, linkerIdentity, fiberOneIdentity, fiberTwoIdentity ;
-	float abscissaOne , abscissaTwo ;
-	float posOneX, posOneY, posOneZ;
-	float posTwoX, posTwoY, posTwoZ;
+	int classOfObject, linkerIdentity ;
 	float force, cos_angle ;
+
+	Head headOne ;
+	Head headTwo ;
+
+	std::vector <Head> headObjects ;
 } Linker_t ;
 
 typedef struct Frame
@@ -27,8 +36,10 @@ typedef struct Frame
 	std::string reportCommand ;
 	static std::string reportStr ;
 
-	std::string dataCategories ;
+	std::vector <std::string> dataCategories ;
 	static std::string categoriesStr ;
+
+	std::vector <std::string> dataEntries;
 
 	static std::string endStr ;
 
@@ -44,6 +55,7 @@ std::string Frame::reportStr = "report";
 std::string Frame::categoriesStr = "class";
 std::string Frame::endStr = "end";
 
+// Takes info from data file and populates Frame object
 void process_line(std::string line, Frame & frame)
 {
 	std::smatch match ;
@@ -75,7 +87,17 @@ void process_line(std::string line, Frame & frame)
 	else if (line.find(frame.categoriesStr) != std::string::npos)
 	{
 		// Extract string with category names of data in file
-		// not going to do anything for now
+		std::regex rgx("\\w+") ;
+
+		auto categoriesBegin = std::sregex_iterator(line.begin(), line.end(), rgx);
+		auto categoriesEnd = std::sregex_iterator() ;
+
+		for (std::sregex_iterator i = categoriesBegin; i != categoriesEnd; ++i)
+		{
+			match = *i ;
+			std::string match_str = match.str() ;
+			frame.dataCategories.push_back(match_str);
+		}
 
 		// maybe eventually will have some code which auto-detects categories
 		// and creates a linker class with appropriate variables
@@ -83,23 +105,32 @@ void process_line(std::string line, Frame & frame)
 	else
 	{
 		// Extract vector of strings of data lines for the frame
-		std::regex rgx("-?\\d+\\.?\\d*", std::regex_constants::ECMAScript);
+		std::regex rgx("-?\\d+\\.?\\d*");
 
 		// https://en.cppreference.com/w/cpp/regex/regex_iterator
 		auto dataBegin = std::sregex_iterator(line.begin(), line.end(),  rgx);
 		auto dataEnd = std::sregex_iterator();
 
-		// need to work on the code below - sort and store retrieved values in Linker object
-
 		for (std::sregex_iterator i = dataBegin; i != dataEnd; ++i)
 		{
 			match = *i ;
 			std::string match_str = match.str();
-			std::cout << match_str << " " ;
+			frame.dataEntries.push_back(match_str) ;
 		}
 
-		std::cout << std::endl;
 	}
+}
+
+// Takes info from Frame object and populates Linker objects
+void process_frame(Frame & frame)
+{
+	//
+}
+
+// Takes info from Linker object and populates Hand objects
+void process_linker(Linker & linker)
+{
+	//
 }
 
 void calculate_w_dot(Frame currentFrame, Frame previousFrame)
@@ -127,7 +158,7 @@ void calculate_w_dot(Frame currentFrame, Frame previousFrame)
 		Frame previousFrame ;
 
 		// Read line by line and sort into frames
-		// line ins a c string
+		// line is a c string
 		while (std::getline(dataFile, line))
 		{
 			std::size_t found_end ;
@@ -143,6 +174,9 @@ void calculate_w_dot(Frame currentFrame, Frame previousFrame)
 			}
 			else // If line DOES match endString
 			{
+				process_frame(currentFrame) ;
+				// process_linker() ;
+
 				frame_idx++ ;
 
 				if (frame_idx > 1)
@@ -152,7 +186,7 @@ void calculate_w_dot(Frame currentFrame, Frame previousFrame)
 
 					// calculations will be done by function calculate_w_dot()
 
-					// calculate_w_dot(currentFrame, previousFrame);
+					calculate_w_dot(currentFrame, previousFrame);
 				}
 
 				// Move current frame object to previousFrame
