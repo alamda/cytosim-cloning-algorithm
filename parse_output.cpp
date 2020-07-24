@@ -5,6 +5,8 @@
 #include <cstdio>
 #include <regex>
 #include <iterator> // for sregex_iterator
+#include <cmath>
+#include "Eigen/Dense"
 #include "parse_output.h"
 
 typedef struct Simulation
@@ -207,7 +209,14 @@ void process_frame(Frame & frame)
 	}
 }
 
-void calculate_velocity()
+Eigen::VectorXd normalize_vector(std::vector <float> vector)
+{
+	Eigen::VectorXd normalized_vector =  Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vector.data(), vector.size()) ;
+
+	return normalized_vector ;
+}
+
+void calculate_velocity(Simulation & simul)
 {
 
 }
@@ -221,7 +230,7 @@ void calculate_w_dot(Frame currentFrame, Frame previousFrame)
 }
 
 // Used as reference: https://thispointer.com/c-how-to-read-a-file-line-by-line-into-a-vector/
-void get_output_file_contents( std::string fileName )
+void get_output_file_contents( std::string fileName, Simulation & simul )
 {
 	// open file
 	std::ifstream dataFile(fileName.c_str());
@@ -260,7 +269,7 @@ void get_output_file_contents( std::string fileName )
 				if (frame_idx > 1)
 				{
 					// do calculations on frame and previousFrame
-					// calculate linker.velocity and linker.rateOfWork
+					calculate_velocity(simul) ;
 
 					// calculations will be done by function calculate_w_dot()
 
@@ -331,7 +340,7 @@ int main()
 	// Name of data file to be read:
 	const std::string dataFileName = "link.txt";
 
-	get_output_file_contents(dataFileName);
+	get_output_file_contents(dataFileName, simul);
 
 	return 0;
 }
