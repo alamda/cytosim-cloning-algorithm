@@ -1,79 +1,10 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
+#include "frame.h"
+#include "linker.h"
+#include "head.h"
 #include <cstdio>
 #include <regex>
-#include <iterator> // for sregex_iterator
-#include <cmath>
-#include "Eigen/Dense"
-#include <climits> // to convert unsigned long int to int
-#include "parse_output.h"
-
-// ----------------------
-//	DECLARATIONS - START
-// ----------------------
-
-
-
-// -------------------
-// DECLARATIONS - END
-// -------------------
-
-typedef struct Simulation
-{
-	float unloaded_speed, stall_force ;
-} Simulation_t ;
-
-typedef struct Head
-{
-	int fiberIdentity ;
-	float abscissa ;
-	std::vector <float> positionVector  ;
-
-	std::vector <float> velocityVector, movementDirVector ;
-} Head_t ;
-
-typedef struct Linker
-{
-	int classOfObject, linkerIdentity ;
-	float force, cos_angle ;
-
-	Head headOne ;
-	Head headTwo ;
-
-	std::vector <Head> headObjects ;
-} Linker_t ;
-
-typedef struct Frame
-{
-	int frameNumber ;
-	static std::string frameStr ;
-
-	float timeStamp ;
-	static std::string timeStr ;
-
-	std::string reportCommand ;
-	static std::string reportStr ;
-
-	std::vector <std::string> dataCategories ;
-	static std::string categoriesStr ;
-
-	std::vector <std::vector <std::string> > dataLines;
-
-	static std::string endStr ;
-
-	std::vector <Linker> linkerObjects ;
-
-	// Values that will need to be calculated
-	float rateOfWork, velocity ;
-} Frame_t ;
-
-std::string Frame::frameStr = "frame";
-std::string Frame::timeStr = "time";
-std::string Frame::reportStr = "report";
-std::string Frame::categoriesStr = "class";
-std::string Frame::endStr = "end";
+#include <vector>
+#include <string>
 
 // Takes info from data file and populates Frame object
 void process_line(std::string line, Frame & frame)
@@ -186,70 +117,38 @@ void process_frame(Frame & frame)
 
 			if (threeD_data)
 			{
-				linker.headOne.positionVector.push_back( stof( line.at(4) ) ) ;
-				linker.headOne.positionVector.push_back( stof( line.at(5) ) ) ;
-				linker.headOne.positionVector.push_back( stof( line.at(6) ) ) ;
+				linker.headOne.positionVector.push_back( std::stof( line.at(4) ) ) ;
+				linker.headOne.positionVector.push_back( std::stof( line.at(5) ) ) ;
+				linker.headOne.positionVector.push_back( std::stof( line.at(6) ) ) ;
 
 				linker.headTwo.fiberIdentity = std::stoi(line.at(7)) ;
 				linker.headTwo.abscissa  = std::stof(line.at(8)) ;
 
-				linker.headTwo.positionVector.push_back( stof( line.at(9) ) ) ;
-				linker.headTwo.positionVector.push_back( stof( line.at(10) ) ) ;
-				linker.headTwo.positionVector.push_back( stof( line.at(11) ) ) ;
+				linker.headTwo.positionVector.push_back( std::stof( line.at(9) ) ) ;
+				linker.headTwo.positionVector.push_back( std::stof( line.at(10) ) ) ;
+				linker.headTwo.positionVector.push_back( std::stof( line.at(11) ) ) ;
 
-				linker.force = stof( line.at(12) ) ;
-				linker.cos_angle = stof( line.at(13) ) ;
+				linker.force = std::stof( line.at(12) ) ;
+				linker.cos_angle = std::stof( line.at(13) ) ;
 			}
 			else
 			{
-				linker.headOne.positionVector.push_back( stof( line.at(4) ) ) ;
-				linker.headOne.positionVector.push_back( stof( line.at(5) ) ) ;
+				linker.headOne.positionVector.push_back( std::stof( line.at(4) ) ) ;
+				linker.headOne.positionVector.push_back( std::stof( line.at(5) ) ) ;
 
 				linker.headTwo.fiberIdentity = std::stoi(line.at(6)) ;
 				linker.headTwo.abscissa  = std::stof(line.at(7)) ;
 
-				linker.headTwo.positionVector.push_back( stof( line.at(8) ) ) ;
-				linker.headTwo.positionVector.push_back( stof( line.at(9) ) ) ;
+				linker.headTwo.positionVector.push_back( std::stof( line.at(8) ) ) ;
+				linker.headTwo.positionVector.push_back( std::stof( line.at(9) ) ) ;
 
-				linker.force = stof( line.at(10) ) ;
-				linker.cos_angle = stof( line.at(11) ) ;
+				linker.force = std::stof( line.at(10) ) ;
+				linker.cos_angle = std::stof( line.at(11) ) ;
 			}
 
 			frame.linkerObjects.push_back(linker) ;
 		}
 	}
-}
-
-Eigen::MatrixXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
-{
-	// https://stackoverflow.com/questions/11387370/how-can-i-safely-convert-unsigned-long-int-to-int
-	unsigned long int vec_size_long_int = vector.size() ;
-	const int vec_size_int = vec_size_long_int & INT_MAX ;
-
-	// https://stackoverflow.com/questions/52261389/how-to-convert-an-stdvector-to-a-matrix-in-eigen
-	Eigen::MatrixXf eigen_vec ;
-
-	if (vec_size_int == 2)
-		eigen_vec = Eigen::Map<Eigen::Matrix <float, 2, 1> > (vector.data()) ;
-	else if (vec_size_int == 3)
-		eigen_vec = Eigen::Map<Eigen::Matrix <float, 3, 1> > (vector.data()) ;
-	else
-		std::cout << "Your dimensions are weird, try either 2D or 3D." << std::endl ;
-
-	return eigen_vec  ;
-}
-
-void calculate_velocity(Simulation & simul)
-{
-
-}
-
-void calculate_w_dot(Frame currentFrame, Frame previousFrame)
-{
-	// for (linker : currentFrame)
-	//		if linker.linkerIdentity also appears in previousFrame
-	//			do calculations
-	//			store in vector ??
 }
 
 // Used as reference: https://thispointer.com/c-how-to-read-a-file-line-by-line-into-a-vector/
@@ -310,60 +209,4 @@ void get_output_file_contents( std::string fileName, Simulation & simul )
 	}
 	//Close The File
 	dataFile.close();
-}
-
-// obtain simulation parameters from config.cym file
-void get_simulation_params(Simulation & simul, std::string fileName)
-{
-	//simul.unloaded_speed
-	std::regex rgx_unload("unloaded_speed");
-	//simul.stall_force ;
-	std::regex rgx_stall("stall_force");
-
-	std::regex rgx_float("-?\\d+\\.?\\d*") ;
-
-	// open file
-	std::ifstream configFile(fileName.c_str());
-
-	while (configFile)
-	{
-		std::string line ;
-
-		while (std::getline(configFile, line))
-		{
-			std::smatch match_line ;
-			std::smatch match_float ;
-
-			if ( std::regex_search(line, match_line, rgx_unload) )
-			{
-				if ( std::regex_search(line, match_float, rgx_float))
-					simul.unloaded_speed = std::stof(match_float.str(0));
-			}
-			else if ( std::regex_search(line, match_line, rgx_stall))
-			{
-				if (std::regex_search(line, match_float, rgx_float))
-					simul.stall_force = std::stof(match_float.str(0));
-			}
-		}
-
-		std::cout << "unloaded_speed: " << simul.unloaded_speed << std::endl ;
-		std::cout << "stall_force: " << simul.stall_force << std::endl ;
-	}
-	configFile.close() ;
-}
-
-int main()
-{
-	Simulation simul ;
-
-	const std::string paramFileName = "config.cym";
-
-	get_simulation_params(simul, paramFileName) ;
-
-	// Name of data file to be read:
-	const std::string dataFileName = "link.txt";
-
-	get_output_file_contents(dataFileName, simul);
-
-	return 0;
 }
