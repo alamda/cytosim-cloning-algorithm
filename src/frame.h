@@ -1,8 +1,10 @@
 #ifndef FRAME_H
 #define FRAME_H
 
+#include <cstdio>
 #include <string>
 #include <vector>
+#include "linker.h"
 
 typedef struct Frame
 {

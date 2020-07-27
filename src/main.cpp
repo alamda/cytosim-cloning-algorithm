@@ -4,29 +4,17 @@
 #include <vector>
 #include <cstdio>
 #include <regex>
-#include <iterator> // for sregex_iterator
+#include <iterator>
 #include "Eigen/Dense"
-#include <climits> // to convert unsigned long int to int
-#include "parse_output.h"
-
-
-
-
+#include <climits>
+#include "parse.h"
+#include "calculate.h"
 
 std::string Frame::frameStr = "frame";
 std::string Frame::timeStr = "time";
 std::string Frame::reportStr = "report";
 std::string Frame::categoriesStr = "class";
 std::string Frame::endStr = "end";
-
-
-
-
-
-
-
-
-
 
 int main()
 {
