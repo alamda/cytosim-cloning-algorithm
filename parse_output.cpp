@@ -7,6 +7,7 @@
 #include <iterator> // for sregex_iterator
 #include <cmath>
 #include "Eigen/Dense"
+#include <climits> // to convert unsigned long int to int
 #include "parse_output.h"
 
 typedef struct Simulation
@@ -209,11 +210,23 @@ void process_frame(Frame & frame)
 	}
 }
 
-Eigen::VectorXd normalize_vector(std::vector <float> vector)
+Eigen::MatrixXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 {
-	Eigen::VectorXd normalized_vector =  Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(vector.data(), vector.size()) ;
+	// https://stackoverflow.com/questions/11387370/how-can-i-safely-convert-unsigned-long-int-to-int
+	unsigned long int vec_size_long_int = vector.size() ;
+	const int vec_size_int = vec_size_long_int & INT_MAX ;
 
-	return normalized_vector ;
+	// https://stackoverflow.com/questions/52261389/how-to-convert-an-stdvector-to-a-matrix-in-eigen
+	Eigen::MatrixXf eigen_vec ;
+
+	if (vec_size_int == 2)
+		eigen_vec = Eigen::Map<Eigen::Matrix <float, 2, 1> > (vector.data()) ;
+	else if (vec_size_int == 3)
+		eigen_vec = Eigen::Map<Eigen::Matrix <float, 3, 1> > (vector.data()) ;
+	else
+		std::cout << "Your dimensions are weird, try either 2D or 3D." << std::endl ;
+
+	return eigen_vec  ;
 }
 
 void calculate_velocity(Simulation & simul)
