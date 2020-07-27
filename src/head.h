@@ -3,6 +3,10 @@
 
 #include <vector>
 
+/**	@brief Struct for containing data for a single head of a linker.
+
+	*/
+
 typedef struct Head
 {
 	int fiberIdentity ;

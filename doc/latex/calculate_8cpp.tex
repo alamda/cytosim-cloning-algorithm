@@ -1,0 +1,120 @@
+\hypertarget{calculate_8cpp}{}\doxysection{calculate.\+cpp File Reference}
+\label{calculate_8cpp}\index{calculate.cpp@{calculate.cpp}}
+{\ttfamily \#include \char`\"{}calculate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}frame.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}simul.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Matrix\+Xf \mbox{\hyperlink{calculate_8cpp_a3b3fa26c7472cf1b4c77918747abfde8}{convert\+\_\+std\+\_\+vec\+\_\+to\+\_\+eigen\+\_\+vec}} (std\+::vector$<$ float $>$ vector)
+\item 
+void \mbox{\hyperlink{calculate_8cpp_aae8e3878546cdf1c65bce05c077e86ad}{calculate\+\_\+velocity}} (\mbox{\hyperlink{structSimul}{Simul}} \&\mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}})
+\begin{DoxyCompactList}\small\item\em Calculate the velocity of a head of a linker for a given frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{calculate_8cpp_a93ed9f231ff0b8da6fa1fec1fd493441}{calculate\+\_\+w\+\_\+dot}} (\mbox{\hyperlink{structFrame}{Frame}} current\+Frame, \mbox{\hyperlink{structFrame}{Frame}} previous\+Frame)
+\begin{DoxyCompactList}\small\item\em Calculate the rate of work for a given frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{calculate_8cpp_aae8e3878546cdf1c65bce05c077e86ad}\label{calculate_8cpp_aae8e3878546cdf1c65bce05c077e86ad}} 
+\index{calculate.cpp@{calculate.cpp}!calculate\_velocity@{calculate\_velocity}}
+\index{calculate\_velocity@{calculate\_velocity}!calculate.cpp@{calculate.cpp}}
+\doxysubsubsection{\texorpdfstring{calculate\_velocity()}{calculate\_velocity()}}
+{\footnotesize\ttfamily void calculate\+\_\+velocity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSimul}{Simul}} \&}]{simul }\end{DoxyParamCaption})}
+
+
+
+Calculate the velocity of a head of a linker for a given frame. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]write this function\end{DoxyRefDesc}
+
+
+Definition at line 39 of file calculate.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \}}
+
+\end{DoxyCode}
+
+
+Referenced by get\+\_\+output\+\_\+file\+\_\+contents().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calculate_8cpp_aae8e3878546cdf1c65bce05c077e86ad_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{calculate_8cpp_a93ed9f231ff0b8da6fa1fec1fd493441}\label{calculate_8cpp_a93ed9f231ff0b8da6fa1fec1fd493441}} 
+\index{calculate.cpp@{calculate.cpp}!calculate\_w\_dot@{calculate\_w\_dot}}
+\index{calculate\_w\_dot@{calculate\_w\_dot}!calculate.cpp@{calculate.cpp}}
+\doxysubsubsection{\texorpdfstring{calculate\_w\_dot()}{calculate\_w\_dot()}}
+{\footnotesize\ttfamily void calculate\+\_\+w\+\_\+dot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structFrame}{Frame}}}]{current\+Frame,  }\item[{\mbox{\hyperlink{structFrame}{Frame}}}]{previous\+Frame }\end{DoxyParamCaption})}
+
+
+
+Calculate the rate of work for a given frame. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]write this function\end{DoxyRefDesc}
+
+
+Definition at line 49 of file calculate.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{50 \{}
+\DoxyCodeLine{51     \textcolor{comment}{// for (linker : currentFrame)}}
+\DoxyCodeLine{52     \textcolor{comment}{//      if linker.linkerIdentity also appears in previousFrame}}
+\DoxyCodeLine{53     \textcolor{comment}{//          do calculations}}
+\DoxyCodeLine{54     \textcolor{comment}{//          store in vector ??}}
+\DoxyCodeLine{55 \}}
+
+\end{DoxyCode}
+
+
+Referenced by get\+\_\+output\+\_\+file\+\_\+contents().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calculate_8cpp_a93ed9f231ff0b8da6fa1fec1fd493441_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{calculate_8cpp_a3b3fa26c7472cf1b4c77918747abfde8}\label{calculate_8cpp_a3b3fa26c7472cf1b4c77918747abfde8}} 
+\index{calculate.cpp@{calculate.cpp}!convert\_std\_vec\_to\_eigen\_vec@{convert\_std\_vec\_to\_eigen\_vec}}
+\index{convert\_std\_vec\_to\_eigen\_vec@{convert\_std\_vec\_to\_eigen\_vec}!calculate.cpp@{calculate.cpp}}
+\doxysubsubsection{\texorpdfstring{convert\_std\_vec\_to\_eigen\_vec()}{convert\_std\_vec\_to\_eigen\_vec()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xf convert\+\_\+std\+\_\+vec\+\_\+to\+\_\+eigen\+\_\+vec (\begin{DoxyParamCaption}\item[{std\+::vector$<$ float $>$}]{vector }\end{DoxyParamCaption})}
+
+
+
+Definition at line 15 of file calculate.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17     \textcolor{comment}{// https://stackoverflow.com/questions/11387370/how-\/can-\/i-\/safely-\/convert-\/unsigned-\/long-\/int-\/to-\/int}}
+\DoxyCodeLine{18     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} vec\_size\_long\_int = vector.size() ;}
+\DoxyCodeLine{19     \textcolor{keyword}{const} \textcolor{keywordtype}{int} vec\_size\_int = vec\_size\_long\_int \& INT\_MAX ; \textcolor{comment}{// needs the <climits> library}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{comment}{// https://stackoverflow.com/questions/52261389/how-\/to-\/convert-\/an-\/stdvector-\/to-\/a-\/matrix-\/in-\/eigen}}
+\DoxyCodeLine{22     Eigen::MatrixXf eigen\_vec ;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keywordflow}{if} (vec\_size\_int == 2)}
+\DoxyCodeLine{25         eigen\_vec = Eigen::Map<Eigen::Matrix <float, 2, 1> > (vector.data()) ;}
+\DoxyCodeLine{26     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (vec\_size\_int == 3)}
+\DoxyCodeLine{27         eigen\_vec = Eigen::Map<Eigen::Matrix <float, 3, 1> > (vector.data()) ;}
+\DoxyCodeLine{28     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{29         std::cout << \textcolor{stringliteral}{"Your dimensions are weird, try either 2D or 3D."} << std::endl ;}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keywordflow}{return} eigen\_vec  ;}
+\DoxyCodeLine{32 \}}
+
+\end{DoxyCode}

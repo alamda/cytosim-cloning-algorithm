@@ -1,0 +1,116 @@
+\hypertarget{simul_8h}{}\doxysection{simul.\+h File Reference}
+\label{simul_8h}\index{simul.h@{simul.h}}
+{\ttfamily \#include $<$string$>$}\newline
+Include dependency graph for simul.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=133pt]{simul_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{simul_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structSimul}{Simul}}
+\begin{DoxyCompactList}\small\item\em Struct for containing simulation parameter data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structSimul}{Simul}} \mbox{\hyperlink{simul_8h_af67edbc755ea91f80b297553f486e42b}{Simul\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Struct for containing simulation parameter data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{simul_8h_a2a9159ad01589a817014bd6e52d2cced}{get\+\_\+simulation\+\_\+params}} (\mbox{\hyperlink{structSimul}{Simul}} \&\mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}, std\+::string file\+Name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{simul_8h_af67edbc755ea91f80b297553f486e42b}\label{simul_8h_af67edbc755ea91f80b297553f486e42b}} 
+\index{simul.h@{simul.h}!Simul\_t@{Simul\_t}}
+\index{Simul\_t@{Simul\_t}!simul.h@{simul.h}}
+\doxysubsubsection{\texorpdfstring{Simul\_t}{Simul\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structSimul}{Simul}} \mbox{\hyperlink{simul_8h_af67edbc755ea91f80b297553f486e42b}{Simul\+\_\+t}}}
+
+
+
+Struct for containing simulation parameter data. 
+
+Simulation parameters are extracted from a $\ast$.cym config file. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{simul_8h_a2a9159ad01589a817014bd6e52d2cced}\label{simul_8h_a2a9159ad01589a817014bd6e52d2cced}} 
+\index{simul.h@{simul.h}!get\_simulation\_params@{get\_simulation\_params}}
+\index{get\_simulation\_params@{get\_simulation\_params}!simul.h@{simul.h}}
+\doxysubsubsection{\texorpdfstring{get\_simulation\_params()}{get\_simulation\_params()}}
+{\footnotesize\ttfamily void get\+\_\+simulation\+\_\+params (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSimul}{Simul}} \&}]{simul,  }\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+Definition at line 227 of file parse.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{228 \{}
+\DoxyCodeLine{229     \textcolor{comment}{//simul.unloaded\_speed}}
+\DoxyCodeLine{230     std::regex rgx\_unload(\textcolor{stringliteral}{"unloaded\_speed"});}
+\DoxyCodeLine{231     \textcolor{comment}{//simul.stall\_force ;}}
+\DoxyCodeLine{232     std::regex rgx\_stall(\textcolor{stringliteral}{"stall\_force"});}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234     std::regex rgx\_float(\textcolor{stringliteral}{"-\/?\(\backslash\)\(\backslash\)d+\(\backslash\)\(\backslash\).?\(\backslash\)\(\backslash\)d*"}) ;}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236     \textcolor{comment}{// open file}}
+\DoxyCodeLine{237     std::ifstream configFile(fileName.c\_str());}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{239     \textcolor{keywordflow}{while} (configFile)}
+\DoxyCodeLine{240     \{}
+\DoxyCodeLine{241         std::string line ;}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{243         \textcolor{keywordflow}{while} (std::getline(configFile, line))}
+\DoxyCodeLine{244         \{}
+\DoxyCodeLine{245             std::smatch match\_line ;}
+\DoxyCodeLine{246             std::smatch match\_float ;}
+\DoxyCodeLine{247 }
+\DoxyCodeLine{248             \textcolor{keywordflow}{if} ( std::regex\_search(line, match\_line, rgx\_unload) )}
+\DoxyCodeLine{249             \{}
+\DoxyCodeLine{250                 \textcolor{keywordflow}{if} ( std::regex\_search(line, match\_float, rgx\_float))}
+\DoxyCodeLine{251                     \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_aa06ad0577881a291709bac8b1776b8e2}{unloaded\_speed}} = std::stof(match\_float.str(0));}
+\DoxyCodeLine{252             \}}
+\DoxyCodeLine{253             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( std::regex\_search(line, match\_line, rgx\_stall))}
+\DoxyCodeLine{254             \{}
+\DoxyCodeLine{255                 \textcolor{keywordflow}{if} (std::regex\_search(line, match\_float, rgx\_float))}
+\DoxyCodeLine{256                     \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_a8a772ca999540d65be1b841cbd951d58}{stall\_force}} = std::stof(match\_float.str(0));}
+\DoxyCodeLine{257             \}}
+\DoxyCodeLine{258         \}}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260         std::cout << \textcolor{stringliteral}{"unloaded\_speed: "} << \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_aa06ad0577881a291709bac8b1776b8e2}{unloaded\_speed}} << std::endl ;}
+\DoxyCodeLine{261         std::cout << \textcolor{stringliteral}{"stall\_force: "} << \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_a8a772ca999540d65be1b841cbd951d58}{stall\_force}} << std::endl ;}
+\DoxyCodeLine{262     \}}
+\DoxyCodeLine{263     configFile.close() ;}
+\DoxyCodeLine{264 \}}
+
+\end{DoxyCode}
+
+
+References simul, Simul\+::stall\+\_\+force, and Simul\+::unloaded\+\_\+speed.
+
+
+
+Referenced by main().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{simul_8h_a2a9159ad01589a817014bd6e52d2cced_icgraph}
+\end{center}
+\end{figure}

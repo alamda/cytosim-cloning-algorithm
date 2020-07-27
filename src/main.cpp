@@ -8,7 +8,7 @@ std::string Frame::endStr = "end";
 
 int main()
 {
-	Simulation simul ;
+	Simul simul ;
 
 	const std::string paramFileName = "config.cym";
 

@@ -1,0 +1,421 @@
+\hypertarget{parse_8cpp}{}\doxysection{parse.\+cpp File Reference}
+\label{parse_8cpp}\index{parse.cpp@{parse.cpp}}
+{\ttfamily \#include \char`\"{}parse.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}calculate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}frame.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}simul.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$regex$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+Include dependency graph for parse.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parse_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{parse_8cpp_aef41feb6cf7e05edf4e8f888d6d987dd}{process\+\_\+line}} (std\+::string line, \mbox{\hyperlink{structFrame}{Frame}} \&\mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}})
+\item 
+bool \mbox{\hyperlink{parse_8cpp_a8ea5737d9075c49b931c9886e892125c}{check\+\_\+dimension}} (\mbox{\hyperlink{structFrame}{Frame}} \&\mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}})
+\item 
+void \mbox{\hyperlink{parse_8cpp_a570eeacaa210304c51f11a31fabca337}{process\+\_\+frame}} (\mbox{\hyperlink{structFrame}{Frame}} \&\mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}})
+\item 
+void \mbox{\hyperlink{parse_8cpp_aaefbc85f6ea2147f99967851a49768a6}{get\+\_\+output\+\_\+file\+\_\+contents}} (std\+::string file\+Name, \mbox{\hyperlink{structSimul}{Simul}} \&\mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}})
+\item 
+void \mbox{\hyperlink{parse_8cpp_a2a9159ad01589a817014bd6e52d2cced}{get\+\_\+simulation\+\_\+params}} (\mbox{\hyperlink{structSimul}{Simul}} \&\mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}, std\+::string file\+Name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{parse_8cpp_a8ea5737d9075c49b931c9886e892125c}\label{parse_8cpp_a8ea5737d9075c49b931c9886e892125c}} 
+\index{parse.cpp@{parse.cpp}!check\_dimension@{check\_dimension}}
+\index{check\_dimension@{check\_dimension}!parse.cpp@{parse.cpp}}
+\doxysubsubsection{\texorpdfstring{check\_dimension()}{check\_dimension()}}
+{\footnotesize\ttfamily bool check\+\_\+dimension (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structFrame}{Frame}} \&}]{frame }\end{DoxyParamCaption})}
+
+
+
+Definition at line 93 of file parse.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{94 \{}
+\DoxyCodeLine{95     std::regex rgx(\textcolor{stringliteral}{"pos[12]Z"}); \textcolor{comment}{// check if Z coordinate is present}}
+\DoxyCodeLine{96     std::smatch match ;}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98     \textcolor{keywordtype}{bool} threeD\_data ;}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100     std::vector <std::string>::iterator data\_ptr = \mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_aa634946a4be7e69a7b00ca3d66e2876f}{dataCategories}}.begin(),}
+\DoxyCodeLine{101                                         end\_ptr = \mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_aa634946a4be7e69a7b00ca3d66e2876f}{dataCategories}}.end() ;}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103     \textcolor{keywordflow}{do}}
+\DoxyCodeLine{104     \{}
+\DoxyCodeLine{105             threeD\_data = std::regex\_search(*data\_ptr, match, rgx) ;}
+\DoxyCodeLine{106             ++data\_ptr ;}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108     \} \textcolor{keywordflow}{while} (!threeD\_data \&\& data\_ptr != end\_ptr) ;}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110     \textcolor{keywordflow}{return} threeD\_data ;}
+\DoxyCodeLine{111 \}}
+
+\end{DoxyCode}
+
+
+References Frame\+::data\+Categories, and frame.
+
+
+
+Referenced by process\+\_\+frame().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parse_8cpp_a8ea5737d9075c49b931c9886e892125c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{parse_8cpp_aaefbc85f6ea2147f99967851a49768a6}\label{parse_8cpp_aaefbc85f6ea2147f99967851a49768a6}} 
+\index{parse.cpp@{parse.cpp}!get\_output\_file\_contents@{get\_output\_file\_contents}}
+\index{get\_output\_file\_contents@{get\_output\_file\_contents}!parse.cpp@{parse.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_output\_file\_contents()}{get\_output\_file\_contents()}}
+{\footnotesize\ttfamily void get\+\_\+output\+\_\+file\+\_\+contents (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name,  }\item[{\mbox{\hyperlink{structSimul}{Simul}} \&}]{simul }\end{DoxyParamCaption})}
+
+
+
+Definition at line 167 of file parse.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{168 \{}
+\DoxyCodeLine{169     \textcolor{comment}{// open file}}
+\DoxyCodeLine{170     std::ifstream dataFile(fileName.c\_str());}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172     \textcolor{keywordflow}{while} (dataFile)}
+\DoxyCodeLine{173     \{}
+\DoxyCodeLine{174         \textcolor{comment}{// Define string variable}}
+\DoxyCodeLine{175         std::string line ;}
+\DoxyCodeLine{176         \textcolor{keywordtype}{int} frame\_idx = 0;}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178         \textcolor{comment}{// static const Frame emptyFrame;}}
+\DoxyCodeLine{179         \mbox{\hyperlink{structFrame}{Frame}} currentFrame;}
+\DoxyCodeLine{180         \mbox{\hyperlink{structFrame}{Frame}} previousFrame ;}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182         \textcolor{comment}{// Read line by line and sort into frames}}
+\DoxyCodeLine{183         \textcolor{comment}{// line is a c string}}
+\DoxyCodeLine{184         \textcolor{keywordflow}{while} (std::getline(dataFile, line))}
+\DoxyCodeLine{185         \{}
+\DoxyCodeLine{186             std::size\_t found\_end ;}
+\DoxyCodeLine{187 }
+\DoxyCodeLine{188             found\_end = line.find(currentFrame.\mbox{\hyperlink{structFrame_adf336d4d2f6a54bab606d604c8b9f24e}{endStr}});}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190             \textcolor{comment}{// If the line does not match endString}}
+\DoxyCodeLine{191             \textcolor{comment}{// fun fact: if (found\_end == std::string::npos) does produce desired results}}
+\DoxyCodeLine{192             \textcolor{comment}{// which is why the "double negative"/(!(!=)) is necessary}}
+\DoxyCodeLine{193             \textcolor{keywordflow}{if} (!(found\_end != std::string::npos))}
+\DoxyCodeLine{194             \{}
+\DoxyCodeLine{195                 \mbox{\hyperlink{parse_8cpp_aef41feb6cf7e05edf4e8f888d6d987dd}{process\_line}}(line, currentFrame);}
+\DoxyCodeLine{196             \}}
+\DoxyCodeLine{197             \textcolor{keywordflow}{else} \textcolor{comment}{// If line DOES match endString}}
+\DoxyCodeLine{198             \{}
+\DoxyCodeLine{199                 \mbox{\hyperlink{parse_8cpp_a570eeacaa210304c51f11a31fabca337}{process\_frame}}(currentFrame) ;}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{201                 frame\_idx++ ;}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{203                 \textcolor{keywordflow}{if} (frame\_idx > 1)}
+\DoxyCodeLine{204                 \{}
+\DoxyCodeLine{205                     \textcolor{comment}{// do calculations on frame and previousFrame}}
+\DoxyCodeLine{206                     \mbox{\hyperlink{calculate_8cpp_aae8e3878546cdf1c65bce05c077e86ad}{calculate\_velocity}}(\mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}) ;}
+\DoxyCodeLine{207 }
+\DoxyCodeLine{208                     \textcolor{comment}{// calculations will be done by function calculate\_w\_dot()}}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{210                     \mbox{\hyperlink{calculate_8cpp_a93ed9f231ff0b8da6fa1fec1fd493441}{calculate\_w\_dot}}(currentFrame, previousFrame);}
+\DoxyCodeLine{211                 \}}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213                 \textcolor{comment}{// Move current frame object to previousFrame}}
+\DoxyCodeLine{214                 previousFrame = currentFrame ;}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{216                 \textcolor{comment}{// Create new frame object}}
+\DoxyCodeLine{217                 currentFrame = \mbox{\hyperlink{structFrame}{Frame}}() ;}
+\DoxyCodeLine{218             \}}
+\DoxyCodeLine{219         \}}
+\DoxyCodeLine{220     printf(\textcolor{stringliteral}{"\(\backslash\)nTotal number of frames: \%d\(\backslash\)n"}, frame\_idx);}
+\DoxyCodeLine{221     \}}
+\DoxyCodeLine{222     \textcolor{comment}{//Close The File}}
+\DoxyCodeLine{223     dataFile.close();}
+\DoxyCodeLine{224 \}}
+
+\end{DoxyCode}
+
+
+References calculate\+\_\+velocity(), calculate\+\_\+w\+\_\+dot(), Frame\+::end\+Str, process\+\_\+frame(), process\+\_\+line(), and simul.
+
+
+
+Referenced by main().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parse_8cpp_aaefbc85f6ea2147f99967851a49768a6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{parse_8cpp_aaefbc85f6ea2147f99967851a49768a6_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{parse_8cpp_a2a9159ad01589a817014bd6e52d2cced}\label{parse_8cpp_a2a9159ad01589a817014bd6e52d2cced}} 
+\index{parse.cpp@{parse.cpp}!get\_simulation\_params@{get\_simulation\_params}}
+\index{get\_simulation\_params@{get\_simulation\_params}!parse.cpp@{parse.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_simulation\_params()}{get\_simulation\_params()}}
+{\footnotesize\ttfamily void get\+\_\+simulation\+\_\+params (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSimul}{Simul}} \&}]{simul,  }\item[{std\+::string}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+Definition at line 227 of file parse.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{228 \{}
+\DoxyCodeLine{229     \textcolor{comment}{//simul.unloaded\_speed}}
+\DoxyCodeLine{230     std::regex rgx\_unload(\textcolor{stringliteral}{"unloaded\_speed"});}
+\DoxyCodeLine{231     \textcolor{comment}{//simul.stall\_force ;}}
+\DoxyCodeLine{232     std::regex rgx\_stall(\textcolor{stringliteral}{"stall\_force"});}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234     std::regex rgx\_float(\textcolor{stringliteral}{"-\/?\(\backslash\)\(\backslash\)d+\(\backslash\)\(\backslash\).?\(\backslash\)\(\backslash\)d*"}) ;}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236     \textcolor{comment}{// open file}}
+\DoxyCodeLine{237     std::ifstream configFile(fileName.c\_str());}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{239     \textcolor{keywordflow}{while} (configFile)}
+\DoxyCodeLine{240     \{}
+\DoxyCodeLine{241         std::string line ;}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{243         \textcolor{keywordflow}{while} (std::getline(configFile, line))}
+\DoxyCodeLine{244         \{}
+\DoxyCodeLine{245             std::smatch match\_line ;}
+\DoxyCodeLine{246             std::smatch match\_float ;}
+\DoxyCodeLine{247 }
+\DoxyCodeLine{248             \textcolor{keywordflow}{if} ( std::regex\_search(line, match\_line, rgx\_unload) )}
+\DoxyCodeLine{249             \{}
+\DoxyCodeLine{250                 \textcolor{keywordflow}{if} ( std::regex\_search(line, match\_float, rgx\_float))}
+\DoxyCodeLine{251                     \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_aa06ad0577881a291709bac8b1776b8e2}{unloaded\_speed}} = std::stof(match\_float.str(0));}
+\DoxyCodeLine{252             \}}
+\DoxyCodeLine{253             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( std::regex\_search(line, match\_line, rgx\_stall))}
+\DoxyCodeLine{254             \{}
+\DoxyCodeLine{255                 \textcolor{keywordflow}{if} (std::regex\_search(line, match\_float, rgx\_float))}
+\DoxyCodeLine{256                     \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_a8a772ca999540d65be1b841cbd951d58}{stall\_force}} = std::stof(match\_float.str(0));}
+\DoxyCodeLine{257             \}}
+\DoxyCodeLine{258         \}}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260         std::cout << \textcolor{stringliteral}{"unloaded\_speed: "} << \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_aa06ad0577881a291709bac8b1776b8e2}{unloaded\_speed}} << std::endl ;}
+\DoxyCodeLine{261         std::cout << \textcolor{stringliteral}{"stall\_force: "} << \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_a8a772ca999540d65be1b841cbd951d58}{stall\_force}} << std::endl ;}
+\DoxyCodeLine{262     \}}
+\DoxyCodeLine{263     configFile.close() ;}
+\DoxyCodeLine{264 \}}
+
+\end{DoxyCode}
+
+
+References simul, Simul\+::stall\+\_\+force, and Simul\+::unloaded\+\_\+speed.
+
+
+
+Referenced by main().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{parse_8cpp_a2a9159ad01589a817014bd6e52d2cced_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{parse_8cpp_a570eeacaa210304c51f11a31fabca337}\label{parse_8cpp_a570eeacaa210304c51f11a31fabca337}} 
+\index{parse.cpp@{parse.cpp}!process\_frame@{process\_frame}}
+\index{process\_frame@{process\_frame}!parse.cpp@{parse.cpp}}
+\doxysubsubsection{\texorpdfstring{process\_frame()}{process\_frame()}}
+{\footnotesize\ttfamily void process\+\_\+frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structFrame}{Frame}} \&}]{frame }\end{DoxyParamCaption})}
+
+
+
+Definition at line 114 of file parse.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{115 \{}
+\DoxyCodeLine{116     \textcolor{keywordtype}{bool} threeD\_data = \mbox{\hyperlink{parse_8cpp_a8ea5737d9075c49b931c9886e892125c}{check\_dimension}}(\mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}) ;}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} line : \mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_a004d76a676dcdbe542fb708843294533}{dataLines}})}
+\DoxyCodeLine{119     \{}
+\DoxyCodeLine{120         \textcolor{keywordflow}{if} (line.size() > 0)}
+\DoxyCodeLine{121         \{}
+\DoxyCodeLine{122             \mbox{\hyperlink{structLinker}{Linker}} \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}} ;}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124             \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a058d0c57e7bd7de24c06d9a5de4fd699}{classOfObject}} = std::stoi(line.at(0)) ;}
+\DoxyCodeLine{125             \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a59dae15f86711b44bb997b251dd6d787}{linkerIdentity}} = std::stoi(line.at(1)) ;}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127             \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a145f397a13b0b770c9db0761bc97b375}{headOne}}.\mbox{\hyperlink{structHead_a1ddf25c6a2790d0fe1bf4a5197924c64}{fiberIdentity}} = std::stoi(line.at(2)) ;}
+\DoxyCodeLine{128             \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a145f397a13b0b770c9db0761bc97b375}{headOne}}.\mbox{\hyperlink{structHead_a3c70ff76e28e5479f2bdd3b24da45094}{abscissa}}  = std::stof(line.at(3)) ;}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130             \textcolor{keywordflow}{if} (threeD\_data)}
+\DoxyCodeLine{131             \{}
+\DoxyCodeLine{132                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a145f397a13b0b770c9db0761bc97b375}{headOne}}.\mbox{\hyperlink{structHead_ae43dc3e9644134a5bb1263be50382b43}{positionVector}}.push\_back( std::stof( line.at(4) ) ) ;}
+\DoxyCodeLine{133                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a145f397a13b0b770c9db0761bc97b375}{headOne}}.\mbox{\hyperlink{structHead_ae43dc3e9644134a5bb1263be50382b43}{positionVector}}.push\_back( std::stof( line.at(5) ) ) ;}
+\DoxyCodeLine{134                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a145f397a13b0b770c9db0761bc97b375}{headOne}}.\mbox{\hyperlink{structHead_ae43dc3e9644134a5bb1263be50382b43}{positionVector}}.push\_back( std::stof( line.at(6) ) ) ;}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a727efffc8d7cc4b604eac7a75d743542}{headTwo}}.\mbox{\hyperlink{structHead_a1ddf25c6a2790d0fe1bf4a5197924c64}{fiberIdentity}} = std::stoi(line.at(7)) ;}
+\DoxyCodeLine{137                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a727efffc8d7cc4b604eac7a75d743542}{headTwo}}.\mbox{\hyperlink{structHead_a3c70ff76e28e5479f2bdd3b24da45094}{abscissa}}  = std::stof(line.at(8)) ;}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a727efffc8d7cc4b604eac7a75d743542}{headTwo}}.\mbox{\hyperlink{structHead_ae43dc3e9644134a5bb1263be50382b43}{positionVector}}.push\_back( std::stof( line.at(9) ) ) ;}
+\DoxyCodeLine{140                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a727efffc8d7cc4b604eac7a75d743542}{headTwo}}.\mbox{\hyperlink{structHead_ae43dc3e9644134a5bb1263be50382b43}{positionVector}}.push\_back( std::stof( line.at(10) ) ) ;}
+\DoxyCodeLine{141                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a727efffc8d7cc4b604eac7a75d743542}{headTwo}}.\mbox{\hyperlink{structHead_ae43dc3e9644134a5bb1263be50382b43}{positionVector}}.push\_back( std::stof( line.at(11) ) ) ;}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_aec52d2e2ca4421bc50c9dc92844d40c4}{force}} = std::stof( line.at(12) ) ;}
+\DoxyCodeLine{144                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a91666e5c625f47b7f8ebb5fc6492f62c}{cos\_angle}} = std::stof( line.at(13) ) ;}
+\DoxyCodeLine{145             \}}
+\DoxyCodeLine{146             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{147             \{}
+\DoxyCodeLine{148                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a145f397a13b0b770c9db0761bc97b375}{headOne}}.\mbox{\hyperlink{structHead_ae43dc3e9644134a5bb1263be50382b43}{positionVector}}.push\_back( std::stof( line.at(4) ) ) ;}
+\DoxyCodeLine{149                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a145f397a13b0b770c9db0761bc97b375}{headOne}}.\mbox{\hyperlink{structHead_ae43dc3e9644134a5bb1263be50382b43}{positionVector}}.push\_back( std::stof( line.at(5) ) ) ;}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a727efffc8d7cc4b604eac7a75d743542}{headTwo}}.\mbox{\hyperlink{structHead_a1ddf25c6a2790d0fe1bf4a5197924c64}{fiberIdentity}} = std::stoi(line.at(6)) ;}
+\DoxyCodeLine{152                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a727efffc8d7cc4b604eac7a75d743542}{headTwo}}.\mbox{\hyperlink{structHead_a3c70ff76e28e5479f2bdd3b24da45094}{abscissa}}  = std::stof(line.at(7)) ;}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{154                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a727efffc8d7cc4b604eac7a75d743542}{headTwo}}.\mbox{\hyperlink{structHead_ae43dc3e9644134a5bb1263be50382b43}{positionVector}}.push\_back( std::stof( line.at(8) ) ) ;}
+\DoxyCodeLine{155                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a727efffc8d7cc4b604eac7a75d743542}{headTwo}}.\mbox{\hyperlink{structHead_ae43dc3e9644134a5bb1263be50382b43}{positionVector}}.push\_back( std::stof( line.at(9) ) ) ;}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_aec52d2e2ca4421bc50c9dc92844d40c4}{force}} = std::stof( line.at(10) ) ;}
+\DoxyCodeLine{158                 \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a91666e5c625f47b7f8ebb5fc6492f62c}{cos\_angle}} = std::stof( line.at(11) ) ;}
+\DoxyCodeLine{159             \}}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161             \mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_aa09ac12a60eb7ae81add775bd75e59f4}{linkerObjects}}.push\_back(\mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}) ;}
+\DoxyCodeLine{162         \}}
+\DoxyCodeLine{163     \}}
+\DoxyCodeLine{164 \}}
+
+\end{DoxyCode}
+
+
+References Head\+::abscissa, check\+\_\+dimension(), Linker\+::class\+Of\+Object, Linker\+::cos\+\_\+angle, Frame\+::data\+Lines, Head\+::fiber\+Identity, Linker\+::force, frame, Linker\+::head\+One, Linker\+::head\+Two, linker, Linker\+::linker\+Identity, Frame\+::linker\+Objects, and Head\+::position\+Vector.
+
+
+
+Referenced by get\+\_\+output\+\_\+file\+\_\+contents().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{parse_8cpp_a570eeacaa210304c51f11a31fabca337_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parse_8cpp_a570eeacaa210304c51f11a31fabca337_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{parse_8cpp_aef41feb6cf7e05edf4e8f888d6d987dd}\label{parse_8cpp_aef41feb6cf7e05edf4e8f888d6d987dd}} 
+\index{parse.cpp@{parse.cpp}!process\_line@{process\_line}}
+\index{process\_line@{process\_line}!parse.cpp@{parse.cpp}}
+\doxysubsubsection{\texorpdfstring{process\_line()}{process\_line()}}
+{\footnotesize\ttfamily void process\+\_\+line (\begin{DoxyParamCaption}\item[{std\+::string}]{line,  }\item[{\mbox{\hyperlink{structFrame}{Frame}} \&}]{frame }\end{DoxyParamCaption})}
+
+
+
+Definition at line 16 of file parse.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18     std::smatch match ;}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keywordflow}{if} (line.find(\mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_ab7e823aa80a2c607fd16b6d49bf41b11}{frameStr}}) != std::string::npos)}
+\DoxyCodeLine{21     \{   \textcolor{comment}{// Extract int with frame number}}
+\DoxyCodeLine{22         std::regex rgx(\textcolor{stringliteral}{"\(\backslash\)\(\backslash\)d+"});}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24         \textcolor{keywordflow}{if} (std::regex\_search(line, match, rgx))}
+\DoxyCodeLine{25             \mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_a872872cc9add84bfc65c89f5dd02a581}{frameNumber}} =  std::stoi(match.str(0));}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     \}}
+\DoxyCodeLine{28     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (line.find(\mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_a85c88cbfa254712adf36ed3bfa69dccb}{timeStr}}) != std::string::npos)}
+\DoxyCodeLine{29     \{   \textcolor{comment}{// Extract float with time stamp}}
+\DoxyCodeLine{30         std::regex rgx(\textcolor{stringliteral}{"\(\backslash\)\(\backslash\)d+.\(\backslash\)\(\backslash\)d+"});}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32         \textcolor{keywordflow}{if} (std::regex\_search(line, match, rgx))}
+\DoxyCodeLine{33             \mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_a3e888c915742aa35f299398eb4b03d4a}{timeStamp}} =  std::stof(match.str(0));}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \}}
+\DoxyCodeLine{36     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (line.find(\mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_a0dbc1cc515705b28ae2bfb4e5d54dfdf}{reportStr}}) != std::string::npos)}
+\DoxyCodeLine{37     \{   \textcolor{comment}{// Extract string with report command used to generate data file}}
+\DoxyCodeLine{38         std::regex rgx(\textcolor{stringliteral}{"\(\backslash\)\(\backslash\)w+:\(\backslash\)\(\backslash\)w+"});}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40         \textcolor{keywordflow}{if} (std::regex\_search(line, match, rgx))}
+\DoxyCodeLine{41             \mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_a43f65db74c0ffd89c7d3d43dd2eeb6ff}{reportCommand}} = match.str(0);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     \}}
+\DoxyCodeLine{44     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (line.find(\mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_ad1c97a793b2b0a0cfdc89a9c676caf58}{categoriesStr}}) != std::string::npos)}
+\DoxyCodeLine{45     \{}
+\DoxyCodeLine{46         \textcolor{comment}{// Extract string with category names of data in file}}
+\DoxyCodeLine{47         std::regex rgx(\textcolor{stringliteral}{"\(\backslash\)\(\backslash\)w+"}) ;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49         \textcolor{keyword}{auto} categoriesBegin = std::sregex\_iterator(line.begin(), line.end(), rgx);}
+\DoxyCodeLine{50         \textcolor{keyword}{auto} categoriesEnd = std::sregex\_iterator() ;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52         \textcolor{keywordflow}{for} (std::sregex\_iterator i = categoriesBegin; i != categoriesEnd; ++i)}
+\DoxyCodeLine{53         \{}
+\DoxyCodeLine{54             match = *i ;}
+\DoxyCodeLine{55             std::string match\_str = match.str() ;}
+\DoxyCodeLine{56             \mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_aa634946a4be7e69a7b00ca3d66e2876f}{dataCategories}}.push\_back(match\_str);}
+\DoxyCodeLine{57         \}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59         \textcolor{comment}{// maybe eventually will have some code which auto-\/detects categories}}
+\DoxyCodeLine{60         \textcolor{comment}{// and creates a linker class with appropriate variables}}
+\DoxyCodeLine{61     \}}
+\DoxyCodeLine{62     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{63     \{}
+\DoxyCodeLine{64         \textcolor{comment}{// Extract vector of strings of data lines for the frame}}
+\DoxyCodeLine{65         std::regex rgx(\textcolor{stringliteral}{"-\/?\(\backslash\)\(\backslash\)d+\(\backslash\)\(\backslash\).?\(\backslash\)\(\backslash\)d*"});}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67         \textcolor{comment}{// https://en.cppreference.com/w/cpp/regex/regex\_iterator}}
+\DoxyCodeLine{68         \textcolor{keyword}{auto} dataBegin = std::sregex\_iterator(line.begin(), line.end(),  rgx);}
+\DoxyCodeLine{69         \textcolor{keyword}{auto} dataEnd = std::sregex\_iterator();}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71         std::vector <std::string> dataEntries ;}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73         \textcolor{keywordflow}{for} (std::sregex\_iterator i = dataBegin; i != dataEnd; ++i)}
+\DoxyCodeLine{74         \{}
+\DoxyCodeLine{75             match = *i ;}
+\DoxyCodeLine{76             std::string match\_str = match.str();}
+\DoxyCodeLine{77             dataEntries.push\_back(match\_str) ;}
+\DoxyCodeLine{78         \}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80         \mbox{\hyperlink{frame_8cpp_a1e1317f89b111b2efade433833f4b74d}{frame}}.\mbox{\hyperlink{structFrame_a004d76a676dcdbe542fb708843294533}{dataLines}}.push\_back(dataEntries) ;}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82     \}}
+\DoxyCodeLine{83 \}}
+
+\end{DoxyCode}
+
+
+References Frame\+::categories\+Str, Frame\+::data\+Categories, Frame\+::data\+Lines, frame, Frame\+::frame\+Number, Frame\+::frame\+Str, Frame\+::report\+Command, Frame\+::report\+Str, Frame\+::time\+Stamp, and Frame\+::time\+Str.
+
+
+
+Referenced by get\+\_\+output\+\_\+file\+\_\+contents().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parse_8cpp_aef41feb6cf7e05edf4e8f888d6d987dd_icgraph}
+\end{center}
+\end{figure}

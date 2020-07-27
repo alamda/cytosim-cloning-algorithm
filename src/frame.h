@@ -5,6 +5,9 @@
 #include <vector>
 #include "linker.h"
 
+/**	@brief Struct for containing data for a single frame of the simulation.
+	*/
+
 typedef struct Frame
 {
 	int frameNumber ;

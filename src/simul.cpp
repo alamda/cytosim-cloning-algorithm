@@ -1,3 +1,3 @@
 #include "simul.h"
 
-struct Simulation simul ;
+struct Simul simul ;

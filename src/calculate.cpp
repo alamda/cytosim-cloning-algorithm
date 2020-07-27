@@ -4,7 +4,14 @@
 #include <climits>
 #include <iostream>
 
+/**	@fn		convert_std_vec_to_eigen_vec
+	@brief	Convert std::vector to Eigen::MatrixXf for snappy maths.
 
+	Works with 2- or 3-dimensional vectors, other dimensions not supported.
+
+	@param	vector 		-	std::vector <float>
+	@return	eigen_vec 	-	Eigen::MatrixXf
+	*/
 Eigen::MatrixXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 {
 	// https://stackoverflow.com/questions/11387370/how-can-i-safely-convert-unsigned-long-int-to-int
@@ -24,11 +31,21 @@ Eigen::MatrixXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 	return eigen_vec  ;
 }
 
-void calculate_velocity(Simulation & simul)
+/**	@brief Calculate the velocity of a head of a linker for a given frame
+
+	@todo	write this function
+
+	*/
+void calculate_velocity(Simul & simul)
 {
 
 }
 
+/**	@brief Calculate the rate of work for a given frame
+
+	@todo	write this function
+
+	*/
 void calculate_w_dot(Frame currentFrame, Frame previousFrame)
 {
 	// for (linker : currentFrame)

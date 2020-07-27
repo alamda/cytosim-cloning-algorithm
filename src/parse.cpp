@@ -7,7 +7,12 @@
 #include <iostream>
 #include <fstream>
 
-// Takes info from data file and populates Frame object
+/**	@fn 	process_line
+	@brief 	Takes info from data file and populates Frame object.
+
+	@param 	line 		-	std::string
+	@param 	frame 		-	reference to Frame object
+	*/
 void process_line(std::string line, Frame & frame)
 {
 	std::smatch match ;
@@ -77,8 +82,14 @@ void process_line(std::string line, Frame & frame)
 	}
 }
 
-// Check if simulation is 3D, returns true if 3D
-// Works with 3D output file, need to check that it returns false for 2D output file
+/** @fn 	check_dimension
+	@brief 	Check if simulation output data is 2D or 3D, returns true if 3D
+
+	@param 	frame 		- 	reference to Frame object
+	@return threeD_data -	bool
+
+	@todo 	Works with 3D output file, need to check that it returns false for a 2D output file.
+	*/
 bool check_dimension(Frame & frame)
 {
 	std::regex rgx("pos[12]Z"); // check if Z coordinate is present
@@ -98,7 +109,12 @@ bool check_dimension(Frame & frame)
 
 	return threeD_data ;
 }
+/**	@fn		process_frame
+	@brief 	Takes info from Frame object, then creates and populates Linker objects
 
+	@param 	frame 		- 	reference to Frame object
+
+	*/
 // Takes info from Frame object and populates Linker objects
 void process_frame(Frame & frame)
 {
@@ -152,8 +168,16 @@ void process_frame(Frame & frame)
 	}
 }
 
-// Used as reference: https://thispointer.com/c-how-to-read-a-file-line-by-line-into-a-vector/
-void get_output_file_contents( std::string fileName, Simulation & simul )
+/**	@fn 	get_output_file_contents
+	@brief 	Extract and process data from output file previously created by Cytosim
+
+	@param 	fileName 		- 	std::string
+	@param	simul			-	reference to Simul object
+
+	Used as reference: https://thispointer.com/c-how-to-read-a-file-line-by-line-into-a-vector/
+	*/
+//
+void get_output_file_contents( std::string fileName, Simul & simul )
 {
 	// open file
 	std::ifstream dataFile(fileName.c_str());
@@ -212,8 +236,14 @@ void get_output_file_contents( std::string fileName, Simulation & simul )
 	dataFile.close();
 }
 
-// obtain simulation parameters from config.cym file
-void get_simulation_params(Simulation & simul, std::string fileName)
+/**	@fn 	get_simulation_params
+	@brief 	Obtain simulation parameters from *.cym Cytosim config file
+
+	@param	simul		-	reference to Simul object
+	@param 	fileName	-	std::string
+
+	*/
+void get_simulation_params(Simul & simul, std::string fileName)
 {
 	//simul.unloaded_speed
 	std::regex rgx_unload("unloaded_speed");

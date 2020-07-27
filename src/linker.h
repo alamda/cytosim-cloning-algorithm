@@ -4,6 +4,10 @@
 #include <vector>
 #include "head.h"
 
+/**	@brief Struct for containing information of a linker with two heads.
+
+	*/
+
 typedef struct Linker
 {
 	int classOfObject, linkerIdentity ;
