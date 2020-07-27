@@ -4,13 +4,13 @@
 #include <climits>
 #include <iostream>
 
-/**	@fn		convert_std_vec_to_eigen_vec
-	@brief	Convert std::vector to Eigen::MatrixXf for snappy maths.
+/**	@brief	Convert std::vector to Eigen::MatrixXf for snappy maths.
 
 	Works with 2- or 3-dimensional vectors, other dimensions not supported.
 
 	@param	vector 		-	std::vector <float>
 	@return	eigen_vec 	-	Eigen::MatrixXf
+
 	*/
 Eigen::MatrixXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 {

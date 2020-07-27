@@ -7,8 +7,7 @@
 #include <iostream>
 #include <fstream>
 
-/**	@fn 	process_line
-	@brief 	Takes info from data file and populates Frame object.
+/**	@brief 	Takes info from data file and populates Frame object.
 
 	@param 	line 		-	std::string
 	@param 	frame 		-	reference to Frame object
@@ -82,8 +81,7 @@ void process_line(std::string line, Frame & frame)
 	}
 }
 
-/** @fn 	check_dimension
-	@brief 	Check if simulation output data is 2D or 3D, returns true if 3D
+/** @brief 	Check if simulation output data is 2D or 3D, returns true if 3D
 
 	@param 	frame 		- 	reference to Frame object
 	@return threeD_data -	bool
@@ -109,8 +107,7 @@ bool check_dimension(Frame & frame)
 
 	return threeD_data ;
 }
-/**	@fn		process_frame
-	@brief 	Takes info from Frame object, then creates and populates Linker objects
+/**	@brief 	Takes info from Frame object, then creates and populates Linker objects
 
 	@param 	frame 		- 	reference to Frame object
 
@@ -168,8 +165,7 @@ void process_frame(Frame & frame)
 	}
 }
 
-/**	@fn 	get_output_file_contents
-	@brief 	Extract and process data from output file previously created by Cytosim
+/**	@brief 	Extract and process data from output file previously created by Cytosim
 
 	@param 	fileName 		- 	std::string
 	@param	simul			-	reference to Simul object
@@ -236,8 +232,7 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 	dataFile.close();
 }
 
-/**	@fn 	get_simulation_params
-	@brief 	Obtain simulation parameters from *.cym Cytosim config file
+/**	@brief 	Obtain simulation parameters from *.cym Cytosim config file
 
 	@param	simul		-	reference to Simul object
 	@param 	fileName	-	std::string
