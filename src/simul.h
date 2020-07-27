@@ -1,7 +1,6 @@
 #ifndef SIMUL_H
 #define SIMUL_H
 
-#include <cstdio>
 #include <string>
 
 typedef struct Simulation

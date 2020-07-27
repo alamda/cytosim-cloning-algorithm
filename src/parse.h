@@ -1,7 +1,6 @@
 #ifndef PARSE_H
 #define PARSE_H
 
-#include <cstdio>
 #include <string>
 #include "frame.h"
 #include "simul.h"

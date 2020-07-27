@@ -1,7 +1,6 @@
 #ifndef HEAD_H
 #define HEAD_H
 
-#include <cstdio>
 #include <vector>
 
 typedef struct Head

@@ -1,14 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <cstdio>
-#include <regex>
-#include <iterator>
-#include "Eigen/Dense"
-#include <climits>
 #include "parse.h"
-#include "calculate.h"
 
 std::string Frame::frameStr = "frame";
 std::string Frame::timeStr = "time";

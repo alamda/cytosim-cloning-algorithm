@@ -1,7 +1,6 @@
 #ifndef LINKER_H
 #define LINKER_H
 
-#include <cstdio>
 #include <vector>
 #include "head.h"
 

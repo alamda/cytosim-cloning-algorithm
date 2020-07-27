@@ -1,13 +1,9 @@
 #include "parse.h"
 #include "calculate.h"
 #include "frame.h"
-#include "linker.h"
-#include "head.h"
 #include "simul.h"
-#include <cstdio>
+
 #include <regex>
-#include <vector>
-#include <string>
 #include <iostream>
 #include <fstream>
 

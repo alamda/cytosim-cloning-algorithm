@@ -1,11 +1,6 @@
 #include "calculate.h"
 #include "frame.h"
-#include "linker.h"
-#include "head.h"
 #include "simul.h"
-#include <cstdio>
-#include "Eigen/Dense"
-#include <vector>
 #include <climits>
 #include <iostream>
 
@@ -14,7 +9,7 @@ Eigen::MatrixXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 {
 	// https://stackoverflow.com/questions/11387370/how-can-i-safely-convert-unsigned-long-int-to-int
 	unsigned long int vec_size_long_int = vector.size() ;
-	const int vec_size_int = vec_size_long_int & INT_MAX ;
+	const int vec_size_int = vec_size_long_int & INT_MAX ; // needs the <climits> library
 
 	// https://stackoverflow.com/questions/52261389/how-to-convert-an-stdvector-to-a-matrix-in-eigen
 	Eigen::MatrixXf eigen_vec ;
