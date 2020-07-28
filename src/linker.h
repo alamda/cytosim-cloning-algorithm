@@ -18,6 +18,8 @@ typedef struct Linker
 	Hand handTwo ;
 
 	std::vector <Hand> handObjects ;
+
+	float wDot ;
 } Linker_t ;
 
 #endif // LINKER_H

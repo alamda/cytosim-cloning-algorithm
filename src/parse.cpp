@@ -133,30 +133,38 @@ void process_frame(Frame & frame)
 
 			if (threeDimData)
 			{
-				linker.handOne.positionVector.push_back( std::stof( line.at(4) ) ) ;
-				linker.handOne.positionVector.push_back( std::stof( line.at(5) ) ) ;
-				linker.handOne.positionVector.push_back( std::stof( line.at(6) ) ) ;
+				linker.handOne.positionVector_std.push_back( std::stof( line.at(4) ) ) ;
+				linker.handOne.positionVector_std.push_back( std::stof( line.at(5) ) ) ;
+				linker.handOne.positionVector_std.push_back( std::stof( line.at(6) ) ) ;
+
+				linker.handOne.positionVector_eigen = convert_std_vec_to_eigen_vec(linker.handOne.positionVector_std) ;
 
 				linker.handTwo.fiberIdentity = std::stoi(line.at(7)) ;
 				linker.handTwo.abscissa  = std::stof(line.at(8)) ;
 
-				linker.handTwo.positionVector.push_back( std::stof( line.at(9) ) ) ;
-				linker.handTwo.positionVector.push_back( std::stof( line.at(10) ) ) ;
-				linker.handTwo.positionVector.push_back( std::stof( line.at(11) ) ) ;
+				linker.handTwo.positionVector_std.push_back( std::stof( line.at(9) ) ) ;
+				linker.handTwo.positionVector_std.push_back( std::stof( line.at(10) ) ) ;
+				linker.handTwo.positionVector_std.push_back( std::stof( line.at(11) ) ) ;
+
+				linker.handTwo.positionVector_eigen = convert_std_vec_to_eigen_vec(linker.handTwo.positionVector_std) ;
 
 				linker.force = std::stof( line.at(12) ) ;
 				linker.cosAngle = std::stof( line.at(13) ) ;
 			}
 			else
 			{
-				linker.handOne.positionVector.push_back( std::stof( line.at(4) ) ) ;
-				linker.handOne.positionVector.push_back( std::stof( line.at(5) ) ) ;
+				linker.handOne.positionVector_std.push_back( std::stof( line.at(4) ) ) ;
+				linker.handOne.positionVector_std.push_back( std::stof( line.at(5) ) ) ;
+
+				linker.handOne.positionVector_eigen = convert_std_vec_to_eigen_vec(linker.handOne.positionVector_std) ;
 
 				linker.handTwo.fiberIdentity = std::stoi(line.at(6)) ;
 				linker.handTwo.abscissa  = std::stof(line.at(7)) ;
 
-				linker.handTwo.positionVector.push_back( std::stof( line.at(8) ) ) ;
-				linker.handTwo.positionVector.push_back( std::stof( line.at(9) ) ) ;
+				linker.handTwo.positionVector_std.push_back( std::stof( line.at(8) ) ) ;
+				linker.handTwo.positionVector_std.push_back( std::stof( line.at(9) ) ) ;
+
+				linker.handTwo.positionVector_eigen = convert_std_vec_to_eigen_vec(linker.handTwo.positionVector_std) ;
 
 				linker.force = std::stof( line.at(10) ) ;
 				linker.cosAngle = std::stof( line.at(11) ) ;
@@ -198,6 +206,8 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 		// static const Frame emptyFrame;
 		Frame currentFrame;
 		Frame previousFrame ;
+
+		// simul.wDotIntegral = 0.0 ;
 
 		// Read line by line and sort into frames
 		// line is a c string

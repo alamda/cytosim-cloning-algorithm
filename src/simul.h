@@ -9,6 +9,9 @@
 typedef struct Simul
 {
 	float unloadedSpeed, stallForce ;
+
+	float wDotIntegral;
+
 } Simul_t ;
 
 void get_simulation_params(Simul & simul, std::string fileName) ;

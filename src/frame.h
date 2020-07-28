@@ -31,9 +31,8 @@ typedef struct Frame
 
 	int numLinkers ;
 
-	// Values that will need to be calculated
-	float rateOfWork, velocity ;
-	float *wDot = &rateOfWork ;
+	// Values that are calculated
+	float wDot ;
 } Frame_t ;
 
 #endif // FRAME_H

@@ -18,6 +18,7 @@ int main()
 	const std::string paramFileName = "config.cym";
 
 	get_simulation_params(simul, paramFileName) ;
+	simul.wDotIntegral = 0.0 ;
 
 	// Name of data file to be read:
 	const std::string dataFileName = "link.txt";

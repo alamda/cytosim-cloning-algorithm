@@ -13,9 +13,11 @@ typedef struct Hand
 {
 	int fiberIdentity ;
 	float abscissa ;
-	std::vector <float> positionVector  ;
+	std::vector <float> positionVector_std  ;
 
-	Eigen::VectorXf forceVector, velocityVector, movementDirVector ;
+	Eigen::VectorXf positionVector_eigen ;
+
+	Eigen::VectorXf forceVector, velocityVector, directionVector ;
 
 } Hand_t ;
 
