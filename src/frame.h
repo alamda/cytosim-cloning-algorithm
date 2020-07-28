@@ -1,9 +1,10 @@
 #ifndef FRAME_H
 #define FRAME_H
 
+#include "linker.h"
+
 #include <string>
 #include <vector>
-#include "linker.h"
 
 /**	@brief Struct for containing data for a single frame of the simulation.
 	*/

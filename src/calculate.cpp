@@ -1,8 +1,11 @@
 #include "calculate.h"
 #include "frame.h"
 #include "simul.h"
+
 #include <climits>
-#include <iostream>
+#include <vector>
+
+#include "Eigen/Dense"
 
 /**	@brief	Convert std::vector to Eigen::MatrixXf for snappy maths.
 
@@ -26,7 +29,7 @@ Eigen::MatrixXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 	else if (vec_size_int == 3)
 		eigen_vec = Eigen::Map<Eigen::Matrix <float, 3, 1> > (vector.data()) ;
 	else
-		std::cout << "Your dimensions are weird, try either 2D or 3D." << std::endl ;
+		printf("Your dimensions are weird, try either 2D or 3D.\n") ;
 
 	return eigen_vec  ;
 }

@@ -1,11 +1,13 @@
-#include "parse.h"
 #include "calculate.h"
 #include "frame.h"
+#include "parse.h"
 #include "simul.h"
 
-#include <regex>
-#include <iostream>
+#include <cstdio>
 #include <fstream>
+#include <regex>
+#include <string>
+#include <vector>
 
 /**	@brief 	Takes info from data file and populates Frame object.
 
@@ -271,8 +273,8 @@ void get_simulation_params(Simul & simul, std::string fileName)
 			}
 		}
 
-		std::cout << "unloaded_speed: " << simul.unloaded_speed << std::endl ;
-		std::cout << "stall_force: " << simul.stall_force << std::endl ;
+		printf( "unloaded_speed: %f\n",simul.unloaded_speed ) ;
+		printf( "stall_force: %f\n", simul.stall_force ) ;
 	}
 	configFile.close() ;
 }

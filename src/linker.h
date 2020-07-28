@@ -1,8 +1,9 @@
 #ifndef LINKER_H
 #define LINKER_H
 
-#include <vector>
 #include "head.h"
+
+#include <vector>
 
 /**	@brief Struct for containing information of a linker with two heads.
 

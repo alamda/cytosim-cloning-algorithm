@@ -1,9 +1,10 @@
 #ifndef PARSE_H
 #define PARSE_H
 
-#include <string>
 #include "frame.h"
 #include "simul.h"
+
+#include <string>
 
 void process_line(std::string line, Frame & frame) ;
 
