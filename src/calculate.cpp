@@ -4,11 +4,16 @@
 #include "simul.h"
 
 #include <climits>
+#include <iostream>
 #include <vector>
 
 #include "Eigen/Dense"
 
 /**	@brief	Do calculations on a frame
+
+	@param 	currentFrame		-	reference to Frame object
+	@param	previousFrame		-	reference to Frame object
+	@param	simul				- 	reference to Simul object, which contains data on simulation parameters
 
 	*/
 void calculate_frame(Frame & currentFrame, Frame & previousFrame, Simul & simul)
@@ -26,8 +31,13 @@ void calculate_frame(Frame & currentFrame, Frame & previousFrame, Simul & simul)
 
 			bool linkerExisted = check_linker_past(currentLinker, previousFrame) ;
 
+			calculate_force_vector(currentLinker) ;
+
 			printf("--- Linker %d existence in previous frame: %d\n",
 				   currentLinker.linkerIdentity, linkerExisted) ;
+
+			std::cout << currentLinker.handOne.forceVector << std::endl ;
+			std::cout << currentLinker.handTwo.forceVector << std::endl ;
 
 			++linkerPtr ;
 		} while (linkerPtr != endPtr) ;
@@ -106,7 +116,7 @@ Eigen::VectorXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 	}
 }
 
-/**	@brief	Calculate the direction head of a head using positions of two adjacent frames
+/**	@brief	Calculate the direction vector of a hand using positions of two adjacent frames
 
 	@todo	Write this function
 	@todo	add to calculate.h once written
@@ -116,17 +126,22 @@ void calculate_direction_vector(Frame & currentFrame, Frame & previousFrame)
 
 }
 
-/**	@brief	Calculate the vector between the two linker heads.
+/**	@brief	Calculate the vector between the two linker hands.
+
+	@param	linker			-	reference to Linker object
 
 	@todo	Write this function
-	@todo	add to calculate.h once written
 	*/
 void calculate_force_vector(Linker & linker)
 {
+	Eigen::VectorXf handOneVec = convert_std_vec_to_eigen_vec(linker.handOne.positionVector) ;
+	Eigen::VectorXf handTwoVec = convert_std_vec_to_eigen_vec(linker.handTwo.positionVector) ;
 
+	linker.handOne.forceVector = handTwoVec - handOneVec ;
+	linker.handTwo.forceVector = handOneVec - handTwoVec ;
 }
 
-/**	@brief Calculate the velocity magnitude of a head of a linker for a given frame
+/**	@brief Calculate the velocity magnitude of a hand of a linker for a given frame
 
 	@todo	write this function
 

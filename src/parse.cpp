@@ -128,35 +128,35 @@ void process_frame(Frame & frame)
 			linker.classOfObject = std::stoi(line.at(0)) ;
 			linker.linkerIdentity = std::stoi(line.at(1)) ;
 
-			linker.headOne.fiberIdentity = std::stoi(line.at(2)) ;
-			linker.headOne.abscissa  = std::stof(line.at(3)) ;
+			linker.handOne.fiberIdentity = std::stoi(line.at(2)) ;
+			linker.handOne.abscissa  = std::stof(line.at(3)) ;
 
 			if (threeDimData)
 			{
-				linker.headOne.positionVector.push_back( std::stof( line.at(4) ) ) ;
-				linker.headOne.positionVector.push_back( std::stof( line.at(5) ) ) ;
-				linker.headOne.positionVector.push_back( std::stof( line.at(6) ) ) ;
+				linker.handOne.positionVector.push_back( std::stof( line.at(4) ) ) ;
+				linker.handOne.positionVector.push_back( std::stof( line.at(5) ) ) ;
+				linker.handOne.positionVector.push_back( std::stof( line.at(6) ) ) ;
 
-				linker.headTwo.fiberIdentity = std::stoi(line.at(7)) ;
-				linker.headTwo.abscissa  = std::stof(line.at(8)) ;
+				linker.handTwo.fiberIdentity = std::stoi(line.at(7)) ;
+				linker.handTwo.abscissa  = std::stof(line.at(8)) ;
 
-				linker.headTwo.positionVector.push_back( std::stof( line.at(9) ) ) ;
-				linker.headTwo.positionVector.push_back( std::stof( line.at(10) ) ) ;
-				linker.headTwo.positionVector.push_back( std::stof( line.at(11) ) ) ;
+				linker.handTwo.positionVector.push_back( std::stof( line.at(9) ) ) ;
+				linker.handTwo.positionVector.push_back( std::stof( line.at(10) ) ) ;
+				linker.handTwo.positionVector.push_back( std::stof( line.at(11) ) ) ;
 
 				linker.force = std::stof( line.at(12) ) ;
 				linker.cosAngle = std::stof( line.at(13) ) ;
 			}
 			else
 			{
-				linker.headOne.positionVector.push_back( std::stof( line.at(4) ) ) ;
-				linker.headOne.positionVector.push_back( std::stof( line.at(5) ) ) ;
+				linker.handOne.positionVector.push_back( std::stof( line.at(4) ) ) ;
+				linker.handOne.positionVector.push_back( std::stof( line.at(5) ) ) ;
 
-				linker.headTwo.fiberIdentity = std::stoi(line.at(6)) ;
-				linker.headTwo.abscissa  = std::stof(line.at(7)) ;
+				linker.handTwo.fiberIdentity = std::stoi(line.at(6)) ;
+				linker.handTwo.abscissa  = std::stof(line.at(7)) ;
 
-				linker.headTwo.positionVector.push_back( std::stof( line.at(8) ) ) ;
-				linker.headTwo.positionVector.push_back( std::stof( line.at(9) ) ) ;
+				linker.handTwo.positionVector.push_back( std::stof( line.at(8) ) ) ;
+				linker.handTwo.positionVector.push_back( std::stof( line.at(9) ) ) ;
 
 				linker.force = std::stof( line.at(10) ) ;
 				linker.cosAngle = std::stof( line.at(11) ) ;

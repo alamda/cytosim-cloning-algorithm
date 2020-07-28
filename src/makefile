@@ -9,8 +9,8 @@ CXXFLAGS = -Wall -g
 # ****************************************************
 # Targets needed to bring the executable up to date
 
-main: main.o simul.o frame.o head.o linker.o calculate.o parse.o
-	$(CXX) $(CXXFLAGS) -o main main.o simul.o frame.o head.o linker.o calculate.o parse.o
+main: main.o simul.o frame.o hand.o linker.o calculate.o parse.o
+	$(CXX) $(CXXFLAGS) -o main main.o simul.o frame.o hand.o linker.o calculate.o parse.o
 
 # The main.o target can be written more simply
 
@@ -21,9 +21,9 @@ simul.o: simul.cpp simul.h
 
 frame.o: frame.cpp frame.h linker.h
 
-head.o: head.cpp head.h
+hand.o: hand.cpp hand.h
 
-linker.o: linker.cpp linker.h head.h
+linker.o: linker.cpp linker.h hand.h
 
 calculate.o: calculate.cpp calculate.h simul.h frame.h linker.h
 

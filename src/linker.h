@@ -1,11 +1,11 @@
 #ifndef LINKER_H
 #define LINKER_H
 
-#include "head.h"
+#include "hand.h"
 
 #include <vector>
 
-/**	@brief Struct for containing information of a linker with two heads.
+/**	@brief Struct for containing information of a linker with two hands.
 
 	*/
 
@@ -14,10 +14,10 @@ typedef struct Linker
 	int classOfObject, linkerIdentity ;
 	float force, cosAngle ;
 
-	Head headOne ;
-	Head headTwo ;
+	Hand handOne ;
+	Hand handTwo ;
 
-	std::vector <Head> headObjects ;
+	std::vector <Hand> handObjects ;
 } Linker_t ;
 
 #endif // LINKER_H
