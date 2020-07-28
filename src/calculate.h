@@ -2,16 +2,20 @@
 #define CALCULATE_H
 
 #include "frame.h"
+#include "linker.h"
 #include "simul.h"
 
 #include <vector>
 
 #include "Eigen/Dense"
 
+void calculate_frame(Frame & currentFrame, Frame & previousFrame, Simul & simul) ;
 
-Eigen::MatrixXf convert_std_vec_to_eigen_vec(std::vector <float> vector) ;
+bool check_linker_past(Linker & linker, Frame & previousFrame) ;
 
-void calculate_velocity(Simul & simul) ;
+Eigen::VectorXf convert_std_vec_to_eigen_vec(std::vector <float> vector) ;
+
+float calculate_velocity(Simul & simul) ;
 
 void calculate_w_dot(Frame currentFrame, Frame previousFrame) ;
 

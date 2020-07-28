@@ -29,8 +29,11 @@ typedef struct Frame
 
 	std::vector <Linker> linkerObjects ;
 
+	int numLinkers ;
+
 	// Values that will need to be calculated
 	float rateOfWork, velocity ;
+	float *wDot = &rateOfWork ;
 } Frame_t ;
 
 #endif // FRAME_H

@@ -1,9 +1,9 @@
 #include "frame.h"
 #include "simul.h"
 #include "parse.h"
+#include "calculate.h"
 
 #include <string>
-
 
 std::string Frame::frameStr = "frame";
 std::string Frame::timeStr = "time";

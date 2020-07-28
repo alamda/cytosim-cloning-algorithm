@@ -8,7 +8,7 @@
 
 typedef struct Simul
 {
-	float unloaded_speed, stall_force ;
+	float unloadedSpeed, stallForce ;
 } Simul_t ;
 
 void get_simulation_params(Simul & simul, std::string fileName) ;

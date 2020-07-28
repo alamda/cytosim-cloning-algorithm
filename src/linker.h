@@ -12,7 +12,7 @@
 typedef struct Linker
 {
 	int classOfObject, linkerIdentity ;
-	float force, cos_angle ;
+	float force, cosAngle ;
 
 	Head headOne ;
 	Head headTwo ;

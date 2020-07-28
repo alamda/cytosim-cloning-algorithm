@@ -53,8 +53,8 @@ void process_line(std::string line, Frame & frame)
 		for (std::sregex_iterator i = categoriesBegin; i != categoriesEnd; ++i)
 		{
 			match = *i ;
-			std::string match_str = match.str() ;
-			frame.dataCategories.push_back(match_str);
+			std::string matchStr = match.str() ;
+			frame.dataCategories.push_back(matchStr);
 		}
 
 		// maybe eventually will have some code which auto-detects categories
@@ -74,8 +74,8 @@ void process_line(std::string line, Frame & frame)
 		for (std::sregex_iterator i = dataBegin; i != dataEnd; ++i)
 		{
 			match = *i ;
-			std::string match_str = match.str();
-			dataEntries.push_back(match_str) ;
+			std::string matchStr = match.str();
+			dataEntries.push_back(matchStr) ;
 		}
 
 		frame.dataLines.push_back(dataEntries) ;
@@ -86,7 +86,7 @@ void process_line(std::string line, Frame & frame)
 /** @brief 	Check if simulation output data is 2D or 3D, returns true if 3D
 
 	@param 	frame 		- 	reference to Frame object
-	@return threeD_data -	bool
+	@return threeDimData -	bool
 
 	@todo 	Works with 3D output file, need to check that it returns false for a 2D output file.
 	*/
@@ -95,19 +95,19 @@ bool check_dimension(Frame & frame)
 	std::regex rgx("pos[12]Z"); // check if Z coordinate is present
 	std::smatch match ;
 
-	bool threeD_data ;
+	bool threeDimData ;
 
-	std::vector <std::string>::iterator data_ptr = frame.dataCategories.begin(),
-										end_ptr = frame.dataCategories.end() ;
+	std::vector <std::string>::iterator dataPtr = frame.dataCategories.begin(),
+										endPtr = frame.dataCategories.end() ;
 
 	do
 	{
-			threeD_data = std::regex_search(*data_ptr, match, rgx) ;
-			++data_ptr ;
+			threeDimData = std::regex_search(*dataPtr, match, rgx) ;
+			++dataPtr ;
 
-	} while (!threeD_data && data_ptr != end_ptr) ;
+	} while (!threeDimData && dataPtr != endPtr) ;
 
-	return threeD_data ;
+	return threeDimData ;
 }
 /**	@brief 	Takes info from Frame object, then creates and populates Linker objects
 
@@ -117,7 +117,7 @@ bool check_dimension(Frame & frame)
 // Takes info from Frame object and populates Linker objects
 void process_frame(Frame & frame)
 {
-	bool threeD_data = check_dimension(frame) ;
+	bool threeDimData = check_dimension(frame) ;
 
 	for (auto line : frame.dataLines)
 	{
@@ -131,7 +131,7 @@ void process_frame(Frame & frame)
 			linker.headOne.fiberIdentity = std::stoi(line.at(2)) ;
 			linker.headOne.abscissa  = std::stof(line.at(3)) ;
 
-			if (threeD_data)
+			if (threeDimData)
 			{
 				linker.headOne.positionVector.push_back( std::stof( line.at(4) ) ) ;
 				linker.headOne.positionVector.push_back( std::stof( line.at(5) ) ) ;
@@ -145,7 +145,7 @@ void process_frame(Frame & frame)
 				linker.headTwo.positionVector.push_back( std::stof( line.at(11) ) ) ;
 
 				linker.force = std::stof( line.at(12) ) ;
-				linker.cos_angle = std::stof( line.at(13) ) ;
+				linker.cosAngle = std::stof( line.at(13) ) ;
 			}
 			else
 			{
@@ -159,12 +159,21 @@ void process_frame(Frame & frame)
 				linker.headTwo.positionVector.push_back( std::stof( line.at(9) ) ) ;
 
 				linker.force = std::stof( line.at(10) ) ;
-				linker.cos_angle = std::stof( line.at(11) ) ;
+				linker.cosAngle = std::stof( line.at(11) ) ;
 			}
 
 			frame.linkerObjects.push_back(linker) ;
+
+			frame.numLinkers = frame.linkerObjects.size() ;
+
+
 		}
+		else
+			frame.numLinkers = 0 ;
+
+
 	}
+
 }
 
 /**	@brief 	Extract and process data from output file previously created by Cytosim
@@ -184,7 +193,7 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 	{
 		// Define string variable
 		std::string line ;
-		int frame_idx = 0;
+		int frameIdx = 0;
 
 		// static const Frame emptyFrame;
 		Frame currentFrame;
@@ -194,14 +203,14 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 		// line is a c string
 		while (std::getline(dataFile, line))
 		{
-			std::size_t found_end ;
+			std::size_t foundEnd ;
 
-			found_end = line.find(currentFrame.endStr);
+			foundEnd = line.find(currentFrame.endStr);
 
 			// If the line does not match endString
-			// fun fact: if (found_end == std::string::npos) does produce desired results
+			// fun fact: if (foundEnd == std::string::npos) does produce desired results
 			// which is why the "double negative"/(!(!=)) is necessary
-			if (!(found_end != std::string::npos))
+			if (!(foundEnd != std::string::npos))
 			{
 				process_line(line, currentFrame);
 			}
@@ -209,17 +218,9 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 			{
 				process_frame(currentFrame) ;
 
-				frame_idx++ ;
+				frameIdx++ ;
 
-				if (frame_idx > 1)
-				{
-					// do calculations on frame and previousFrame
-					calculate_velocity(simul) ;
-
-					// calculations will be done by function calculate_w_dot()
-
-					calculate_w_dot(currentFrame, previousFrame);
-				}
+				calculate_frame(currentFrame, previousFrame, simul) ;
 
 				// Move current frame object to previousFrame
 				previousFrame = currentFrame ;
@@ -228,7 +229,7 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 				currentFrame = Frame() ;
 			}
 		}
-	printf("\nTotal number of frames: %d\n", frame_idx);
+	printf("Total number of frames: %d\n", frameIdx);
 	}
 	//Close The File
 	dataFile.close();
@@ -242,12 +243,12 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 	*/
 void get_simulation_params(Simul & simul, std::string fileName)
 {
-	//simul.unloaded_speed
-	std::regex rgx_unload("unloaded_speed");
-	//simul.stall_force ;
-	std::regex rgx_stall("stall_force");
+	//simul.unloadedSpeed
+	std::regex rgxUnload("unloaded_speed");
+	//simul.stallForce ;
+	std::regex rgxStall("stall_force");
 
-	std::regex rgx_float("-?\\d+\\.?\\d*") ;
+	std::regex rgxFloat("-?\\d+\\.?\\d*") ;
 
 	// open file
 	std::ifstream configFile(fileName.c_str());
@@ -258,23 +259,25 @@ void get_simulation_params(Simul & simul, std::string fileName)
 
 		while (std::getline(configFile, line))
 		{
-			std::smatch match_line ;
-			std::smatch match_float ;
+			std::smatch matchLine ;
+			std::smatch matchFloat ;
 
-			if ( std::regex_search(line, match_line, rgx_unload) )
+			if ( std::regex_search(line, matchLine, rgxUnload) )
 			{
-				if ( std::regex_search(line, match_float, rgx_float))
-					simul.unloaded_speed = std::stof(match_float.str(0));
+				if ( std::regex_search(line, matchFloat, rgxFloat))
+					simul.unloadedSpeed = std::stof(matchFloat.str(0));
 			}
-			else if ( std::regex_search(line, match_line, rgx_stall))
+			else if ( std::regex_search(line, matchLine, rgxStall))
 			{
-				if (std::regex_search(line, match_float, rgx_float))
-					simul.stall_force = std::stof(match_float.str(0));
+				if (std::regex_search(line, matchFloat, rgxFloat))
+					simul.stallForce = std::stof(matchFloat.str(0));
 			}
 		}
 
-		printf( "unloaded_speed: %f\n",simul.unloaded_speed ) ;
-		printf( "stall_force: %f\n", simul.stall_force ) ;
+		printf( "unloaded_speed: %f\n",simul.unloadedSpeed ) ;
+		printf( "stall_force: %f\n", simul.stallForce ) ;
+
+		printf("\n") ;
 	}
 	configFile.close() ;
 }
