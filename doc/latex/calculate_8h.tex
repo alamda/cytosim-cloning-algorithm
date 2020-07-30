@@ -1,0 +1,456 @@
+\hypertarget{calculate_8h}{}\doxysection{calculate.\+h File Reference}
+\label{calculate_8h}\index{calculate.h@{calculate.h}}
+{\ttfamily \#include \char`\"{}frame.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}linker.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}simul.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}Eigen/\+Dense\char`\"{}}\newline
+Include dependency graph for calculate.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{calculate_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{calculate_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{calculate_8h_af62e05bef6145fc2d70095dd1c0c1ad4}{calculate\+\_\+frame}} (\mbox{\hyperlink{structFrame}{Frame}} \&current\+Frame, \mbox{\hyperlink{structFrame}{Frame}} \&previous\+Frame, \mbox{\hyperlink{structSimul}{Simul}} \&\mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}})
+\begin{DoxyCompactList}\small\item\em Do calculations on a frame for each eligible$\ast$ linker. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structLinker}{Linker}} \mbox{\hyperlink{calculate_8h_a7102b43ee7a698dcc9fa17c80aa6ce05}{check\+\_\+linker\+\_\+past}} (bool \&linker\+Existed, \mbox{\hyperlink{structLinker}{Linker}} \&\mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}, \mbox{\hyperlink{structFrame}{Frame}} \&previous\+Frame)
+\begin{DoxyCompactList}\small\item\em Check if a particular linker appears in previous frame. \end{DoxyCompactList}\item 
+Eigen\+::\+Vector\+Xf \mbox{\hyperlink{calculate_8h_a0d42d2d1aed00bc455bc672cb9dbc8c4}{convert\+\_\+std\+\_\+vec\+\_\+to\+\_\+eigen\+\_\+vec}} (std\+::vector$<$ float $>$ vector)
+\begin{DoxyCompactList}\small\item\em Convert std\+::vector to Eigen\+::\+Matrix\+Xf for snappy maths. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{calculate_8h_a25aaa443598ebc1bfa3f99ec2db18f19}{calculate\+\_\+direction\+\_\+vector}} (\mbox{\hyperlink{structLinker}{Linker}} \&current\+Linker, \mbox{\hyperlink{structLinker}{Linker}} \&past\+Linker)
+\begin{DoxyCompactList}\small\item\em Calculate the (normalized!) direction vector of a hand using positions of two adjacent frames. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{calculate_8h_a83fa3823690294901994f7a65f2d3037}{calculate\+\_\+force\+\_\+vector}} (\mbox{\hyperlink{structLinker}{Linker}} \&\mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}})
+\begin{DoxyCompactList}\small\item\em Calculate the (normalized!) vector between the two linker hands and multiply by the force between them to obtain the force vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{calculate_8h_ab0888377afe2cdb9f766b24265369dcf}{calculate\+\_\+velocity\+\_\+vector}} (\mbox{\hyperlink{structSimul}{Simul}} \&\mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}, \mbox{\hyperlink{structLinker}{Linker}} \&\mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}})
+\begin{DoxyCompactList}\small\item\em Calculate the velocity vector of a hand of a linker for a given frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{calculate_8h_abd5f02c8ca835cb34d0ddd037945df73}{calculate\+\_\+linker\+\_\+w\+\_\+dot}} (\mbox{\hyperlink{structLinker}{Linker}} \&\mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{calculate_8h_a25aaa443598ebc1bfa3f99ec2db18f19}\label{calculate_8h_a25aaa443598ebc1bfa3f99ec2db18f19}} 
+\index{calculate.h@{calculate.h}!calculate\_direction\_vector@{calculate\_direction\_vector}}
+\index{calculate\_direction\_vector@{calculate\_direction\_vector}!calculate.h@{calculate.h}}
+\doxysubsubsection{\texorpdfstring{calculate\_direction\_vector()}{calculate\_direction\_vector()}}
+{\footnotesize\ttfamily void calculate\+\_\+direction\+\_\+vector (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLinker}{Linker}} \&}]{current\+Linker,  }\item[{\mbox{\hyperlink{structLinker}{Linker}} \&}]{past\+Linker }\end{DoxyParamCaption})}
+
+
+
+Calculate the (normalized!) direction vector of a hand using positions of two adjacent frames. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Linker} & -\/ reference to \mbox{\hyperlink{structLinker}{Linker}} object \\
+\hline
+{\em past\+Linker} & -\/ reference to \mbox{\hyperlink{structLinker}{Linker}} object \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 169 of file calculate.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{170 \{}
+\DoxyCodeLine{171     currentLinker.\mbox{\hyperlink{structLinker_adc1e1b131ec0bd82758c5eef12bc9137}{handOne}}.\mbox{\hyperlink{structHand_a21207d16bdfa779c61dfe0b454f7f90e}{directionVector}} = (currentLinker.\mbox{\hyperlink{structLinker_adc1e1b131ec0bd82758c5eef12bc9137}{handOne}}.\mbox{\hyperlink{structHand_a612fb0adec3e5e8c5c94fe83402a369f}{positionVector\_eigen}} -\/ pastLinker.\mbox{\hyperlink{structLinker_adc1e1b131ec0bd82758c5eef12bc9137}{handOne}}.\mbox{\hyperlink{structHand_a612fb0adec3e5e8c5c94fe83402a369f}{positionVector\_eigen}}).normalized();}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173     currentLinker.\mbox{\hyperlink{structLinker_aedad3712811916c20bbff236b7f65187}{handTwo}}.\mbox{\hyperlink{structHand_a21207d16bdfa779c61dfe0b454f7f90e}{directionVector}} = (currentLinker.\mbox{\hyperlink{structLinker_aedad3712811916c20bbff236b7f65187}{handTwo}}.\mbox{\hyperlink{structHand_a612fb0adec3e5e8c5c94fe83402a369f}{positionVector\_eigen}} -\/ pastLinker.\mbox{\hyperlink{structLinker_aedad3712811916c20bbff236b7f65187}{handTwo}}.\mbox{\hyperlink{structHand_a612fb0adec3e5e8c5c94fe83402a369f}{positionVector\_eigen}}).normalized() ;}
+\DoxyCodeLine{174 \}}
+
+\end{DoxyCode}
+
+
+References Hand\+::direction\+Vector, Linker\+::hand\+One, Linker\+::hand\+Two, and Hand\+::position\+Vector\+\_\+eigen.
+
+
+
+Referenced by calculate\+\_\+frame().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calculate_8h_a25aaa443598ebc1bfa3f99ec2db18f19_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{calculate_8h_a83fa3823690294901994f7a65f2d3037}\label{calculate_8h_a83fa3823690294901994f7a65f2d3037}} 
+\index{calculate.h@{calculate.h}!calculate\_force\_vector@{calculate\_force\_vector}}
+\index{calculate\_force\_vector@{calculate\_force\_vector}!calculate.h@{calculate.h}}
+\doxysubsubsection{\texorpdfstring{calculate\_force\_vector()}{calculate\_force\_vector()}}
+{\footnotesize\ttfamily void calculate\+\_\+force\+\_\+vector (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLinker}{Linker}} \&}]{linker }\end{DoxyParamCaption})}
+
+
+
+Calculate the (normalized!) vector between the two linker hands and multiply by the force between them to obtain the force vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linker} & -\/ reference to \mbox{\hyperlink{structLinker}{Linker}} object \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 181 of file calculate.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{182 \{}
+\DoxyCodeLine{183     Eigen::VectorXf handOneVec = \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_adc1e1b131ec0bd82758c5eef12bc9137}{handOne}}.\mbox{\hyperlink{structHand_a612fb0adec3e5e8c5c94fe83402a369f}{positionVector\_eigen}} ;}
+\DoxyCodeLine{184     Eigen::VectorXf handTwoVec = \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_aedad3712811916c20bbff236b7f65187}{handTwo}}.\mbox{\hyperlink{structHand_a612fb0adec3e5e8c5c94fe83402a369f}{positionVector\_eigen}} ;}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{186     \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_adc1e1b131ec0bd82758c5eef12bc9137}{handOne}}.\mbox{\hyperlink{structHand_a28a38e9d55dfe33b77a22b8202e64e5c}{forceVector}} = (handTwoVec -\/ handOneVec).normalized()*\mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_aec52d2e2ca4421bc50c9dc92844d40c4}{force}} ;}
+\DoxyCodeLine{187     \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_aedad3712811916c20bbff236b7f65187}{handTwo}}.\mbox{\hyperlink{structHand_a28a38e9d55dfe33b77a22b8202e64e5c}{forceVector}} = (handOneVec -\/ handTwoVec).normalized()*\mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_aec52d2e2ca4421bc50c9dc92844d40c4}{force}} ;}
+\DoxyCodeLine{188 \}}
+
+\end{DoxyCode}
+
+
+References Linker\+::force, Hand\+::force\+Vector, Linker\+::hand\+One, Linker\+::hand\+Two, linker, and Hand\+::position\+Vector\+\_\+eigen.
+
+
+
+Referenced by calculate\+\_\+frame().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calculate_8h_a83fa3823690294901994f7a65f2d3037_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{calculate_8h_af62e05bef6145fc2d70095dd1c0c1ad4}\label{calculate_8h_af62e05bef6145fc2d70095dd1c0c1ad4}} 
+\index{calculate.h@{calculate.h}!calculate\_frame@{calculate\_frame}}
+\index{calculate\_frame@{calculate\_frame}!calculate.h@{calculate.h}}
+\doxysubsubsection{\texorpdfstring{calculate\_frame()}{calculate\_frame()}}
+{\footnotesize\ttfamily void calculate\+\_\+frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structFrame}{Frame}} \&}]{current\+Frame,  }\item[{\mbox{\hyperlink{structFrame}{Frame}} \&}]{previous\+Frame,  }\item[{\mbox{\hyperlink{structSimul}{Simul}} \&}]{simul }\end{DoxyParamCaption})}
+
+
+
+Do calculations on a frame for each eligible$\ast$ linker. 
+
+Eligible linkers are those that are both present in the current frame and in the previous frame. Calculations include\+:
+\begin{DoxyItemize}
+\item Calculate the force vector on each hand for a linker
+\item Calculate the direction vector for each hand
+\item Calculate the velocity vector for each hand
+\item Calculate the w\+Dot contribution from the linker
+\item Add w\+Dot contribution from all linkers in the frame to the w\+Dot value for the trajectory
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Frame} & -\/ reference to \mbox{\hyperlink{structFrame}{Frame}} object \\
+\hline
+{\em previous\+Frame} & -\/ reference to \mbox{\hyperlink{structFrame}{Frame}} object \\
+\hline
+{\em simul} & -\/ reference to \mbox{\hyperlink{structSimul}{Simul}} object, which contains data on simulation parameters \\
+\hline
+\end{DoxyParams}
+Iterate through each linker in the frame
+
+Definition at line 27 of file calculate.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29     \textcolor{comment}{//* Need to have at least one previousFrame to do calculations}}
+\DoxyCodeLine{30     \textcolor{comment}{//* Number of linkers in current and previous frames should be non-\/zero}}
+\DoxyCodeLine{31     \textcolor{keywordflow}{if} (currentFrame.\mbox{\hyperlink{structFrame_a872872cc9add84bfc65c89f5dd02a581}{frameNumber}} > 0 \&\& currentFrame.\mbox{\hyperlink{structFrame_a6f9bed469f7a3bf08a7d1e633993523c}{numLinkers}} > 0 \&\& previousFrame.\mbox{\hyperlink{structFrame_a6f9bed469f7a3bf08a7d1e633993523c}{numLinkers}} > 0)}
+\DoxyCodeLine{32     \{}
+\DoxyCodeLine{33         std::vector <Linker>::iterator linkerPtr = currentFrame.\mbox{\hyperlink{structFrame_aa09ac12a60eb7ae81add775bd75e59f4}{linkerObjects}}.begin(),}
+\DoxyCodeLine{34                                        endPtr = currentFrame.\mbox{\hyperlink{structFrame_aa09ac12a60eb7ae81add775bd75e59f4}{linkerObjects}}.end() ;}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37         currentFrame.\mbox{\hyperlink{structFrame_a628e925dceab63ba7df8cd20a7dd99ec}{wDot}} = 0.0 ;}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39         printf(\textcolor{stringliteral}{"Frame number: \%d\(\backslash\)n"}, currentFrame.\mbox{\hyperlink{structFrame_a872872cc9add84bfc65c89f5dd02a581}{frameNumber}}) ;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{42         \textcolor{keywordflow}{do}}
+\DoxyCodeLine{43         \{}
+\DoxyCodeLine{44             \mbox{\hyperlink{structLinker}{Linker}} currentLinker = *linkerPtr ;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46             \textcolor{keywordtype}{bool} linkerExisted ;}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48             \textcolor{comment}{//* Check if a specific linker was also doubly-\/linked in the previous frame}}
+\DoxyCodeLine{49             \mbox{\hyperlink{structLinker}{Linker}} pastLinker = \mbox{\hyperlink{calculate_8cpp_a7102b43ee7a698dcc9fa17c80aa6ce05}{check\_linker\_past}}(linkerExisted, currentLinker, previousFrame) ;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51             \textcolor{keywordflow}{if} (linkerExisted)}
+\DoxyCodeLine{52             \{}
+\DoxyCodeLine{53                 printf(\textcolor{stringliteral}{"-\/-\/-\/ Linker \%d existed in previous frame, proceed with calculations\(\backslash\)n"},}
+\DoxyCodeLine{54                        currentLinker.\mbox{\hyperlink{structLinker_a59dae15f86711b44bb997b251dd6d787}{linkerIdentity}}) ;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56                 \mbox{\hyperlink{calculate_8cpp_a83fa3823690294901994f7a65f2d3037}{calculate\_force\_vector}}(currentLinker) ;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58                 \textcolor{comment}{// std::cout << "Force vectors:" << std::endl;}}
+\DoxyCodeLine{59                 \textcolor{comment}{// std::cout << currentLinker.handOne.forceVector << std::endl ;}}
+\DoxyCodeLine{60                 \textcolor{comment}{// std::cout << currentLinker.handTwo.forceVector << std::endl ;}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62                 \mbox{\hyperlink{calculate_8cpp_a25aaa443598ebc1bfa3f99ec2db18f19}{calculate\_direction\_vector}}(currentLinker, pastLinker) ;}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64                 \textcolor{comment}{// std::cout << "Direction vectors:" << std::endl ;}}
+\DoxyCodeLine{65                 \textcolor{comment}{// std::cout << currentLinker.handOne.directionVector << std::endl ;}}
+\DoxyCodeLine{66                 \textcolor{comment}{// std::cout << currentLinker.handTwo.directionVector << std::endl ;}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68                 \mbox{\hyperlink{calculate_8cpp_ab0888377afe2cdb9f766b24265369dcf}{calculate\_velocity\_vector}}(\mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}, currentLinker) ;}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70                 \textcolor{comment}{// std::cout << "Velocity vectors:" << std::endl ;}}
+\DoxyCodeLine{71                 \textcolor{comment}{// std::cout << currentLinker.handOne.velocityVector <<std::endl ;}}
+\DoxyCodeLine{72                 \textcolor{comment}{// std::cout << currentLinker.handTwo.velocityVector << std::endl ;}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74                 \mbox{\hyperlink{calculate_8h_abd5f02c8ca835cb34d0ddd037945df73}{calculate\_linker\_w\_dot}}(currentLinker) ;}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76                 \textcolor{comment}{// std::cout << "w dot for linker:" << std::endl ;}}
+\DoxyCodeLine{77                 \textcolor{comment}{// std::cout << currentLinker.wDot << std::endl ;}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79                 \textcolor{comment}{//* Add linker wDot contribution to the running total for wDot for the frame}}
+\DoxyCodeLine{80                 currentFrame.\mbox{\hyperlink{structFrame_a628e925dceab63ba7df8cd20a7dd99ec}{wDot}} += currentLinker.\mbox{\hyperlink{structLinker_aae4a00c13985c48f39bb46cad54fc978}{wDot}} ;}
+\DoxyCodeLine{81             \}}
+\DoxyCodeLine{82             ++linkerPtr ;}
+\DoxyCodeLine{83         \} \textcolor{keywordflow}{while} (linkerPtr != endPtr) ;}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86     \}}
+\DoxyCodeLine{87     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{88         printf(\textcolor{stringliteral}{"Frame number: \%d\(\backslash\)n-\/-\/-\/ No linkers in current and/or previous frame\(\backslash\)n"},}
+\DoxyCodeLine{89                currentFrame.\mbox{\hyperlink{structFrame_a872872cc9add84bfc65c89f5dd02a581}{frameNumber}}) ;}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     \textcolor{keywordtype}{float} dt = currentFrame.\mbox{\hyperlink{structFrame_a3e888c915742aa35f299398eb4b03d4a}{timeStamp}} -\/ previousFrame.\mbox{\hyperlink{structFrame_a3e888c915742aa35f299398eb4b03d4a}{timeStamp}} ;}
+\DoxyCodeLine{92     \textcolor{comment}{// printf("dt is \%f\(\backslash\)n", dt) ;}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     \textcolor{comment}{//* Add frame wDot contribution to the running total for wDot for the trajectory}}
+\DoxyCodeLine{95     \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_ac98ee455caa58e85e4aadff6bd3f33b7}{wDotIntegral}} += currentFrame.\mbox{\hyperlink{structFrame_a628e925dceab63ba7df8cd20a7dd99ec}{wDot}} * dt ;}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97     printf(\textcolor{stringliteral}{"w dot integral for trajectory: \%f\(\backslash\)n"}, \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_ac98ee455caa58e85e4aadff6bd3f33b7}{wDotIntegral}}) ;}
+\DoxyCodeLine{98 \}}
+
+\end{DoxyCode}
+
+
+References calculate\+\_\+direction\+\_\+vector(), calculate\+\_\+force\+\_\+vector(), calculate\+\_\+linker\+\_\+w\+\_\+dot(), calculate\+\_\+velocity\+\_\+vector(), check\+\_\+linker\+\_\+past(), Frame\+::frame\+Number, Linker\+::linker\+Identity, Frame\+::linker\+Objects, Frame\+::num\+Linkers, simul, Frame\+::time\+Stamp, Linker\+::w\+Dot, Frame\+::w\+Dot, and Simul\+::w\+Dot\+Integral.
+
+
+
+Referenced by get\+\_\+output\+\_\+file\+\_\+contents().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{calculate_8h_af62e05bef6145fc2d70095dd1c0c1ad4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calculate_8h_af62e05bef6145fc2d70095dd1c0c1ad4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{calculate_8h_abd5f02c8ca835cb34d0ddd037945df73}\label{calculate_8h_abd5f02c8ca835cb34d0ddd037945df73}} 
+\index{calculate.h@{calculate.h}!calculate\_linker\_w\_dot@{calculate\_linker\_w\_dot}}
+\index{calculate\_linker\_w\_dot@{calculate\_linker\_w\_dot}!calculate.h@{calculate.h}}
+\doxysubsubsection{\texorpdfstring{calculate\_linker\_w\_dot()}{calculate\_linker\_w\_dot()}}
+{\footnotesize\ttfamily void calculate\+\_\+linker\+\_\+w\+\_\+dot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLinker}{Linker}} \&}]{linker }\end{DoxyParamCaption})}
+
+
+
+Referenced by calculate\+\_\+frame().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calculate_8h_abd5f02c8ca835cb34d0ddd037945df73_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{calculate_8h_ab0888377afe2cdb9f766b24265369dcf}\label{calculate_8h_ab0888377afe2cdb9f766b24265369dcf}} 
+\index{calculate.h@{calculate.h}!calculate\_velocity\_vector@{calculate\_velocity\_vector}}
+\index{calculate\_velocity\_vector@{calculate\_velocity\_vector}!calculate.h@{calculate.h}}
+\doxysubsubsection{\texorpdfstring{calculate\_velocity\_vector()}{calculate\_velocity\_vector()}}
+{\footnotesize\ttfamily void calculate\+\_\+velocity\+\_\+vector (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSimul}{Simul}} \&}]{simul,  }\item[{\mbox{\hyperlink{structLinker}{Linker}} \&}]{linker }\end{DoxyParamCaption})}
+
+
+
+Calculate the velocity vector of a hand of a linker for a given frame. 
+
+First, calculate the velocity magnitude\+: \$v = v\+\_\+0 (1 + \textbackslash{}vec\{f\}\textbackslash{}cdot\textbackslash{}vec\{d\}/f\+\_\+0)\$ Then, multiply the direction vector by the calculated magnitude.
+
+
+\begin{DoxyParams}{Parameters}
+{\em simul} & -\/ reference to \mbox{\hyperlink{structSimul}{Simul}} object \\
+\hline
+{\em linker} & -\/ reference to \mbox{\hyperlink{structLinker}{Linker}} object \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 200 of file calculate.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{201 \{}
+\DoxyCodeLine{202     \textcolor{keywordtype}{float} velocityMag ;}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{204     \textcolor{keywordtype}{float} work = \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_adc1e1b131ec0bd82758c5eef12bc9137}{handOne}}.\mbox{\hyperlink{structHand_a28a38e9d55dfe33b77a22b8202e64e5c}{forceVector}}.dot(\mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_adc1e1b131ec0bd82758c5eef12bc9137}{handOne}}.\mbox{\hyperlink{structHand_a21207d16bdfa779c61dfe0b454f7f90e}{directionVector}})}
+\DoxyCodeLine{205                 +\mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_aedad3712811916c20bbff236b7f65187}{handTwo}}.\mbox{\hyperlink{structHand_a28a38e9d55dfe33b77a22b8202e64e5c}{forceVector}}.dot(\mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_aedad3712811916c20bbff236b7f65187}{handTwo}}.\mbox{\hyperlink{structHand_a21207d16bdfa779c61dfe0b454f7f90e}{directionVector}}) ;}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207     velocityMag = \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_af0aaf08e60642ee782e3b06f44ddb990}{unloadedSpeed}} * (1 + work / \mbox{\hyperlink{simul_8cpp_a31953f7dc61623ce4990e3b58c492e00}{simul}}.\mbox{\hyperlink{structSimul_a599f44cad7c3b26a6c2b1fa5ee46bccc}{stallForce}}) ;}
+\DoxyCodeLine{208 }
+\DoxyCodeLine{209     \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_adc1e1b131ec0bd82758c5eef12bc9137}{handOne}}.\mbox{\hyperlink{structHand_a7f40fdb5883ef3724f66799bebc28773}{velocityVector}} = \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_adc1e1b131ec0bd82758c5eef12bc9137}{handOne}}.\mbox{\hyperlink{structHand_a21207d16bdfa779c61dfe0b454f7f90e}{directionVector}}*velocityMag ;}
+\DoxyCodeLine{210     \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_aedad3712811916c20bbff236b7f65187}{handTwo}}.\mbox{\hyperlink{structHand_a7f40fdb5883ef3724f66799bebc28773}{velocityVector}} = \mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_aedad3712811916c20bbff236b7f65187}{handTwo}}.\mbox{\hyperlink{structHand_a21207d16bdfa779c61dfe0b454f7f90e}{directionVector}}*velocityMag ;}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212 \}}
+
+\end{DoxyCode}
+
+
+References Hand\+::direction\+Vector, Hand\+::force\+Vector, Linker\+::hand\+One, Linker\+::hand\+Two, linker, simul, Simul\+::stall\+Force, Simul\+::unloaded\+Speed, and Hand\+::velocity\+Vector.
+
+
+
+Referenced by calculate\+\_\+frame().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calculate_8h_ab0888377afe2cdb9f766b24265369dcf_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{calculate_8h_a7102b43ee7a698dcc9fa17c80aa6ce05}\label{calculate_8h_a7102b43ee7a698dcc9fa17c80aa6ce05}} 
+\index{calculate.h@{calculate.h}!check\_linker\_past@{check\_linker\_past}}
+\index{check\_linker\_past@{check\_linker\_past}!calculate.h@{calculate.h}}
+\doxysubsubsection{\texorpdfstring{check\_linker\_past()}{check\_linker\_past()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structLinker}{Linker}} check\+\_\+linker\+\_\+past (\begin{DoxyParamCaption}\item[{bool \&}]{linker\+Existed,  }\item[{\mbox{\hyperlink{structLinker}{Linker}} \&}]{linker,  }\item[{\mbox{\hyperlink{structFrame}{Frame}} \&}]{previous\+Frame }\end{DoxyParamCaption})}
+
+
+
+Check if a particular linker appears in previous frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linker\+Existed} & -\/ bool confiriming/denying linker existence in previous frame \\
+\hline
+{\em linker} & -\/ reference to \mbox{\hyperlink{structLinker}{Linker}} object \\
+\hline
+{\em previous\+Frame} & -\/ reference to \mbox{\hyperlink{structFrame}{Frame}} object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+old\+Frame\+Linker -\/ \mbox{\hyperlink{structLinker}{Linker}} object, most recent in iterator. This value is not used in calculation code if linker\+Existed is false. 
+\end{DoxyReturn}
+
+
+Definition at line 108 of file calculate.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{109 \{}
+\DoxyCodeLine{110     std::vector <Linker>::iterator linkerPtr = previousFrame.\mbox{\hyperlink{structFrame_aa09ac12a60eb7ae81add775bd75e59f4}{linkerObjects}}.begin(),}
+\DoxyCodeLine{111                                    endPtr = previousFrame.\mbox{\hyperlink{structFrame_aa09ac12a60eb7ae81add775bd75e59f4}{linkerObjects}}.end() ;}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113     \mbox{\hyperlink{structLinker}{Linker}} oldFrameLinker ;}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115     \textcolor{comment}{//* Iterate through the linkers in the previous frame and check for presence of specific linker identity}}
+\DoxyCodeLine{116     \textcolor{keywordflow}{do}}
+\DoxyCodeLine{117     \{}
+\DoxyCodeLine{118         oldFrameLinker = *linkerPtr ;}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120         linkerExisted = (\mbox{\hyperlink{linker_8cpp_abed423f1b7645f9efc8839d180dab70d}{linker}}.\mbox{\hyperlink{structLinker_a59dae15f86711b44bb997b251dd6d787}{linkerIdentity}} == oldFrameLinker.\mbox{\hyperlink{structLinker_a59dae15f86711b44bb997b251dd6d787}{linkerIdentity}}) ;}
+\DoxyCodeLine{121         ++linkerPtr ;}
+\DoxyCodeLine{122     \} \textcolor{keywordflow}{while} (!linkerExisted \&\& linkerPtr != endPtr) ;}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124     \textcolor{keywordflow}{return} oldFrameLinker ;}
+\DoxyCodeLine{125 \}}
+
+\end{DoxyCode}
+
+
+References linker, Linker\+::linker\+Identity, and Frame\+::linker\+Objects.
+
+
+
+Referenced by calculate\+\_\+frame().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calculate_8h_a7102b43ee7a698dcc9fa17c80aa6ce05_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{calculate_8h_a0d42d2d1aed00bc455bc672cb9dbc8c4}\label{calculate_8h_a0d42d2d1aed00bc455bc672cb9dbc8c4}} 
+\index{calculate.h@{calculate.h}!convert\_std\_vec\_to\_eigen\_vec@{convert\_std\_vec\_to\_eigen\_vec}}
+\index{convert\_std\_vec\_to\_eigen\_vec@{convert\_std\_vec\_to\_eigen\_vec}!calculate.h@{calculate.h}}
+\doxysubsubsection{\texorpdfstring{convert\_std\_vec\_to\_eigen\_vec()}{convert\_std\_vec\_to\_eigen\_vec()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xf convert\+\_\+std\+\_\+vec\+\_\+to\+\_\+eigen\+\_\+vec (\begin{DoxyParamCaption}\item[{std\+::vector$<$ float $>$}]{vector }\end{DoxyParamCaption})}
+
+
+
+Convert std\+::vector to Eigen\+::\+Matrix\+Xf for snappy maths. 
+
+Works with 2-\/ or 3-\/dimensional vectors, other dimensions not supported. See \href{http://eigen.tuxfamily.org/}{\texttt{ http\+://eigen.\+tuxfamily.\+org/}} for documentation on the Eigen library.
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector} & -\/ std\+::vector $<$float$>$\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+eigen\+Vec -\/ Eigen\+::\+Matrix\+Xf 
+\end{DoxyReturn}
+
+
+Definition at line 137 of file calculate.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{138 \{}
+\DoxyCodeLine{139     \textcolor{comment}{//* https://stackoverflow.com/questions/11387370/how-\/can-\/i-\/safely-\/convert-\/unsigned-\/long-\/int-\/to-\/int}}
+\DoxyCodeLine{140     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} vecSizeLongInt = vector.size() ;}
+\DoxyCodeLine{141     \textcolor{keyword}{const} \textcolor{keywordtype}{int} vecSizeInt = vecSizeLongInt \& INT\_MAX ; \textcolor{comment}{// needs the <climits> library}}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143     \textcolor{comment}{//* https://stackoverflow.com/questions/17036818/initialise-\/eigenvector-\/with-\/stdvector}}
+\DoxyCodeLine{144     Eigen::VectorXf eigenVec ;}
+\DoxyCodeLine{145 }
+\DoxyCodeLine{146     \textcolor{keywordflow}{if} (vecSizeInt == 2)}
+\DoxyCodeLine{147     \{}
+\DoxyCodeLine{148         Eigen::Map<Eigen::Vector2f> eigenVec(vector.data()) ;}
+\DoxyCodeLine{149         \textcolor{keywordflow}{return} eigenVec  ;}
+\DoxyCodeLine{150     \}}
+\DoxyCodeLine{151     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (vecSizeInt == 3)}
+\DoxyCodeLine{152     \{}
+\DoxyCodeLine{153         Eigen::Map<Eigen::Vector3f> eigenVec(vector.data()) ;}
+\DoxyCodeLine{154         \textcolor{keywordflow}{return} eigenVec  ;}
+\DoxyCodeLine{155     \}}
+\DoxyCodeLine{156     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{157     \{}
+\DoxyCodeLine{158         printf(\textcolor{stringliteral}{"Your dimensions are weird, try either 2D or 3D.\(\backslash\)n"}) ;}
+\DoxyCodeLine{159         Eigen::VectorXf eigenVec ;}
+\DoxyCodeLine{160         \textcolor{keywordflow}{return}  eigenVec ;}
+\DoxyCodeLine{161     \}}
+\DoxyCodeLine{162 \}}
+
+\end{DoxyCode}
+
+
+Referenced by process\+\_\+frame().
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{calculate_8h_a0d42d2d1aed00bc455bc672cb9dbc8c4_icgraph}
+\end{center}
+\end{figure}

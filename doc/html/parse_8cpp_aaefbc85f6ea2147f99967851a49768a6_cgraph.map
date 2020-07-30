@@ -1,0 +1,13 @@
+<map id="get_output_file_contents" name="get_output_file_contents">
+<area shape="rect" id="node1" title="Extract and process data from output file previously created by Cytosim." alt="" coords="5,290,188,317"/>
+<area shape="rect" id="node2" href="$calculate_8cpp.html#af62e05bef6145fc2d70095dd1c0c1ad4" title="Do calculations on a frame for each eligible* linker." alt="" coords="236,151,363,178"/>
+<area shape="rect" id="node8" href="$parse_8cpp.html#a570eeacaa210304c51f11a31fabca337" title="Takes info from Frame object, then creates and populates Linker objects." alt="" coords="240,290,359,317"/>
+<area shape="rect" id="node11" href="$parse_8cpp.html#aef41feb6cf7e05edf4e8f888d6d987dd" title="Takes info from data file and populates Frame object." alt="" coords="248,341,351,367"/>
+<area shape="rect" id="node3" href="$calculate_8cpp.html#a25aaa443598ebc1bfa3f99ec2db18f19" title="Calculate the (normalized!) direction vector of a hand using positions of two adjacent frames." alt="" coords="423,5,569,47"/>
+<area shape="rect" id="node4" href="$calculate_8cpp.html#a83fa3823690294901994f7a65f2d3037" title="Calculate the (normalized!) vector between the two linker hands and multiply by the force between the..." alt="" coords="411,71,581,98"/>
+<area shape="rect" id="node5" href="$calculate_8h.html#abd5f02c8ca835cb34d0ddd037945df73" title=" " alt="" coords="411,122,581,149"/>
+<area shape="rect" id="node6" href="$calculate_8cpp.html#ab0888377afe2cdb9f766b24265369dcf" title="Calculate the velocity vector of a hand of a linker for a given frame." alt="" coords="426,173,566,215"/>
+<area shape="rect" id="node7" href="$calculate_8cpp.html#a7102b43ee7a698dcc9fa17c80aa6ce05" title="Check if a particular linker appears in previous frame." alt="" coords="427,239,565,266"/>
+<area shape="rect" id="node9" href="$parse_8cpp.html#a8ea5737d9075c49b931c9886e892125c" title="Check if simulation output data is 2D or 3D, returns true if 3D." alt="" coords="429,290,563,317"/>
+<area shape="rect" id="node10" href="$calculate_8cpp.html#a0d42d2d1aed00bc455bc672cb9dbc8c4" title="Convert std::vector to Eigen::MatrixXf for snappy maths." alt="" coords="422,341,570,383"/>
+</map>

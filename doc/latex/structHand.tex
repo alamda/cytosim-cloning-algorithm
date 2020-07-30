@@ -1,0 +1,143 @@
+\hypertarget{structHand}{}\doxysection{Hand Struct Reference}
+\label{structHand}\index{Hand@{Hand}}
+
+
+Struct for containing data for a single hand of a linker.  
+
+
+
+
+{\ttfamily \#include $<$hand.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structHand_ac677aec21342e063702d9e1234165812}{fiber\+Identity}}
+\item 
+float \mbox{\hyperlink{structHand_a354f279bb56a43c2002890e05c6eba62}{abscissa}}
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{structHand_a25a7f14ca1edaf6542e11160215b7085}{position\+Vector\+\_\+std}}
+\item 
+Eigen\+::\+Vector\+Xf \mbox{\hyperlink{structHand_a612fb0adec3e5e8c5c94fe83402a369f}{position\+Vector\+\_\+eigen}}
+\item 
+Eigen\+::\+Vector\+Xf \mbox{\hyperlink{structHand_a28a38e9d55dfe33b77a22b8202e64e5c}{force\+Vector}}
+\item 
+Eigen\+::\+Vector\+Xf \mbox{\hyperlink{structHand_a7f40fdb5883ef3724f66799bebc28773}{velocity\+Vector}}
+\item 
+Eigen\+::\+Vector\+Xf \mbox{\hyperlink{structHand_a21207d16bdfa779c61dfe0b454f7f90e}{direction\+Vector}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct for containing data for a single hand of a linker. 
+
+
+
+Definition at line 12 of file hand.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structHand_a354f279bb56a43c2002890e05c6eba62}\label{structHand_a354f279bb56a43c2002890e05c6eba62}} 
+\index{Hand@{Hand}!abscissa@{abscissa}}
+\index{abscissa@{abscissa}!Hand@{Hand}}
+\doxysubsubsection{\texorpdfstring{abscissa}{abscissa}}
+{\footnotesize\ttfamily float Hand\+::abscissa}
+
+
+
+Definition at line 15 of file hand.\+h.
+
+
+
+Referenced by process\+\_\+frame().
+
+\mbox{\Hypertarget{structHand_a21207d16bdfa779c61dfe0b454f7f90e}\label{structHand_a21207d16bdfa779c61dfe0b454f7f90e}} 
+\index{Hand@{Hand}!directionVector@{directionVector}}
+\index{directionVector@{directionVector}!Hand@{Hand}}
+\doxysubsubsection{\texorpdfstring{directionVector}{directionVector}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xf Hand\+::direction\+Vector}
+
+
+
+Definition at line 20 of file hand.\+h.
+
+
+
+Referenced by calculate\+\_\+direction\+\_\+vector(), and calculate\+\_\+velocity\+\_\+vector().
+
+\mbox{\Hypertarget{structHand_ac677aec21342e063702d9e1234165812}\label{structHand_ac677aec21342e063702d9e1234165812}} 
+\index{Hand@{Hand}!fiberIdentity@{fiberIdentity}}
+\index{fiberIdentity@{fiberIdentity}!Hand@{Hand}}
+\doxysubsubsection{\texorpdfstring{fiberIdentity}{fiberIdentity}}
+{\footnotesize\ttfamily int Hand\+::fiber\+Identity}
+
+
+
+Definition at line 14 of file hand.\+h.
+
+
+
+Referenced by process\+\_\+frame().
+
+\mbox{\Hypertarget{structHand_a28a38e9d55dfe33b77a22b8202e64e5c}\label{structHand_a28a38e9d55dfe33b77a22b8202e64e5c}} 
+\index{Hand@{Hand}!forceVector@{forceVector}}
+\index{forceVector@{forceVector}!Hand@{Hand}}
+\doxysubsubsection{\texorpdfstring{forceVector}{forceVector}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xf Hand\+::force\+Vector}
+
+
+
+Definition at line 20 of file hand.\+h.
+
+
+
+Referenced by calculate\+\_\+force\+\_\+vector(), and calculate\+\_\+velocity\+\_\+vector().
+
+\mbox{\Hypertarget{structHand_a612fb0adec3e5e8c5c94fe83402a369f}\label{structHand_a612fb0adec3e5e8c5c94fe83402a369f}} 
+\index{Hand@{Hand}!positionVector\_eigen@{positionVector\_eigen}}
+\index{positionVector\_eigen@{positionVector\_eigen}!Hand@{Hand}}
+\doxysubsubsection{\texorpdfstring{positionVector\_eigen}{positionVector\_eigen}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xf Hand\+::position\+Vector\+\_\+eigen}
+
+
+
+Definition at line 18 of file hand.\+h.
+
+
+
+Referenced by calculate\+\_\+direction\+\_\+vector(), calculate\+\_\+force\+\_\+vector(), and process\+\_\+frame().
+
+\mbox{\Hypertarget{structHand_a25a7f14ca1edaf6542e11160215b7085}\label{structHand_a25a7f14ca1edaf6542e11160215b7085}} 
+\index{Hand@{Hand}!positionVector\_std@{positionVector\_std}}
+\index{positionVector\_std@{positionVector\_std}!Hand@{Hand}}
+\doxysubsubsection{\texorpdfstring{positionVector\_std}{positionVector\_std}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ Hand\+::position\+Vector\+\_\+std}
+
+
+
+Definition at line 16 of file hand.\+h.
+
+
+
+Referenced by process\+\_\+frame().
+
+\mbox{\Hypertarget{structHand_a7f40fdb5883ef3724f66799bebc28773}\label{structHand_a7f40fdb5883ef3724f66799bebc28773}} 
+\index{Hand@{Hand}!velocityVector@{velocityVector}}
+\index{velocityVector@{velocityVector}!Hand@{Hand}}
+\doxysubsubsection{\texorpdfstring{velocityVector}{velocityVector}}
+{\footnotesize\ttfamily Eigen\+::\+Vector\+Xf Hand\+::velocity\+Vector}
+
+
+
+Definition at line 20 of file hand.\+h.
+
+
+
+Referenced by calculate\+\_\+velocity\+\_\+vector().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{hand_8h}{hand.\+h}}\end{DoxyCompactItemize}

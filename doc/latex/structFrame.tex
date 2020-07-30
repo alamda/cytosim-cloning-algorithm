@@ -1,0 +1,241 @@
+\hypertarget{structFrame}{}\doxysection{Frame Struct Reference}
+\label{structFrame}\index{Frame@{Frame}}
+
+
+Struct for containing data for a single frame of the simulation.  
+
+
+
+
+{\ttfamily \#include $<$frame.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structFrame_a872872cc9add84bfc65c89f5dd02a581}{frame\+Number}}
+\item 
+float \mbox{\hyperlink{structFrame_a3e888c915742aa35f299398eb4b03d4a}{time\+Stamp}}
+\item 
+std\+::string \mbox{\hyperlink{structFrame_a43f65db74c0ffd89c7d3d43dd2eeb6ff}{report\+Command}}
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{structFrame_aa634946a4be7e69a7b00ca3d66e2876f}{data\+Categories}}
+\item 
+std\+::vector$<$ std\+::vector$<$ std\+::string $>$ $>$ \mbox{\hyperlink{structFrame_a004d76a676dcdbe542fb708843294533}{data\+Lines}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structLinker}{Linker}} $>$ \mbox{\hyperlink{structFrame_aa09ac12a60eb7ae81add775bd75e59f4}{linker\+Objects}}
+\item 
+int \mbox{\hyperlink{structFrame_a6f9bed469f7a3bf08a7d1e633993523c}{num\+Linkers}}
+\item 
+float \mbox{\hyperlink{structFrame_a628e925dceab63ba7df8cd20a7dd99ec}{w\+Dot}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::string \mbox{\hyperlink{structFrame_ab7e823aa80a2c607fd16b6d49bf41b11}{frame\+Str}} = \char`\"{}frame\char`\"{}
+\item 
+static std\+::string \mbox{\hyperlink{structFrame_a85c88cbfa254712adf36ed3bfa69dccb}{time\+Str}} = \char`\"{}time\char`\"{}
+\item 
+static std\+::string \mbox{\hyperlink{structFrame_a0dbc1cc515705b28ae2bfb4e5d54dfdf}{report\+Str}} = \char`\"{}report\char`\"{}
+\item 
+static std\+::string \mbox{\hyperlink{structFrame_ad1c97a793b2b0a0cfdc89a9c676caf58}{categories\+Str}} = \char`\"{}class\char`\"{}
+\item 
+static std\+::string \mbox{\hyperlink{structFrame_adf336d4d2f6a54bab606d604c8b9f24e}{end\+Str}} = \char`\"{}end\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct for containing data for a single frame of the simulation. 
+
+Definition at line 12 of file frame.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structFrame_ad1c97a793b2b0a0cfdc89a9c676caf58}\label{structFrame_ad1c97a793b2b0a0cfdc89a9c676caf58}} 
+\index{Frame@{Frame}!categoriesStr@{categoriesStr}}
+\index{categoriesStr@{categoriesStr}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{categoriesStr}{categoriesStr}}
+{\footnotesize\ttfamily std\+::string Frame\+::categories\+Str = \char`\"{}class\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 24 of file frame.\+h.
+
+
+
+Referenced by process\+\_\+line().
+
+\mbox{\Hypertarget{structFrame_aa634946a4be7e69a7b00ca3d66e2876f}\label{structFrame_aa634946a4be7e69a7b00ca3d66e2876f}} 
+\index{Frame@{Frame}!dataCategories@{dataCategories}}
+\index{dataCategories@{dataCategories}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{dataCategories}{dataCategories}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ Frame\+::data\+Categories}
+
+
+
+Definition at line 23 of file frame.\+h.
+
+
+
+Referenced by check\+\_\+dimension(), and process\+\_\+line().
+
+\mbox{\Hypertarget{structFrame_a004d76a676dcdbe542fb708843294533}\label{structFrame_a004d76a676dcdbe542fb708843294533}} 
+\index{Frame@{Frame}!dataLines@{dataLines}}
+\index{dataLines@{dataLines}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{dataLines}{dataLines}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector $<$std\+::string$>$ $>$ Frame\+::data\+Lines}
+
+
+
+Definition at line 26 of file frame.\+h.
+
+
+
+Referenced by process\+\_\+frame(), and process\+\_\+line().
+
+\mbox{\Hypertarget{structFrame_adf336d4d2f6a54bab606d604c8b9f24e}\label{structFrame_adf336d4d2f6a54bab606d604c8b9f24e}} 
+\index{Frame@{Frame}!endStr@{endStr}}
+\index{endStr@{endStr}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{endStr}{endStr}}
+{\footnotesize\ttfamily std\+::string Frame\+::end\+Str = \char`\"{}end\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 28 of file frame.\+h.
+
+
+
+Referenced by get\+\_\+output\+\_\+file\+\_\+contents().
+
+\mbox{\Hypertarget{structFrame_a872872cc9add84bfc65c89f5dd02a581}\label{structFrame_a872872cc9add84bfc65c89f5dd02a581}} 
+\index{Frame@{Frame}!frameNumber@{frameNumber}}
+\index{frameNumber@{frameNumber}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{frameNumber}{frameNumber}}
+{\footnotesize\ttfamily int Frame\+::frame\+Number}
+
+
+
+Definition at line 14 of file frame.\+h.
+
+
+
+Referenced by calculate\+\_\+frame(), and process\+\_\+line().
+
+\mbox{\Hypertarget{structFrame_ab7e823aa80a2c607fd16b6d49bf41b11}\label{structFrame_ab7e823aa80a2c607fd16b6d49bf41b11}} 
+\index{Frame@{Frame}!frameStr@{frameStr}}
+\index{frameStr@{frameStr}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{frameStr}{frameStr}}
+{\footnotesize\ttfamily std\+::string Frame\+::frame\+Str = \char`\"{}frame\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 15 of file frame.\+h.
+
+
+
+Referenced by process\+\_\+line().
+
+\mbox{\Hypertarget{structFrame_aa09ac12a60eb7ae81add775bd75e59f4}\label{structFrame_aa09ac12a60eb7ae81add775bd75e59f4}} 
+\index{Frame@{Frame}!linkerObjects@{linkerObjects}}
+\index{linkerObjects@{linkerObjects}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{linkerObjects}{linkerObjects}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structLinker}{Linker}}$>$ Frame\+::linker\+Objects}
+
+
+
+Definition at line 30 of file frame.\+h.
+
+
+
+Referenced by calculate\+\_\+frame(), check\+\_\+linker\+\_\+past(), and process\+\_\+frame().
+
+\mbox{\Hypertarget{structFrame_a6f9bed469f7a3bf08a7d1e633993523c}\label{structFrame_a6f9bed469f7a3bf08a7d1e633993523c}} 
+\index{Frame@{Frame}!numLinkers@{numLinkers}}
+\index{numLinkers@{numLinkers}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{numLinkers}{numLinkers}}
+{\footnotesize\ttfamily int Frame\+::num\+Linkers}
+
+
+
+Definition at line 32 of file frame.\+h.
+
+
+
+Referenced by calculate\+\_\+frame(), and process\+\_\+frame().
+
+\mbox{\Hypertarget{structFrame_a43f65db74c0ffd89c7d3d43dd2eeb6ff}\label{structFrame_a43f65db74c0ffd89c7d3d43dd2eeb6ff}} 
+\index{Frame@{Frame}!reportCommand@{reportCommand}}
+\index{reportCommand@{reportCommand}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{reportCommand}{reportCommand}}
+{\footnotesize\ttfamily std\+::string Frame\+::report\+Command}
+
+
+
+Definition at line 20 of file frame.\+h.
+
+
+
+Referenced by process\+\_\+line().
+
+\mbox{\Hypertarget{structFrame_a0dbc1cc515705b28ae2bfb4e5d54dfdf}\label{structFrame_a0dbc1cc515705b28ae2bfb4e5d54dfdf}} 
+\index{Frame@{Frame}!reportStr@{reportStr}}
+\index{reportStr@{reportStr}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{reportStr}{reportStr}}
+{\footnotesize\ttfamily std\+::string Frame\+::report\+Str = \char`\"{}report\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 21 of file frame.\+h.
+
+
+
+Referenced by process\+\_\+line().
+
+\mbox{\Hypertarget{structFrame_a3e888c915742aa35f299398eb4b03d4a}\label{structFrame_a3e888c915742aa35f299398eb4b03d4a}} 
+\index{Frame@{Frame}!timeStamp@{timeStamp}}
+\index{timeStamp@{timeStamp}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{timeStamp}{timeStamp}}
+{\footnotesize\ttfamily float Frame\+::time\+Stamp}
+
+
+
+Definition at line 17 of file frame.\+h.
+
+
+
+Referenced by calculate\+\_\+frame(), and process\+\_\+line().
+
+\mbox{\Hypertarget{structFrame_a85c88cbfa254712adf36ed3bfa69dccb}\label{structFrame_a85c88cbfa254712adf36ed3bfa69dccb}} 
+\index{Frame@{Frame}!timeStr@{timeStr}}
+\index{timeStr@{timeStr}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{timeStr}{timeStr}}
+{\footnotesize\ttfamily std\+::string Frame\+::time\+Str = \char`\"{}time\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 18 of file frame.\+h.
+
+
+
+Referenced by process\+\_\+line().
+
+\mbox{\Hypertarget{structFrame_a628e925dceab63ba7df8cd20a7dd99ec}\label{structFrame_a628e925dceab63ba7df8cd20a7dd99ec}} 
+\index{Frame@{Frame}!wDot@{wDot}}
+\index{wDot@{wDot}!Frame@{Frame}}
+\doxysubsubsection{\texorpdfstring{wDot}{wDot}}
+{\footnotesize\ttfamily float Frame\+::w\+Dot}
+
+
+
+Definition at line 35 of file frame.\+h.
+
+
+
+Referenced by calculate\+\_\+frame().
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{frame_8h}{frame.\+h}}\item 
+\mbox{\hyperlink{main_8cpp}{main.\+cpp}}\end{DoxyCompactItemize}

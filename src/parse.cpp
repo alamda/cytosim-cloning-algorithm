@@ -114,7 +114,6 @@ bool check_dimension(Frame & frame)
 	@param 	frame 		- 	reference to Frame object
 
 	*/
-// Takes info from Frame object and populates Linker objects
 void process_frame(Frame & frame)
 {
 	bool threeDimData = check_dimension(frame) ;
@@ -190,8 +189,8 @@ void process_frame(Frame & frame)
 	@param	simul			-	reference to Simul object
 
 	Used as reference: https://thispointer.com/c-how-to-read-a-file-line-by-line-into-a-vector/
+
 	*/
-//
 void get_output_file_contents( std::string fileName, Simul & simul )
 {
 	// open file

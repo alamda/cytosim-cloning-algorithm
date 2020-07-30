@@ -1,0 +1,6 @@
+<map id="calculate_force_vector" name="calculate_force_vector">
+<area shape="rect" id="node1" title="Calculate the (normalized!) vector between the two linker hands and multiply by the force between the..." alt="" coords="513,5,683,32"/>
+<area shape="rect" id="node2" href="$calculate_8h.html#af62e05bef6145fc2d70095dd1c0c1ad4" title="Do calculations on a frame for each eligible* linker." alt="" coords="339,5,465,32"/>
+<area shape="rect" id="node3" href="$parse_8h.html#aaefbc85f6ea2147f99967851a49768a6" title="Extract and process data from output file previously created by Cytosim." alt="" coords="108,5,291,32"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="calculate_frame" name="calculate_frame">
+<area shape="rect" id="node1" title="Do calculations on a frame for each eligible* linker." alt="" coords="5,122,132,149"/>
+<area shape="rect" id="node2" href="$calculate_8cpp.html#a25aaa443598ebc1bfa3f99ec2db18f19" title="Calculate the (normalized!) direction vector of a hand using positions of two adjacent frames." alt="" coords="193,5,338,47"/>
+<area shape="rect" id="node3" href="$calculate_8cpp.html#a83fa3823690294901994f7a65f2d3037" title="Calculate the (normalized!) vector between the two linker hands and multiply by the force between the..." alt="" coords="181,71,350,98"/>
+<area shape="rect" id="node4" href="$calculate_8h.html#abd5f02c8ca835cb34d0ddd037945df73" title=" " alt="" coords="180,122,351,149"/>
+<area shape="rect" id="node5" href="$calculate_8cpp.html#ab0888377afe2cdb9f766b24265369dcf" title="Calculate the velocity vector of a hand of a linker for a given frame." alt="" coords="195,173,335,215"/>
+<area shape="rect" id="node6" href="$calculate_8cpp.html#a7102b43ee7a698dcc9fa17c80aa6ce05" title="Check if a particular linker appears in previous frame." alt="" coords="196,239,335,266"/>
+</map>
