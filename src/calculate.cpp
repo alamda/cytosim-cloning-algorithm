@@ -45,7 +45,7 @@ void calculate_frame(Frame & currentFrame, Frame & previousFrame, Simul & simul)
 
 			bool linkerExisted ;
 
-			//* Check if a specific linker was also doubly-linked in the previous frame
+			// Check if a specific linker was also doubly-linked in the previous frame
 			Linker pastLinker = check_linker_past(linkerExisted, currentLinker, previousFrame) ;
 
 			if (linkerExisted)
