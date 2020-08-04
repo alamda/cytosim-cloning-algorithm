@@ -17,8 +17,13 @@ typedef struct Hand
 
 	Eigen::VectorXf positionVector_eigen ;
 
-	Eigen::VectorXf forceVector, velocityVector, directionVector ;
+	std::vector <float> directionVector_std ;
 
-} Hand_t ;
+	Eigen::VectorXf directionVector_eigen ;
+	// Eigen::Vector3f directionVector3D_eigen ;
+
+	Eigen::VectorXf forceVector, velocityVector;
+
+} Hand ;
 
 #endif // HAND_H

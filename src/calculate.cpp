@@ -28,7 +28,7 @@ void calculate_frame(Frame & currentFrame, Frame & previousFrame, Simul & simul)
 {
 	//* Need to have at least one previousFrame to do calculations
 	//* Number of linkers in current and previous frames should be non-zero
-	if (currentFrame.frameNumber > 0 && currentFrame.numLinkers > 0 && previousFrame.numLinkers > 0)
+	if (currentFrame.frameNumber > 0 && currentFrame.numLinkers > 0 )
 	{
 		std::vector <Linker>::iterator linkerPtr = currentFrame.linkerObjects.begin(),
 									   endPtr = currentFrame.linkerObjects.end() ;
@@ -43,41 +43,41 @@ void calculate_frame(Frame & currentFrame, Frame & previousFrame, Simul & simul)
 		{
 			Linker currentLinker = *linkerPtr ;
 
-			bool linkerExisted ;
+			// bool linkerExisted ;
+			//
+			// // Check if a specific linker was also doubly-linked in the previous frame
+			// Linker pastLinker = check_linker_past(linkerExisted, currentLinker, previousFrame) ;
 
-			// Check if a specific linker was also doubly-linked in the previous frame
-			Linker pastLinker = check_linker_past(linkerExisted, currentLinker, previousFrame) ;
-
-			if (linkerExisted)
+			if (true)
 			{
 				printf("--- Linker %d existed in previous frame, proceed with calculations\n",
 					   currentLinker.linkerIdentity) ;
 
-				calculate_force_vector(currentLinker) ;
+				// calculate_force_vector(currentLinker) ;
 
 				// std::cout << "Force vectors:" << std::endl;
 				// std::cout << currentLinker.handOne.forceVector << std::endl ;
 				// std::cout << currentLinker.handTwo.forceVector << std::endl ;
 
-				calculate_direction_vector(currentLinker, pastLinker) ;
+				// calculate_direction_vector(currentLinker, pastLinker) ;
 
 				// std::cout << "Direction vectors:" << std::endl ;
 				// std::cout << currentLinker.handOne.directionVector << std::endl ;
 				// std::cout << currentLinker.handTwo.directionVector << std::endl ;
 
-				calculate_velocity_vector(simul, currentLinker) ;
+				// calculate_velocity_vector(simul, currentLinker) ;
 
 				// std::cout << "Velocity vectors:" << std::endl ;
 				// std::cout << currentLinker.handOne.velocityVector <<std::endl ;
 				// std::cout << currentLinker.handTwo.velocityVector << std::endl ;
 
-				calculate_linker_w_dot(currentLinker) ;
+				// calculate_linker_w_dot(currentLinker) ;
 
 				// std::cout << "w dot for linker:" << std::endl ;
 				// std::cout << currentLinker.wDot << std::endl ;
 
 				//* Add linker wDot contribution to the running total for wDot for the frame
-				currentFrame.wDot += currentLinker.wDot ;
+				// currentFrame.wDot += currentLinker.wDot ;
 			}
 			++linkerPtr ;
 		} while (linkerPtr != endPtr) ;
@@ -88,13 +88,13 @@ void calculate_frame(Frame & currentFrame, Frame & previousFrame, Simul & simul)
 		printf("Frame number: %d\n--- No linkers in current and/or previous frame\n",
 			   currentFrame.frameNumber) ;
 
-	float dt = currentFrame.timeStamp - previousFrame.timeStamp ;
+	// float dt = currentFrame.timeStamp - previousFrame.timeStamp ;
 	// printf("dt is %f\n", dt) ;
 
 	//* Add frame wDot contribution to the running total for wDot for the trajectory
-	simul.wDotIntegral += currentFrame.wDot * dt ;
+	// simul.wDotIntegral += currentFrame.wDot * dt ;
 
-	printf("w dot integral for trajectory: %f\n", simul.wDotIntegral) ;
+	// printf("w dot integral for trajectory: %f\n", simul.wDotIntegral) ;
 }
 
 /**	@brief	Check if a particular linker appears in previous frame.
@@ -161,17 +161,17 @@ Eigen::VectorXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 	}
 }
 
-/**	@brief	Calculate the (normalized!) direction vector of a hand using positions of two adjacent frames
-
-	@param	currentLinker		-	reference to Linker object
-	@param	pastLinker			-	reference to Linker object
-	*/
-void calculate_direction_vector(Linker & currentLinker, Linker & pastLinker)
-{
-	currentLinker.handOne.directionVector = (currentLinker.handOne.positionVector_eigen - pastLinker.handOne.positionVector_eigen).normalized();
-
-	currentLinker.handTwo.directionVector = (currentLinker.handTwo.positionVector_eigen - pastLinker.handTwo.positionVector_eigen).normalized() ;
-}
+// /**	@brief	Calculate the (normalized!) direction vector of a hand using positions of two adjacent frames
+//
+// 	@param	currentLinker		-	reference to Linker object
+// 	@param	pastLinker			-	reference to Linker object
+// 	*/
+// void calculate_direction_vector(Linker & currentLinker, Linker & pastLinker)
+// {
+// 	currentLinker.handOne.directionVector = (currentLinker.handOne.positionVector_eigen - pastLinker.handOne.positionVector_eigen).normalized();
+//
+// 	currentLinker.handTwo.directionVector = (currentLinker.handTwo.positionVector_eigen - pastLinker.handTwo.positionVector_eigen).normalized() ;
+// }
 
 /**	@brief	Calculate the (normalized!) vector between the two linker hands and
 			multiply by the force between them to obtain the force vector.
@@ -201,13 +201,13 @@ void calculate_velocity_vector(Simul & simul, Linker & linker)
 {
 	float velocityMag ;
 
-	float work = linker.handOne.forceVector.dot(linker.handOne.directionVector)
-				+linker.handTwo.forceVector.dot(linker.handTwo.directionVector) ;
+	float work = linker.handOne.forceVector.dot(linker.handOne.directionVector_eigen)
+				+linker.handTwo.forceVector.dot(linker.handTwo.directionVector_eigen) ;
 
 	velocityMag = simul.unloadedSpeed * (1 + work / simul.stallForce) ;
 
-	linker.handOne.velocityVector = linker.handOne.directionVector*velocityMag ;
-	linker.handTwo.velocityVector = linker.handTwo.directionVector*velocityMag ;
+	linker.handOne.velocityVector = linker.handOne.directionVector_eigen*velocityMag ;
+	linker.handTwo.velocityVector = linker.handTwo.directionVector_eigen*velocityMag ;
 
 }
 

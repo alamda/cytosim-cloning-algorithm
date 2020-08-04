@@ -1,5 +1,7 @@
 #include "calculate.h"
 #include "frame.h"
+#include "linker.h"
+#include "hand.h"
 #include "parse.h"
 #include "simul.h"
 
@@ -136,19 +138,48 @@ void process_frame(Frame & frame)
 				linker.handOne.positionVector_std.push_back( std::stof( line.at(5) ) ) ;
 				linker.handOne.positionVector_std.push_back( std::stof( line.at(6) ) ) ;
 
-				linker.handOne.positionVector_eigen = convert_std_vec_to_eigen_vec(linker.handOne.positionVector_std) ;
+				linker.handOne.positionVector_eigen  = convert_std_vec_to_eigen_vec(linker.handOne.positionVector_std) ;
 
-				linker.handTwo.fiberIdentity = std::stoi(line.at(7)) ;
-				linker.handTwo.abscissa  = std::stof(line.at(8)) ;
+				// printf("%f %f %f\n", std::stof( line.at(7) ), std::stof( line.at(8) ), std::stof( line.at(9) )) ;
 
-				linker.handTwo.positionVector_std.push_back( std::stof( line.at(9) ) ) ;
-				linker.handTwo.positionVector_std.push_back( std::stof( line.at(10) ) ) ;
-				linker.handTwo.positionVector_std.push_back( std::stof( line.at(11) ) ) ;
+				// printf("simul is POD: %d\n", std::is_pod<Simul>::value);
+				// printf("frame is POD: %d\n", std::is_pod<Frame>::value);
+				// printf("linker is POD: %d\n", std::is_pod<Linker>::value);
+				// printf("hand is POD: %d\n\n", std::is_pod<Hand>::value);
+				//
+				// printf("simul is trivial: %d\n", std::is_trivial<Simul>::value);
+				// printf("frame is trivial: %d\n", std::is_trivial<Frame>::value);
+				// printf("linker is trivial: %d\n", std::is_trivial<Linker>::value);
+				// printf("hand is trivial: %d\n\n", std::is_trivial<Hand>::value);
+				//
+				// printf("simul is standard layout: %d\n", std::is_standard_layout<Simul>::value);
+				// printf("frame is standard layout: %d\n", std::is_standard_layout<Frame>::value);
+				// printf("linker is standard layout: %d\n", std::is_standard_layout<Linker>::value);
+				// printf("hand is standard layout: %d\n\n", std::is_standard_layout<Hand>::value);
+
+				linker.handOne.directionVector_std.push_back( std::stof( line.at(7) ) ) ;
+				linker.handOne.directionVector_std.push_back( std::stof( line.at(8) ) ) ;
+				linker.handOne.directionVector_std.push_back( std::stof( line.at(9) ) ) ;
+
+				linker.handOne.directionVector_eigen = convert_std_vec_to_eigen_vec(linker.handOne.directionVector_std).normalized() ;
+
+				linker.handTwo.fiberIdentity = std::stoi(line.at(10)) ;
+				linker.handTwo.abscissa  = std::stof(line.at(11)) ;
+
+				linker.handTwo.positionVector_std.push_back( std::stof( line.at(12) ) ) ;
+				linker.handTwo.positionVector_std.push_back( std::stof( line.at(13) ) ) ;
+				linker.handTwo.positionVector_std.push_back( std::stof( line.at(14) ) ) ;
 
 				linker.handTwo.positionVector_eigen = convert_std_vec_to_eigen_vec(linker.handTwo.positionVector_std) ;
 
-				linker.force = std::stof( line.at(12) ) ;
-				linker.cosAngle = std::stof( line.at(13) ) ;
+				linker.handTwo.directionVector_std.push_back( std::stof( line.at(15) ) ) ;
+				linker.handTwo.directionVector_std.push_back( std::stof( line.at(16) ) ) ;
+				linker.handTwo.directionVector_std.push_back( std::stof( line.at(17) ) ) ;
+
+				linker.handTwo.directionVector_eigen = convert_std_vec_to_eigen_vec(linker.handTwo.directionVector_std).normalized() ;
+
+				linker.force = std::stof( line.at(18) ) ;
+				linker.cosAngle = std::stof( line.at(19) ) ;
 			}
 			else
 			{
@@ -157,16 +188,26 @@ void process_frame(Frame & frame)
 
 				linker.handOne.positionVector_eigen = convert_std_vec_to_eigen_vec(linker.handOne.positionVector_std) ;
 
-				linker.handTwo.fiberIdentity = std::stoi(line.at(6)) ;
-				linker.handTwo.abscissa  = std::stof(line.at(7)) ;
+				linker.handOne.directionVector_std.push_back( std::stof( line.at(6) ) ) ;
+				linker.handOne.directionVector_std.push_back( std::stof( line.at(7) ) ) ;
 
-				linker.handTwo.positionVector_std.push_back( std::stof( line.at(8) ) ) ;
-				linker.handTwo.positionVector_std.push_back( std::stof( line.at(9) ) ) ;
+				linker.handOne.directionVector_eigen = convert_std_vec_to_eigen_vec(linker.handOne.directionVector_std).normalized() ;
+
+				linker.handTwo.fiberIdentity = std::stoi(line.at(8)) ;
+				linker.handTwo.abscissa  = std::stof(line.at(9)) ;
+
+				linker.handTwo.positionVector_std.push_back( std::stof( line.at(10) ) ) ;
+				linker.handTwo.positionVector_std.push_back( std::stof( line.at(11) ) ) ;
 
 				linker.handTwo.positionVector_eigen = convert_std_vec_to_eigen_vec(linker.handTwo.positionVector_std) ;
 
-				linker.force = std::stof( line.at(10) ) ;
-				linker.cosAngle = std::stof( line.at(11) ) ;
+				linker.handTwo.directionVector_std.push_back( std::stof( line.at(12) ) ) ;
+				linker.handTwo.directionVector_std.push_back( std::stof( line.at(13) ) ) ;
+
+				linker.handTwo.directionVector_eigen = convert_std_vec_to_eigen_vec(linker.handTwo.directionVector_std).normalized() ;
+
+				linker.force = std::stof( line.at(14) ) ;
+				linker.cosAngle = std::stof( line.at(15) ) ;
 			}
 
 			frame.linkerObjects.push_back(linker) ;
@@ -177,7 +218,6 @@ void process_frame(Frame & frame)
 		}
 		else
 			frame.numLinkers = 0 ;
-
 
 	}
 
@@ -229,7 +269,7 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 
 				frameIdx++ ;
 
-				calculate_frame(currentFrame, previousFrame, simul) ;
+				// calculate_frame(currentFrame, previousFrame, simul) ;
 
 				// Move current frame object to previousFrame
 				previousFrame = currentFrame ;

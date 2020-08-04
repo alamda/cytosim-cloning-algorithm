@@ -33,6 +33,6 @@ typedef struct Frame
 
 	// Values that are calculated
 	float wDot ;
-} Frame_t ;
+} Frame ;
 
 #endif // FRAME_H
