@@ -1,5 +1,9 @@
 # ignore everything in this directory
 ./*
+./html/*
+./latex/*
+./html
+./latex
 
 # ... except:
 !Doxyfile

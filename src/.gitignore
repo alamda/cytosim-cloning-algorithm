@@ -1,5 +1,7 @@
 # ignore objects and archives:
 *.[oa]
 
-# ignore the binary executable
-main
+# ignore the binary executables
+calculate
+launch
+control
