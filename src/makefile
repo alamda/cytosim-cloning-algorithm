@@ -5,13 +5,27 @@
 
 CXX = g++
 CXXFLAGS = -Wall -g -I.
-DEPS = calculate.h frame.h hand.h linker.h parse.h simul.h
+DEPS_CALC = calculator.h frame.h hand.h linker.h parser.h simul.h
 
 # ****************************************************
 # Targets needed to bring the executable up to date
 
-%.o : %.cpp $(DEPS)
+all: calculate launch control
+
+%.o : %.cpp $(DEPS_CALC)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
-main: main.o calculate.o parse.o
-	$(CXX) $(CXXFLAGS) -o main main.o calculate.o parse.o
+calculate: calculate_main.o calculator.o parser.o
+	$(CXX) $(CXXFLAGS) -o calculate calculate_main.o calculator.o parser.o
+
+launch.o: launch.cpp launch.h
+	$(CXX) -c -o $@ $< $(CXXFLAGS)
+
+launch: launch.o
+	$(CXX) $(CXXFLAGS) -o launch launch.o
+
+control_population.o: control_population.cpp control_population.h
+	$(CXX) -c -o $@ $< $(CXXFLAGS)
+
+control: control_population.o
+	$(CXX) $(CXXFLAGS) -o control control_population.o

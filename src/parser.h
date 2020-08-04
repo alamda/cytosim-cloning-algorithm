@@ -12,7 +12,7 @@ bool check_dimension(Frame & frame) ;
 
 void process_frame(Frame & frame) ;
 
-void get_output_file_contents( std::string fileName, Simul & simul ) ;
+void get_output_file_contents( Simul & simul, std::string dataFileName, std::string wDotsFileName, std::string wDotIntegralFileName ) ;
 
 
 #endif // PARSE_H

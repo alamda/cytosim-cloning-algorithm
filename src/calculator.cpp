@@ -1,4 +1,4 @@
-#include "calculate.h"
+#include "calculator.h"
 #include "frame.h"
 #include "linker.h"
 #include "simul.h"
@@ -34,7 +34,7 @@ void calculate_frame(Frame & frame, Simul & simul)
 
 		frame.wDot = 0.0 ;
 
-		printf("Frame number: %d\n", frame.frameNumber) ;
+		// printf("Frame number: %d\n", frame.frameNumber) ;
 
 		// Iterate through each linker in the frame
 		do
@@ -65,49 +65,17 @@ void calculate_frame(Frame & frame, Simul & simul)
 			frame.wDot += currentLinker.wDot ;
 
 			++linkerPtr ;
+
 		} while (linkerPtr != endPtr) ;
-
-
 	}
-	else
-		printf("Frame number: %d\n--- No linkers in current and/or previous frame\n",
-			   frame.frameNumber) ;
+	// else
+	// 	printf("Frame number: %d\n--- No linkers in current and/or previous frame\n",
+	// 		   frame.frameNumber) ;
 
-
-	printf("wDot for frame is %f\n", frame.wDot) ;
-	// printf("dt is %f\n", frame.dt) ;
+	// printf("wDot for frame is %f\n", frame.wDot) ;
 
 	//* Add frame wDot contribution to the running total for wDot for the trajectory
 	simul.wDotIntegral += frame.wDot * frame.dt ;
-
-
-}
-
-/**	@brief	Check if a particular linker appears in previous frame.
-
-	@param	linkerExisted	-	bool confiriming/denying linker existence in previous frame
-	@param 	linker			-	reference to Linker object
-	@param	previousFrame	-	reference to Frame object
-
-	@return oldFrameLinker	-	Linker object, most recent in iterator. This value is not used in calculation code if linkerExisted is false.
-	*/
-Linker check_linker_past(bool & linkerExisted, Linker & linker, Frame & previousFrame)
-{
-	std::vector <Linker>::iterator linkerPtr = previousFrame.linkerObjects.begin(),
-								   endPtr = previousFrame.linkerObjects.end() ;
-
-	Linker oldFrameLinker ;
-
-	//* Iterate through the linkers in the previous frame and check for presence of specific linker identity
-	do
-	{
-		oldFrameLinker = *linkerPtr ;
-
-		linkerExisted = (linker.linkerIdentity == oldFrameLinker.linkerIdentity) ;
-		++linkerPtr ;
-	} while (!linkerExisted && linkerPtr != endPtr) ;
-
-	return oldFrameLinker ;
 }
 
 /**	@brief	Convert std::vector to Eigen::MatrixXf for snappy maths.
@@ -146,18 +114,6 @@ Eigen::VectorXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 		return  eigenVec ;
 	}
 }
-
-// /**	@brief	Calculate the (normalized!) direction vector of a hand using positions of two adjacent frames
-//
-// 	@param	currentLinker		-	reference to Linker object
-// 	@param	pastLinker			-	reference to Linker object
-// 	*/
-// void calculate_direction_vector(Linker & currentLinker, Linker & pastLinker)
-// {
-// 	currentLinker.handOne.directionVector = (currentLinker.handOne.positionVector_eigen - pastLinker.handOne.positionVector_eigen).normalized();
-//
-// 	currentLinker.handTwo.directionVector = (currentLinker.handTwo.positionVector_eigen - pastLinker.handTwo.positionVector_eigen).normalized() ;
-// }
 
 /**	@brief	Calculate the (normalized!) vector between the two linker hands and
 			multiply by the force between them to obtain the force vector.

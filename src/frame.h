@@ -32,7 +32,7 @@ typedef struct Frame
 	int numLinkers ;
 
 	// Values that are calculated
-	float wDot ;
+	float wDot = 0.0;
 	float dt ;
 } Frame ;
 

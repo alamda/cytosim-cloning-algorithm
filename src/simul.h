@@ -10,7 +10,7 @@ typedef struct Simul
 {
 	float unloadedSpeed, stallForce ;
 
-	float wDotIntegral;
+	float wDotIntegral = 0;
 
 } Simul ;
 

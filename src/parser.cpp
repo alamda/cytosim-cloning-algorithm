@@ -1,12 +1,13 @@
-#include "calculate.h"
+#include "calculator.h"
 #include "frame.h"
 #include "linker.h"
 #include "hand.h"
-#include "parse.h"
+#include "parser.h"
 #include "simul.h"
 
 #include <cstdio>
 #include <fstream>
+#include <iostream>
 #include <regex>
 #include <string>
 #include <vector>
@@ -210,10 +211,12 @@ void process_frame(Frame & frame)
 	Used as reference: https://thispointer.com/c-how-to-read-a-file-line-by-line-into-a-vector/
 
 	*/
-void get_output_file_contents( std::string fileName, Simul & simul )
+void get_output_file_contents( Simul & simul, std::string dataFileName, std::string wDotsFileName, std::string wDotIntegralFileName  )
 {
 	// open file
-	std::ifstream dataFile(fileName.c_str());
+	std::ifstream dataFile(dataFileName.c_str());
+	std::ofstream wDotsFile(wDotsFileName.c_str()) ;
+	std::ofstream wDotIntegralFile(wDotIntegralFileName.c_str()) ;
 
 	while (dataFile)
 	{
@@ -221,7 +224,6 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 		std::string line ;
 		int frameIdx = 0;
 
-		// static const Frame emptyFrame;
 		Frame currentFrame;
 		Frame previousFrame ;
 
@@ -252,6 +254,11 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 
 				calculate_frame(currentFrame, simul) ;
 
+				wDotsFile << currentFrame.timeStamp ;
+				wDotsFile << "\t" ;
+				wDotsFile << currentFrame.wDot ;
+				wDotsFile << "\n" ;
+
 				// Store currentFrame object in the previousFrame object
 				previousFrame = currentFrame ;
 
@@ -259,12 +266,15 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 				currentFrame = Frame() ;
 			}
 		}
-	printf("Total number of frames: %d\n", frameIdx);
-	printf("w dot integral for trajectory: %f\n", simul.wDotIntegral) ;
+	// printf("Total number of frames: %d\n", frameIdx);
+	// printf("w dot integral for trajectory: %f\n", simul.wDotIntegral) ;
+	wDotIntegralFile << simul.wDotIntegral ;
 	}
 
 	//Close The File
 	dataFile.close();
+	wDotsFile.close()  ;
+	wDotIntegralFile.close() ;
 }
 
 /**	@brief 	Obtain simulation parameters from *.cym Cytosim config file
@@ -306,10 +316,10 @@ void get_simulation_params(Simul & simul, std::string fileName)
 			}
 		}
 
-		printf( "unloaded_speed: %f\n",simul.unloadedSpeed ) ;
-		printf( "stall_force: %f\n", simul.stallForce ) ;
-
-		printf("\n") ;
+		// printf( "unloaded_speed: %f\n",simul.unloadedSpeed ) ;
+		// printf( "stall_force: %f\n", simul.stallForce ) ;
+		//
+		// printf("\n") ;
 	}
 	configFile.close() ;
 }
