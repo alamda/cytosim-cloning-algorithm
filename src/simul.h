@@ -12,7 +12,7 @@ typedef struct Simul
 
 	float wDotIntegral;
 
-} Simul_t ;
+} Simul ;
 
 void get_simulation_params(Simul & simul, std::string fileName) ;
 

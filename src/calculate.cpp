@@ -19,66 +19,51 @@
 	- Calculate the wDot contribution from the linker
 	- Add wDot contribution from all linkers in the frame to the wDot value for the trajectory
 
-	@param 	currentFrame		-	reference to Frame object
-	@param	previousFrame		-	reference to Frame object
+	@param 	frame		-	reference to Frame object
 	@param	simul				- 	reference to Simul object, which contains data on simulation parameters
 
 	*/
-void calculate_frame(Frame & currentFrame, Frame & previousFrame, Simul & simul)
+void calculate_frame(Frame & frame, Simul & simul)
 {
-	//* Need to have at least one previousFrame to do calculations
-	//* Number of linkers in current and previous frames should be non-zero
-	if (currentFrame.frameNumber > 0 && currentFrame.numLinkers > 0 )
+	//* Number of linkers in current frame should be non-zero
+	if (frame.numLinkers > 0 )
 	{
-		std::vector <Linker>::iterator linkerPtr = currentFrame.linkerObjects.begin(),
-									   endPtr = currentFrame.linkerObjects.end() ;
+		std::vector <Linker>::iterator linkerPtr = frame.linkerObjects.begin(),
+									   endPtr = frame.linkerObjects.end() ;
 
 
-		currentFrame.wDot = 0.0 ;
+		frame.wDot = 0.0 ;
 
-		printf("Frame number: %d\n", currentFrame.frameNumber) ;
+		printf("Frame number: %d\n", frame.frameNumber) ;
 
 		// Iterate through each linker in the frame
 		do
 		{
 			Linker currentLinker = *linkerPtr ;
 
-			// bool linkerExisted ;
-			//
-			// // Check if a specific linker was also doubly-linked in the previous frame
-			// Linker pastLinker = check_linker_past(linkerExisted, currentLinker, previousFrame) ;
+			calculate_force_vector(currentLinker) ;
 
-			if (true)
-			{
-				printf("--- Linker %d existed in previous frame, proceed with calculations\n",
-					   currentLinker.linkerIdentity) ;
+			// std::cout << "Force vectors:" << std::endl;
+			// std::cout << currentLinker.handOne.forceVector << std::endl ;
+			// std::cout << currentLinker.handTwo.forceVector << std::endl ;
 
-				// calculate_force_vector(currentLinker) ;
+			// std::cout << "Direction vectors:" << std::endl ;
+			// std::cout << currentLinker.handOne.directionVector << std::endl ;
+			// std::cout << currentLinker.handTwo.directionVector << std::endl ;
 
-				// std::cout << "Force vectors:" << std::endl;
-				// std::cout << currentLinker.handOne.forceVector << std::endl ;
-				// std::cout << currentLinker.handTwo.forceVector << std::endl ;
+			calculate_velocity_vector(simul, currentLinker) ;
 
-				// calculate_direction_vector(currentLinker, pastLinker) ;
+			// std::cout << "Velocity vectors:" << std::endl ;
+			// std::cout << currentLinker.handOne.velocityVector <<std::endl ;
+			// std::cout << currentLinker.handTwo.velocityVector << std::endl ;
 
-				// std::cout << "Direction vectors:" << std::endl ;
-				// std::cout << currentLinker.handOne.directionVector << std::endl ;
-				// std::cout << currentLinker.handTwo.directionVector << std::endl ;
+			calculate_linker_w_dot(currentLinker) ;
 
-				// calculate_velocity_vector(simul, currentLinker) ;
+			// std::cout << "w dot for linker: " << currentLinker.wDot<<std::endl ;
 
-				// std::cout << "Velocity vectors:" << std::endl ;
-				// std::cout << currentLinker.handOne.velocityVector <<std::endl ;
-				// std::cout << currentLinker.handTwo.velocityVector << std::endl ;
+			//* Add linker wDot contribution to the running total for wDot for the frame
+			frame.wDot += currentLinker.wDot ;
 
-				// calculate_linker_w_dot(currentLinker) ;
-
-				// std::cout << "w dot for linker:" << std::endl ;
-				// std::cout << currentLinker.wDot << std::endl ;
-
-				//* Add linker wDot contribution to the running total for wDot for the frame
-				// currentFrame.wDot += currentLinker.wDot ;
-			}
 			++linkerPtr ;
 		} while (linkerPtr != endPtr) ;
 
@@ -86,15 +71,16 @@ void calculate_frame(Frame & currentFrame, Frame & previousFrame, Simul & simul)
 	}
 	else
 		printf("Frame number: %d\n--- No linkers in current and/or previous frame\n",
-			   currentFrame.frameNumber) ;
+			   frame.frameNumber) ;
 
-	// float dt = currentFrame.timeStamp - previousFrame.timeStamp ;
-	// printf("dt is %f\n", dt) ;
+
+	printf("wDot for frame is %f\n", frame.wDot) ;
+	// printf("dt is %f\n", frame.dt) ;
 
 	//* Add frame wDot contribution to the running total for wDot for the trajectory
-	// simul.wDotIntegral += currentFrame.wDot * dt ;
+	simul.wDotIntegral += frame.wDot * frame.dt ;
 
-	// printf("w dot integral for trajectory: %f\n", simul.wDotIntegral) ;
+
 }
 
 /**	@brief	Check if a particular linker appears in previous frame.

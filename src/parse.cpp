@@ -140,23 +140,6 @@ void process_frame(Frame & frame)
 
 				linker.handOne.positionVector_eigen  = convert_std_vec_to_eigen_vec(linker.handOne.positionVector_std) ;
 
-				// printf("%f %f %f\n", std::stof( line.at(7) ), std::stof( line.at(8) ), std::stof( line.at(9) )) ;
-
-				// printf("simul is POD: %d\n", std::is_pod<Simul>::value);
-				// printf("frame is POD: %d\n", std::is_pod<Frame>::value);
-				// printf("linker is POD: %d\n", std::is_pod<Linker>::value);
-				// printf("hand is POD: %d\n\n", std::is_pod<Hand>::value);
-				//
-				// printf("simul is trivial: %d\n", std::is_trivial<Simul>::value);
-				// printf("frame is trivial: %d\n", std::is_trivial<Frame>::value);
-				// printf("linker is trivial: %d\n", std::is_trivial<Linker>::value);
-				// printf("hand is trivial: %d\n\n", std::is_trivial<Hand>::value);
-				//
-				// printf("simul is standard layout: %d\n", std::is_standard_layout<Simul>::value);
-				// printf("frame is standard layout: %d\n", std::is_standard_layout<Frame>::value);
-				// printf("linker is standard layout: %d\n", std::is_standard_layout<Linker>::value);
-				// printf("hand is standard layout: %d\n\n", std::is_standard_layout<Hand>::value);
-
 				linker.handOne.directionVector_std.push_back( std::stof( line.at(7) ) ) ;
 				linker.handOne.directionVector_std.push_back( std::stof( line.at(8) ) ) ;
 				linker.handOne.directionVector_std.push_back( std::stof( line.at(9) ) ) ;
@@ -213,14 +196,10 @@ void process_frame(Frame & frame)
 			frame.linkerObjects.push_back(linker) ;
 
 			frame.numLinkers = frame.linkerObjects.size() ;
-
-
 		}
 		else
 			frame.numLinkers = 0 ;
-
 	}
-
 }
 
 /**	@brief 	Extract and process data from output file previously created by Cytosim
@@ -246,7 +225,7 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 		Frame currentFrame;
 		Frame previousFrame ;
 
-		// simul.wDotIntegral = 0.0 ;
+		simul.wDotIntegral = 0.0 ;
 
 		// Read line by line and sort into frames
 		// line is a c string
@@ -265,13 +244,15 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 			}
 			else // If line DOES match endString
 			{
+				currentFrame.dt = currentFrame.timeStamp - previousFrame.timeStamp ;
+
 				process_frame(currentFrame) ;
 
 				frameIdx++ ;
 
-				// calculate_frame(currentFrame, previousFrame, simul) ;
+				calculate_frame(currentFrame, simul) ;
 
-				// Move current frame object to previousFrame
+				// Store currentFrame object in the previousFrame object
 				previousFrame = currentFrame ;
 
 				// Create new frame object
@@ -279,7 +260,9 @@ void get_output_file_contents( std::string fileName, Simul & simul )
 			}
 		}
 	printf("Total number of frames: %d\n", frameIdx);
+	printf("w dot integral for trajectory: %f\n", simul.wDotIntegral) ;
 	}
+
 	//Close The File
 	dataFile.close();
 }

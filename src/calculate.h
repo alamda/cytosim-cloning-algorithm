@@ -9,7 +9,7 @@
 
 #include "Eigen/Dense"
 
-void calculate_frame(Frame & currentFrame, Frame & previousFrame, Simul & simul) ;
+void calculate_frame(Frame & frame, Simul & simul) ;
 
 Linker check_linker_past(bool & linkerExisted, Linker & linker, Frame & previousFrame) ;
 
