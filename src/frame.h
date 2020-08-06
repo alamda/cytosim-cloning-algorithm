@@ -9,23 +9,23 @@
 /**	@brief Struct for containing data for a single frame of the simulation.
 	*/
 
-typedef struct Frame
+typedef struct Frame_s
 {
 	int frameNumber ;
-	static std::string frameStr ;
+	const static std::string frameStr ;
 
 	float timeStamp ;
-	static std::string timeStr ;
+	const static std::string timeStr ;
 
 	std::string reportCommand ;
-	static std::string reportStr ;
+	const static std::string reportStr ;
 
 	std::vector <std::string> dataCategories ;
-	static std::string categoriesStr ;
+	const static std::string categoriesStr ;
 
 	std::vector <std::vector <std::string> > dataLines;
 
-	static std::string endStr ;
+	const static std::string endStr ;
 
 	std::vector <Linker> linkerObjects ;
 

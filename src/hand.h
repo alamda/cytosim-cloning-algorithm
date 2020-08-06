@@ -9,7 +9,7 @@
 
 	*/
 
-typedef struct Hand
+typedef struct Hand_s
 {
 	int fiberIdentity ;
 	float abscissa ;

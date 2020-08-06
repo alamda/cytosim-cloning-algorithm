@@ -52,7 +52,7 @@ void launch_simulations(int & N_clones) // seems to be done?
 	}
 }
 
-bool checkForFiles()
+bool check_for_files()
 {
 // write function to check that the appropriate files are present
 

@@ -5,11 +5,7 @@
 
 #include <string>
 
-std::string Frame::frameStr = "frame";
-std::string Frame::timeStr = "time";
-std::string Frame::reportStr = "report";
-std::string Frame::categoriesStr = "class";
-std::string Frame::endStr = "end";
+
 
 int main()
 {

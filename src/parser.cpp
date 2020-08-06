@@ -255,7 +255,7 @@ void get_output_file_contents( Simul & simul, std::string dataFileName, std::str
 				calculate_frame(currentFrame, simul) ;
 
 				wDotsFile << currentFrame.timeStamp ;
-				wDotsFile << "\t" ;
+				wDotsFile << "\t\t" ;
 				wDotsFile << currentFrame.wDot ;
 				wDotsFile << "\n" ;
 

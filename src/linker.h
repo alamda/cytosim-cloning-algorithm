@@ -9,7 +9,7 @@
 
 	*/
 
-typedef struct Linker
+typedef struct Linker_s
 {
 	int classOfObject, linkerIdentity ;
 	float force, cosAngle ;

@@ -1,2 +1,7 @@
+#ifndef LAUNCH_H
+#define LAUNCH_H
+
 void launch_simulations(int & N_clones) ;
-bool checkForFiles() ;
+bool check_for_files() ;
+
+#endif	// LAUNCH_H
