@@ -224,8 +224,9 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 		Frame currentFrame;
 		Frame previousFrame ;
 
-		// Set dt value for previousFrame to zero so that calculation for
+		// Set dt value for frames to zero so that calculation for
 		// the zeroth frame can occur
+		// currentFrame.dt = 0.0 ;
 		previousFrame.dt = 0.0 ;
 
 		// Set trajectory value to zero, will be adding to it later
@@ -257,11 +258,15 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 				// issue for smaller time step sizes.
 				currentFrame.timeStamp = currentFrame.frameNumber * simul.timeStepSize * (simul.numSteps / simul.numFrames);
 
+				// printf("currentFrame.timeStamp: %f\n", currentFrame.timeStamp) ;
+
 				currentFrame.dt = currentFrame.timeStamp - previousFrame.timeStamp ;
 
 				// Sort data identified by process_line()
 				// into members of the Frame object and convert to appropriate types
 				process_frame(simul, currentFrame) ;
+
+				// printf("frame.frameNumber %d\tframe.numLinkers %d\tframe.timeStamp %f\n", currentFrame.frameNumber, currentFrame.numLinkers, currentFrame.timeStamp) ;
 
 				// Perform calculations on data
 				// - calculate wDot for frame
@@ -289,6 +294,8 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 
 	// Once all frames are processed, write integral value to file
 	wDotIntegralFile << simul.wDotIntegral ;
+
+	printf("\nsimul.wDotIntegral: %f\n", simul.wDotIntegral) ;
 	}
 
 	//Close the files

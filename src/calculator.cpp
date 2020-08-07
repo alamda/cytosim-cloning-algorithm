@@ -42,6 +42,8 @@ void calculate_frame(Simul & simul, Frame & frame)
 			// Dereference the linker pointer
 			Linker currentLinker = *linkerPtr ;
 
+			// std::cout << currentLinker.handOne.directionVector_eigen << std::endl ;
+
 			calculate_force_vector(currentLinker) ;
 
 			// make sure to add #include <iostream> if uncommenting below lines
@@ -49,10 +51,10 @@ void calculate_frame(Simul & simul, Frame & frame)
 			// std::cout << "Force vectors:" << std::endl;
 			// std::cout << currentLinker.handOne.forceVector << std::endl ;
 			// std::cout << currentLinker.handTwo.forceVector << std::endl ;
-
+			//
 			// std::cout << "Direction vectors:" << std::endl ;
-			// std::cout << currentLinker.handOne.directionVector << std::endl ;
-			// std::cout << currentLinker.handTwo.directionVector << std::endl ;
+			// std::cout << currentLinker.handOne.directionVector_eigen << std::endl ;
+			// std::cout << currentLinker.handTwo.directionVector_eigen << std::endl ;
 
 			calculate_velocity_vector(simul, currentLinker) ;
 
@@ -99,16 +101,25 @@ Eigen::VectorXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 	const int vecSizeInt = vecSizeLongInt & INT_MAX ; // needs the <climits> library
 
 	//* https://stackoverflow.com/questions/17036818/initialise-eigenvector-with-stdvector
-	Eigen::VectorXf eigenVec ;
+
+	// It is very important that the returns are in the if statements! 
 
 	if (vecSizeInt == 2)
+	{
 		Eigen::Map<Eigen::Vector2f> eigenVec(vector.data()) ;
+		return eigenVec ;
+	}
 	else if (vecSizeInt == 3)
+	{
 		Eigen::Map<Eigen::Vector3f> eigenVec(vector.data()) ;
+		return eigenVec ;
+	}
 	else
+	{
+		Eigen::VectorXf eigenVec ;
 		printf("Your dimensions are weird, try either 2D or 3D.\n") ;
-
-	return eigenVec ;
+		return eigenVec ;
+	}
 }
 
 /**	@brief	Calculate the vector between the two linker hands and
