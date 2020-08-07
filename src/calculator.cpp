@@ -23,7 +23,7 @@
 	@param	simul				- 	reference to Simul object, which contains data on simulation parameters
 
 	*/
-void calculate_frame(Frame & frame, Simul & simul)
+void calculate_frame(Simul & simul, Frame & frame)
 {
 	//* Number of linkers in current frame should be non-zero
 	if (frame.numLinkers > 0 )
@@ -31,7 +31,7 @@ void calculate_frame(Frame & frame, Simul & simul)
 		std::vector <Linker>::iterator linkerPtr = frame.linkerObjects.begin(),
 									   endPtr = frame.linkerObjects.end() ;
 
-
+		// Set wDot for frame to zero, will be adding linker wDot values to it
 		frame.wDot = 0.0 ;
 
 		// printf("Frame number: %d\n", frame.frameNumber) ;
@@ -39,9 +39,12 @@ void calculate_frame(Frame & frame, Simul & simul)
 		// Iterate through each linker in the frame
 		do
 		{
+			// Dereference the linker pointer
 			Linker currentLinker = *linkerPtr ;
 
 			calculate_force_vector(currentLinker) ;
+
+			// make sure to add #include <iostream> if uncommenting below lines
 
 			// std::cout << "Force vectors:" << std::endl;
 			// std::cout << currentLinker.handOne.forceVector << std::endl ;
@@ -64,8 +67,8 @@ void calculate_frame(Frame & frame, Simul & simul)
 			//* Add linker wDot contribution to the running total for wDot for the frame
 			frame.wDot += currentLinker.wDot ;
 
+			// Increment the linker pointer (go to next linker in frame)
 			++linkerPtr ;
-
 		} while (linkerPtr != endPtr) ;
 	}
 	// else
@@ -90,7 +93,8 @@ void calculate_frame(Frame & frame, Simul & simul)
 	*/
 Eigen::VectorXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 {
-	//* https://stackoverflow.com/questions/11387370/how-can-i-safely-convert-unsigned-long-int-to-int
+	// Convert vector size from unsigned long to int
+	//* See https://stackoverflow.com/questions/11387370/how-can-i-safely-convert-unsigned-long-int-to-int
 	unsigned long int vecSizeLongInt = vector.size() ;
 	const int vecSizeInt = vecSizeLongInt & INT_MAX ; // needs the <climits> library
 
@@ -98,24 +102,16 @@ Eigen::VectorXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 	Eigen::VectorXf eigenVec ;
 
 	if (vecSizeInt == 2)
-	{
 		Eigen::Map<Eigen::Vector2f> eigenVec(vector.data()) ;
-		return eigenVec  ;
-	}
 	else if (vecSizeInt == 3)
-	{
 		Eigen::Map<Eigen::Vector3f> eigenVec(vector.data()) ;
-		return eigenVec  ;
-	}
 	else
-	{
 		printf("Your dimensions are weird, try either 2D or 3D.\n") ;
-		Eigen::VectorXf eigenVec ;
-		return  eigenVec ;
-	}
+
+	return eigenVec ;
 }
 
-/**	@brief	Calculate the (normalized!) vector between the two linker hands and
+/**	@brief	Calculate the vector between the two linker hands and
 			multiply by the force between them to obtain the force vector.
 
 	@param	linker			-	reference to Linker object
@@ -141,16 +137,15 @@ void calculate_force_vector(Linker & linker)
 	*/
 void calculate_velocity_vector(Simul & simul, Linker & linker)
 {
-	float velocityMag ;
-
+	// The work for the linker is the sum of the work done by each linker hand
 	float work = linker.handOne.forceVector.dot(linker.handOne.directionVector_eigen)
 				+linker.handTwo.forceVector.dot(linker.handTwo.directionVector_eigen) ;
 
-	velocityMag = simul.unloadedSpeed * (1 + work / simul.stallForce) ;
+	// Calcuate the magnitude of the velocity
+	float velocityMag = simul.unloadedSpeed * (1 + work / simul.stallForce) ;
 
 	linker.handOne.velocityVector = linker.handOne.directionVector_eigen*velocityMag ;
 	linker.handTwo.velocityVector = linker.handTwo.directionVector_eigen*velocityMag ;
-
 }
 
 /**	@brief Calculate the rate of work for a given frame

@@ -9,13 +9,9 @@
 
 #include "Eigen/Dense"
 
-void calculate_frame(Frame & frame, Simul & simul) ;
-
-Linker check_linker_past(bool & linkerExisted, Linker & linker, Frame & previousFrame) ;
+void calculate_frame(Simul & simul, Frame & frame) ;
 
 Eigen::VectorXf convert_std_vec_to_eigen_vec(std::vector <float> vector) ;
-
-void calculate_direction_vector(Linker & currentLinker, Linker & pastLinker) ;
 
 void calculate_force_vector(Linker & linker) ;
 

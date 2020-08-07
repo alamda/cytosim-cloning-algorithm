@@ -12,28 +12,28 @@
 typedef struct Frame_s
 {
 	int frameNumber ;
-	const static std::string frameStr ; // = "frame" ;
+	const static std::string frameStr ;
 
 	float timeStamp ;
 	const static std::string timeStr ;
 
 	std::string reportCommand ;
-	const static std::string reportStr; // = "report" ;
+	const static std::string reportStr;
 
 	std::vector <std::string> dataCategories ;
-	const static std::string categoriesStr ;// = "class";
+	const static std::string categoriesStr ;
 
 	std::vector <std::vector <std::string> > dataLines;
 
-	const static std::string endStr ; //= "end" ;
+	const static std::string endStr ;
 
 	std::vector <Linker> linkerObjects ;
 
 	int numLinkers ;
 
 	// Values that are calculated
-	float wDot = 0.0;
-	float dt = 0.0;
+	float wDot ;
+	float dt ;
 } Frame ;
 
 #endif // FRAME_H

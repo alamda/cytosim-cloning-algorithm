@@ -10,7 +10,7 @@ typedef struct Simul_s
 {
 	float unloadedSpeed, stallForce ;
 
-	float wDotIntegral = 0;
+	float wDotIntegral ;
 
 	float timeStepSize ;
 
