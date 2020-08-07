@@ -19,7 +19,7 @@ typedef struct Linker_s
 
 	std::vector <Hand> handObjects ;
 
-	float wDot ;
+	float wDot = 0.0;
 } Linker ;
 
 #endif // LINKER_H

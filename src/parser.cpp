@@ -17,16 +17,20 @@
 	@param 	line 		-	std::string
 	@param 	frame 		-	reference to Frame object
 	*/
-void process_line(std::string line, Frame & frame)
+void process_line(std::string & line, Frame & frame)
 {
 	std::smatch match ;
 
 	if (line.find(frame.frameStr) != std::string::npos)
 	{	// Extract int with frame number
-		std::regex rgx("\\d+");
+		std::regex rgx("[0-9]+");
+
 
 		if (std::regex_search(line, match, rgx))
+		{
 			frame.frameNumber =  std::stoi(match.str(0));
+			printf("frame.frameNumber: %d\n", frame.frameNumber) ;
+		}
 
 	}
 	else if (line.find(frame.timeStr) != std::string::npos)
@@ -117,9 +121,9 @@ bool check_dimension(Frame & frame)
 	@param 	frame 		- 	reference to Frame object
 
 	*/
-void process_frame(Frame & frame)
+void process_frame(Simul & simul, Frame & frame)
 {
-	bool threeDimData = check_dimension(frame) ;
+	// bool threeDimData = check_dimension(frame) ;
 
 	for (auto line : frame.dataLines)
 	{
@@ -133,7 +137,7 @@ void process_frame(Frame & frame)
 			linker.handOne.fiberIdentity = std::stoi(line.at(2)) ;
 			linker.handOne.abscissa  = std::stof(line.at(3)) ;
 
-			if (threeDimData)
+			if (simul.dimension == 3)
 			{
 				linker.handOne.positionVector_std.push_back( std::stof( line.at(4) ) ) ;
 				linker.handOne.positionVector_std.push_back( std::stof( line.at(5) ) ) ;
@@ -243,12 +247,16 @@ void get_output_file_contents( Simul & simul, std::string dataFileName, std::str
 			if (!(foundEnd != std::string::npos))
 			{
 				process_line(line, currentFrame);
+
 			}
 			else // If line DOES match endString
 			{
+
+				currentFrame.timeStamp = currentFrame.frameNumber * simul.timeStepSize * (simul.numSteps / simul.numFrames);
+
 				currentFrame.dt = currentFrame.timeStamp - previousFrame.timeStamp ;
 
-				process_frame(currentFrame) ;
+				process_frame(simul, currentFrame) ;
 
 				frameIdx++ ;
 
@@ -289,6 +297,14 @@ void get_simulation_params(Simul & simul, std::string fileName)
 	std::regex rgxUnload("unloaded_speed");
 	//simul.stallForce ;
 	std::regex rgxStall("stall_force");
+	//simul.timeStepSize ;
+	std::regex rgxTimeStep("time_step") ;
+	//simul.dimension ;
+	std::regex rgxDimension("dim") ;
+	//simul.numFrames ;
+	std::regex rgxNumFrames("nb_frames") ;
+	//simul.numSteps ;
+	std::regex rgxNumSteps("run \\d+ system") ;
 
 	std::regex rgxFloat("-?\\d+\\.?\\d*") ;
 
@@ -313,6 +329,34 @@ void get_simulation_params(Simul & simul, std::string fileName)
 			{
 				if (std::regex_search(line, matchFloat, rgxFloat))
 					simul.stallForce = std::stof(matchFloat.str(0));
+			}
+			else if (std::regex_search(line, matchLine, rgxTimeStep))
+			{
+				if (std::regex_search(line, matchFloat, rgxFloat))
+					simul.timeStepSize = std::stof(matchFloat.str(0)) ;
+			}
+			else if (std::regex_search(line, matchLine, rgxDimension))
+			{
+				if (std::regex_search(line, matchFloat, rgxFloat))
+					simul.dimension = std::stoi(matchFloat.str(0)) ;
+			}
+			else if (std::regex_search(line, matchLine, rgxNumFrames))
+			{
+				if (std::regex_search(line, matchFloat, rgxFloat))
+				{
+					simul.numFrames = std::stoll(matchFloat.str(0));
+
+					printf("simul.numFrames: %d\n", simul.numFrames) ;
+				}
+			}
+			else if (std::regex_search(line, matchLine, rgxNumSteps))
+			{
+				if (std::regex_search(line, matchFloat, rgxFloat))
+				{
+					simul.numSteps = std::stoll(matchFloat.str(0));
+
+					printf("simul.numSteps: %d\n", simul.numSteps) ;
+				}
 			}
 		}
 

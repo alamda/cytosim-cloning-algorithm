@@ -6,11 +6,17 @@
 
 #include <string>
 
-typedef struct Simul
+typedef struct Simul_s
 {
 	float unloadedSpeed, stallForce ;
 
 	float wDotIntegral = 0;
+
+	float timeStepSize ;
+
+	int dimension ;
+	int numFrames ;
+	int numSteps ;
 
 } Simul ;
 
