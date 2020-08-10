@@ -99,7 +99,8 @@ new 50 motor
 
 % simulate system
 
-run 100000 system
+run system
 {
+	nb_steps = 100000
 	nb_frames = 1000		% number of rames generated (at equal intervals)
 }

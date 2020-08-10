@@ -328,6 +328,7 @@ void get_simulation_params(Simul & simul, std::string fileName)
 	std::regex rgxNumFrames("nb_frames") ;
 	//simul.numSteps ;
 	std::regex rgxNumSteps("run \\d+") ;
+	std::regex rgxNumSteps2("nb_steps") ;
 
 	// Regex for all kinds of numbers: positive and negative ints and floats
 	// Keeping original name rgxFloat even though it also matches ints.
@@ -382,8 +383,9 @@ void get_simulation_params(Simul & simul, std::string fileName)
 					printf("simul.numFrames:\t\t%d\n", simul.numFrames) ;
 				}
 			}
-			else if (std::regex_search(line, matchLine, rgxNumSteps))
-			{	// If line contains "run [### system_name]" command
+			else if (std::regex_search(line, matchLine, rgxNumSteps) ||
+					 std::regex_search(line, matchLine, rgxNumSteps2))
+			{	// If line contains "run [### system_name]" command or nb_steps
 				if (std::regex_search(line, matchFloat, rgxFloat))
 				{
 					simul.numSteps = std::stoll(matchFloat.str(0));
