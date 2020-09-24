@@ -275,7 +275,7 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 
 				// Write wDot values for each frame to file
 				wDotsFile << currentFrame.timeStamp ;
-				wDotsFile << "\t\t" ;
+				wDotsFile << "\t" ;
 				wDotsFile << currentFrame.wDot ;
 				wDotsFile << "\n" ;
 

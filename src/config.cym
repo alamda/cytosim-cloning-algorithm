@@ -1,106 +1,62 @@
-% Actin system with crosslinkers
-% testing the speed of simulation on cluster (compared to the excessively long simulation time on laptop)
-
-
-% define the simulation (system) and set simulation parameters
+% values from cytosim/cym/contract_anchored.cym
 
 set simul system
 {
 	dim = 3
-	time_step = 0.0001 
-	steric = 1, 1000	% enable_flag, K_push, K_pull (omitted)
-	viscosity = 0.02	% aqueous solution, from tutorial
-	kT = 0.004114		% room temperature in pN*um
-	display = ( point_value = 0.001; style = 3; zoom = 0.8; stencil = 1; )
+	time_step = 0.001
+	viscosity = 0.05
+	%random_seed = 42
 }
-
-
-% define space named cell and give space parameters
 
 set space cell
 {
 	shape = periodic
-	display = ( color = blue; width = 0.5; )
 }
-
-
-% instantiate new space cell and indicate parameters (e.g. dimensions)
 
 new cell
 {
-	length = 2.5, 2.5, 2.5
+	length = 5, 5, 5
 }
-
-
-% define actin filaments
 
 set fiber actin
 {
 	rigidity = 0.1
 	segmentation = 0.1
-	display = ( line=1, 2; )
-
-	%rigidity = 0.05		% from actin.cym
-	steric = 1, 0.0035	% enable_flag, d_0, d_1 (omitted)
-	%segmentation = 0.05	% 0.0055 from actin.cym, ~4 actin monomers in length
+	%display = ( line=1, 2; )
 }
 
-
-% create actin filaments in simulation box
-
-new 500 actin
+new 1000 actin
 {
-	position = inside
-	length = 0.1
+	length = 0.25
 }
-
-
-% define filamin 'hand' parameters
 
 set hand myosin
 {
-
-	% myosin params from cym/contract_anchored.cym example file
-	%binding = 10, 0.005
-    	%unbinding = 0.02, 3
-
-    	activity = move
-    	%unloaded_speed = 1
-    	stall_force = 5
-    	%display = ( size=4; color=orange )
-
-	% filamin params below (just in case)
-	binding_rate = 30	% calculated from literature
-	binding_range = 0.1	% half of the length of a filamin molecule
-	unbinding_rate = 0.5	% number from literature
-	unbinding_force = 50	% number from literature
-	display = ( color = yellow; size = 4; )
+	binding_rate = 10
+	binding_range = 0.1
+	unbinding_rate = 0.02
+	unbinding_force = 3
+	
+	activity = move
+	unloaded_speed = 0
+	stall_force = 5
+	display = ( size=4; color=orange; )
 }
-
-
-% define cross-linker with two filamin 'hands' (Hookean spring)
 
 set couple motor
 {
 	hand1 = myosin
 	hand2 = myosin
-	stiffness = 500
+	stiffness = 1000
 	fast_diffusion = 1
 }
 
-
-% create filamin crosslinks in simulation box
-
-new 50 motor
-{
-	position = inside
-}
-
-
-% simulate system
+new 5000 motor
 
 run system
 {
-	nb_steps = 100000
-	nb_frames = 1000		% number of rames generated (at equal intervals)
+	nb_steps = 10000
+	nb_frames = 1000
 }
+
+report couple:link > link.txt
