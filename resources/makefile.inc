@@ -23,7 +23,7 @@ HAS_MKL := 0
 #---------------- PNG image export support
 # `libpng` needs to be installed to save PNG images:
 #     Mac OSX:
-#        www.macports.org :  port install libpng 
+#        www.macports.org :  port install libpng
 #        Homebrew  (http://brew.sh)
 #             brew install libpng
 #             brew tap homebrew/dupes
@@ -62,7 +62,7 @@ endif
 #-------------------------------------------------------------------------------
 
 # common options for all C++ objects:
-CXXFLG := -std=gnu++14 -fno-rtti -Wredeclared-class-member -Wno-deprecated-declarations 
+CXXFLG := -std=gnu++14 -fno-rtti -Wredeclared-class-member -Wno-deprecated-declarations
 CXXFLG := -std=gnu++14 -fno-rtti -fopenmp #-g -fno-inline
 CXXFLG := -std=gnu++14 -fno-rtti
 
@@ -95,7 +95,7 @@ ifeq ($(COMPILER),gcc)
 
     DEBUG    :=-g3 -ggdb
     COVERAGE :=-fprofile-arcs -ftest-coverage
-    
+
 else ifeq ($(COMPILER),icc)
 
     LIBTOOL  := ar -rcs
@@ -149,7 +149,7 @@ ifeq ($(MACHINE),mac)
     #GRAFIX := -L/home/alexandral/.conda/pkgs/freeglut-3.0.0-hf484d3e_1005/include -lglut -framework OpenGL
 	# Using brew's freeGLUT:
     #GRAFIX := -L/usr/local/Cellar/freeglut/3.0.0 -lglut -framework OpenGL
-    
+
 
     ifeq ($(HAS_PNG), 1)
 
@@ -158,7 +158,7 @@ ifeq ($(MACHINE),mac)
         INC_PNG := -I/opt/local/include
 
     endif
-	
+
     ifeq ($(HAS_PNG), 2)
 
         # HomeBrew libraries:
@@ -185,16 +185,16 @@ ifeq ($(MACHINE),cluster)
     FlagsP := $(FAST) $(ALIGN) -O0 -fno-inline -pg
     FlagsC := -O0 -fprofile-arcs -ftest-coverage
     FlagsF := $(FAST) $(ALIGN) -finline-functions
-    
+
     ### self-compiled BLAS/LAPACK fortran library:
     # this works on the new cluster (64 bit, gcc 4.1 or higher)
     #LINK  := -static -L/g/nedelec/opt/netlib/linux_em64t -llapack -lblas -lgfortran
-      
+
     ### 64bit Linux distribution, 2011 (distribution on LSF EMBL cluster)
     # ln -sf /usr/lib64/liblapack.so.3 /usr/lib64/liblapack.so
     # ln -sf /usr/lib64/libblas.so.3 /usr/lib64/libblas.so
     #LINK  := /usr/lib64/liblapack.so.3 /usr/lib64/libblas.so.3 -L/usr/lib64 -lpthread
-    
+
     ### SLURM cluster (EMBL, 2017)
     LINK   := -llapack -lopenblas -lgfortran -lpthread
     ### SLURM cluster with self-compiled LAPACK/BLAS (EMBL, 2018)
@@ -231,7 +231,7 @@ ifeq ($(MACHINE),linux)
     # Ubuntu lapack : apt-get install liblapack.dev
 
     # trying to automatically detect BLAS library:
-    BLASLIB := /home/alexandral/.conda/pkgs/libblas-3.8.0-14_openblas/lib/libblas.* 
+    BLASLIB := /home/alexandral/.conda/pkgs/libblas-3.8.0-14_openblas/lib/libblas.*
     # extracting path for libraries:
     BLADIR := $(word 1, $(dir $(BLASLIB)))
     ifndef BLADIR
@@ -259,7 +259,7 @@ ifeq ($(MACHINE),linux)
     GRAFIX := -L$(LIBDIR) -lglut -lGL -lGLU -lXt -lX11 /home/alexandral/.conda/pkgs/glew-2.0.0-0/lib/libGLEW.so
 
     ### Specify here the PNG library
-    LIB_PNG := /home/alexandral/.conda/pkgs/libpng-1.6.37-hbc83047_0/lib/libpng.a /home/alexandral/.conda/pkgs/zlib-1.2.11-h516909a_1006/lib/libz.a
+    LIB_PNG := $(LIBDIR)/libpng.* $(LIBDIR)/libz.*
     INC_PNG :=
 
 endif
@@ -312,7 +312,7 @@ ifeq ($(MACHINE),windows)
     FlagsD := -g  $(WARN)
     FlagsP := -pg -O3 -march=i686 -ffast-math $(ALIGN)
     FlagsF := -O3 -finline-functions -march=i686 -ffast-math $(ALIGN)
-  
+
     LINK   := -llapack -lblas
     GRAFIX := -lglut32 -lglu32 -lopengl32
     BINEXT :=.exe
@@ -334,7 +334,7 @@ ifeq ($(HAS_MKL),1)
 
     # sequential dynamic linking:
     MKLLIB := -lmkl_intel_lp64 -lmkl_sequential -lmkl_core
-    
+
     # threaded dynamic linking:
     #MKLLIB := -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5
 
@@ -362,5 +362,3 @@ ifeq ($(HAS_MKL),2)
     LINK := $(MKLLIB) -lpthread -lm -ldl
 
 endif
-
-

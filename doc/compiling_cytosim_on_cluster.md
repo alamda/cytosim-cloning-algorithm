@@ -43,7 +43,7 @@ There are several modifications that need to be made to `makefile.inc` for compi
 Enable PNG export by changing the `HAS_PNG` variable (line ~38):
 
 ```makefile
-HAS_PNG := 1
+HAS_PNG := 1 # homebrew installation option
 ```
 
 ---
@@ -83,7 +83,7 @@ For some reason, midway does not have GLEW, so this is a BYOGLEW kind of party.
 Link to `libpng.a` of `libpng` package and to `libz.a` of `zlib` package (line ~258):
 
 ```makefile
-LIB_PNG := $(HOME)/.conda/pkgs/libpng-1.6.37-hbc83047_0/lib/libpng.a $(HOME)/.conda/pkgs/zlib-1.2.11-h516909a_1006/lib/libz.a
+LIB_PNG := /LIB_PNG := $(LIBDIR)/libpng.* $(LIBDIR)/libz.*
 ```
 
 ## Edit the `LD_RUN_PATH` environment variable
