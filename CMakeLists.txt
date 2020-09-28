@@ -1,53 +1,32 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.13)
 
 # set the project name and version
-project(Cloning Algorithm with Cytosim VERSION 1.0)
-
-### FLAGS ###
+project(CloningCytosim VERSION 1.0)
 
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/tar)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+# set the output directories
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/tar)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
-option(BUILD_OBSERVABLE_EXECUTABLE "build the executable which calculates the observable (in this case, rate of work wDot) from an input of Cytosim data" ON)
-option(BUILD_CLONING_EXECUTABLE "build the executable which performs cloning algorithm with Cytosim" ON)
+# add some cmake options
+option(BUILD_OBSERVABLE_EXECUTABLE 
+	"build the executable which calculates the observable (in this case, rate of work wDot) from an input of Cytosim data" 
+	ON
+	)
 
-### FILES ###
+option(BUILD_CLONING_EXECUTABLE 
+	"build the executable which performs cloning algorithm with Cytosim" 
+	OFF
+	)
 
-set(OBSERVABLE_SRC_DIR "${PROJECT_SOURCE_DIR}/src/observable")
-set(CLONING_SRC_DIR "${PROJECT_SOURCE_DIR}/src/cloning")
+# add subdirectories (each containing its own CMakeLists.txt)
+add_subdirectory(src/cloning)
+add_subdirectory(src/observable)
 
-set(OBSERVABLE_EXE_TARGET "calculate")
-set(CLONING_EXE_TARGET "clone")
+# set the directory of the Eigen library
+set(Eigen3_DIR ${PROJECT_SOURCE_DIR}/lib/eigen-3.3.7/cmake)
 
-# use this to link against libraries (?)
-set(CLONING_LIBRARIES
-    ""
-    )
-
-### INCLUDE ###
-
-
-### TARGET ###
-
-
-### EXTERNAL LIBS ###
-add_subdirectory(./lib/eigen-3.3.7/Eigen)
-target_link_libraries(calculate Eigen)
-
-
-
-# if you want to pass cmake settings to source code
-#configure_file(config.h.in config.h)
-
-# add the executable
-add_executable()
-
-target_link_libraries()
-
-# add binary tree to search path for include files
-target_include_directories()
