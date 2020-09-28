@@ -1,9 +1,5 @@
-#add_executable(calcualte main.cpp)
-#find_package (Eigen3 3.3 REQUIRED NO_MODULE)
-
-
-find_package(Eigen3 REQUIRED)
-include_directories(${EIGEN3_INCLUDE_DIR})
+# set the directory of the Eigen library
+set(EIGEN_DIR ${PROJECT_SOURCE_DIR}/lib/eigen-3.3.7)
 
 add_executable(calculate 
 	main.cpp
@@ -17,4 +13,6 @@ add_executable(calculate
 	linker.h
 	simul.h
 	)
+
+target_include_directories(calculate PUBLIC ${EIGEN_DIR})
 

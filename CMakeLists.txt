@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.10)
 
 # set the project name and version
-project(CloningCytosim VERSION 1.0)
+project(CloningCytosim VERSION 1.0 LANGUAGES CXX)
 
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
@@ -27,6 +27,4 @@ option(BUILD_CLONING_EXECUTABLE
 add_subdirectory(src/cloning)
 add_subdirectory(src/observable)
 
-# set the directory of the Eigen library
-set(Eigen3_DIR ${PROJECT_SOURCE_DIR}/lib/eigen-3.3.7/cmake)
 
