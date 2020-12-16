@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 
+#include <iostream>
+
 /**	@brief 	Takes info from data file and populates Frame object.
 
 	@param 	line 		-	std::string
@@ -312,14 +314,10 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 	@param 	fileName	-	std::string
 
 	*/
-void get_simulation_params(Simul & simul, std::string fileName)
+void get_simulation_params(Simul & simul, std::string configFileName)
 {
 	// Only done once per trajectory
 
-	//simul.unloadedSpeed
-	std::regex rgxUnload("unloaded_speed");
-	//simul.stallForce ;
-	std::regex rgxStall("stall_force");
 	//simul.timeStepSize ;
 	std::regex rgxTimeStep("time_step") ;
 	//simul.dimension ;
@@ -331,11 +329,10 @@ void get_simulation_params(Simul & simul, std::string fileName)
 	std::regex rgxNumSteps2("nb_steps") ;
 
 	// Regex for all kinds of numbers: positive and negative ints and floats
-	// Keeping original name rgxFloat even though it also matches ints.
-	std::regex rgxFloat("-?\\d+\\.?\\d*") ;
+	std::regex rgxNum("-?\\d+\\.?\\d*") ;
 
 	// Open Cytosim configuration file
-	std::ifstream configFile(fileName.c_str());
+	std::ifstream configFile(configFileName.c_str());
 
 	// If configuration file was opened successfully
 	while (configFile)
@@ -352,33 +349,23 @@ void get_simulation_params(Simul & simul, std::string fileName)
 			// each match being of the corresponding sub_match type."
 			// See http://www.cplusplus.com/reference/regex/match_results/
 			std::smatch matchLine ;
-			std::smatch matchFloat ;
+			std::smatch matchNum ;
 
-			if ( std::regex_search(line, matchLine, rgxUnload) )
-			{	// If line contains unloaded speed string
-				if ( std::regex_search(line, matchFloat, rgxFloat))
-					simul.unloadedSpeed = std::stof(matchFloat.str(0));
-			}
-			else if ( std::regex_search(line, matchLine, rgxStall))
-			{	// If line contains stall force string
-				if (std::regex_search(line, matchFloat, rgxFloat))
-					simul.stallForce = std::stof(matchFloat.str(0));
-			}
-			else if (std::regex_search(line, matchLine, rgxTimeStep))
+			if (std::regex_search(line, matchLine, rgxTimeStep))
 			{	// If line contains time step string
-				if (std::regex_search(line, matchFloat, rgxFloat))
-					simul.timeStepSize = std::stof(matchFloat.str(0)) ;
+				if (std::regex_search(line, matchNum, rgxNum))
+					simul.timeStepSize = std::stof(matchNum.str(0)) ;
 			}
 			else if (std::regex_search(line, matchLine, rgxDimension))
 			{	// If line contains dimension string
-				if (std::regex_search(line, matchFloat, rgxFloat))
-					simul.dimension = std::stoi(matchFloat.str(0)) ;
+				if (std::regex_search(line, matchNum, rgxNum))
+					simul.dimension = std::stoi(matchNum.str(0)) ;
 			}
 			else if (std::regex_search(line, matchLine, rgxNumFrames))
 			{	// If line contains number of frames string
-				if (std::regex_search(line, matchFloat, rgxFloat))
+				if (std::regex_search(line, matchNum, rgxNum))
 				{
-					simul.numFrames = std::stoll(matchFloat.str(0));
+					simul.numFrames = std::stoll(matchNum.str(0));
 
 					printf("simul.numFrames:\t\t%d\n", simul.numFrames) ;
 				}
@@ -386,9 +373,9 @@ void get_simulation_params(Simul & simul, std::string fileName)
 			else if (std::regex_search(line, matchLine, rgxNumSteps) ||
 					 std::regex_search(line, matchLine, rgxNumSteps2))
 			{	// If line contains "run [### system_name]" command or nb_steps
-				if (std::regex_search(line, matchFloat, rgxFloat))
+				if (std::regex_search(line, matchNum, rgxNum))
 				{
-					simul.numSteps = std::stoll(matchFloat.str(0));
+					simul.numSteps = std::stoll(matchNum.str(0));
 
 					printf("simul.numSteps:\t\t\t%d\n", simul.numSteps) ;
 				}
@@ -397,5 +384,98 @@ void get_simulation_params(Simul & simul, std::string fileName)
 		printf( "simul.unloadedSpeed:\t\t%f\n",simul.unloadedSpeed ) ;
 		printf( "simul.stallForce:\t\t%f\n", simul.stallForce ) ;
 	}
+
 	configFile.close() ;
+}
+
+void get_object_props(Simul & simul, std::string propFileName)
+{
+
+	std::regex rgxSetHand(R"(set hand.*\n\{((.|\n)*?)\})") ;
+	std::regex rgxHandName("set hand") ;
+
+	std::regex rgxSetCouple(R"(set couple.*\n\{((.|\n)*?)\})");
+	std::regex rgxCoupleName("set couple") ;
+
+	//simul.unloadedSpeed
+	std::regex rgxUnload("unloaded_speed");
+	//simul.stallForce ;
+	std::regex rgxStall("stall_force");
+
+	std::regex rgxNum("-?\\d+\\.?\\d*") ;
+
+	// Open the file with object properties
+	std::ifstream propFile(propFileName.c_str()) ;
+
+	// Load contents of file into string variable
+	// Important: file must be relatively small!
+	// Make sure to generate property.txt with
+	// `report property frame=0 > property.txt`
+	// Source: https://stackoverflow.com/questions/2912520/read-file-contents-into-a-string-in-c
+	std::string contentHand ;
+	contentHand.assign( ( std::istreambuf_iterator<char>(propFile) ),
+					( std::istreambuf_iterator<char>() )
+				  );
+
+	std::smatch matchBlockHand ;
+
+	while (std::regex_search(contentHand, matchBlockHand, rgxSetHand))
+	{
+		std::cout << matchBlockHand.str(0) << std::endl ;
+		contentHand = matchBlockHand.suffix() ;
+	}
+
+	std::string contentCouple ;
+	contentCouple.assign( ( std::istreambuf_iterator<char>(propFile) ),
+					( std::istreambuf_iterator<char>() )
+				  );
+
+	std::smatch matchBlockCouple ;
+
+	while (std::regex_search(contentCouple, matchBlockCouple, rgxSetCouple))
+	{
+		std::cout << matchBlockCouple.str(0) << std::endl ;
+		contentCouple = matchBlockCouple.suffix() ;
+	}
+
+	// std::cout << content << std::endl ;
+
+	// If property file was opened successfully
+	while (propFile)
+	{
+		// Declare empty string variable in which file line contents will be
+		// temporarily stored
+		std::string line ;
+
+		// Read property file line-by-line
+		while (std::getline(propFile, line))
+		{
+			std::smatch matchLine ;
+			std::smatch matchNum ;
+
+			// Check for hand sections
+			if (std::regex_search(line, matchLine, rgxHandName))
+			{
+				std::cout << matchLine.str(0) << std::endl ;
+			}
+
+
+		}
+
+		// std::string section ;
+		//
+		// if ( std::regex_search(line, matchLine, rgxUnload) )
+		// {	// If line contains unloaded speed string
+		// 	if ( std::regex_search(line, matchNum, rgxNum))
+		// 		simul.unloadedSpeed = std::stof(matchNum.str(0));
+		// }
+		// else if ( std::regex_search(line, matchLine, rgxStall))
+		// {	// If line contains stall force string
+		// 	if (std::regex_search(line, matchNum, rgxNum))
+		// 		simul.stallForce = std::stof(matchNum.str(0));
+		// }
+
+	}
+
+	propFile.close() ;
 }

@@ -5,11 +5,15 @@
 	*/
 
 #include <string>
+#include <vector>
+#include "couple_prop.h"
 
 typedef struct Simul_s
 {
-	float unloadedSpeed, stallForce ;
 
+	float stallForce ;
+	float unloadedSpeed ;
+	
 	float wDotIntegral ;
 
 	float timeStepSize ;
@@ -18,8 +22,13 @@ typedef struct Simul_s
 	int numFrames ;
 	int numSteps ;
 
+	std::vector < Couple_Prop > couplePropVec ;
+	std::vector < Hand_Prop > handPropVec ;
+
 } Simul ;
 
-void get_simulation_params(Simul & simul, std::string fileName) ;
+void get_simulation_params(Simul & simul, std::string configFileName) ;
+
+void get_object_props(Simul & simul, std::string propFileName) ;
 
 #endif // SIMUL_H

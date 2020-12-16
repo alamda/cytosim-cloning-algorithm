@@ -12,10 +12,16 @@ int main()
 	// Declare simulation object
 	Simul simul ;
 
-	// Define the name the the Cytosim config file
-	const std::string paramFileName = "config.cym";
+	// Define the name of the Cytosim config file
+	const std::string configFileName = "config.cym";
 
-	get_simulation_params(simul, paramFileName) ;
+	// Define the name of the object property file
+	// (output of `report property`, property.txt)
+	const std::string propFileName = "property.txt" ;
+
+	get_simulation_params(simul, configFileName ) ;
+
+	get_object_props(simul, propFileName) ;
 
 	// Set integral for the trajectory to zero, will be adding to it later
 	simul.wDotIntegral = 0.0 ;
@@ -28,7 +34,7 @@ int main()
 	const std::string wDotIntegralFileName = "wDotIntegral.txt" ;
 
 	// Do the Thing
-	process_data_file(simul, dataFileName, wDotOutputFileName, wDotIntegralFileName);
+	//process_data_file(simul, dataFileName, wDotOutputFileName, wDotIntegralFileName);
 
 	return 0;
 }

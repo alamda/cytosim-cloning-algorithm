@@ -1,7 +1,7 @@
 # set the directory of the Eigen library
 set(EIGEN_DIR ${PROJECT_SOURCE_DIR}/lib/eigen-3.3.7)
 
-add_executable(calculate 
+add_executable(calculate
 	main.cpp
 	parser.cpp
 	parser.h
@@ -12,7 +12,8 @@ add_executable(calculate
 	hand.h
 	linker.h
 	simul.h
+	hand_prop.h
+	couple_prop.h
 	)
 
 target_include_directories(calculate PUBLIC ${EIGEN_DIR})
-
