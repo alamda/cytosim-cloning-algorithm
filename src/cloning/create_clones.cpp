@@ -1,7 +1,7 @@
 /* Using the values calculated in analyze_clones.cpp,
  * create and populate directories on the next iteration
  * of the cloning algorithm
- *
+ * calls cytosim's frametool executable
  */
 
 void create_empty_directories()

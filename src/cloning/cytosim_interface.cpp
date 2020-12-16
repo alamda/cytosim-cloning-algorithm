@@ -1,3 +1,5 @@
+// wrappers for calling cytosim executables
+
 void run_frametool()
 {
 	// call frametool executable

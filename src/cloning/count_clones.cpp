@@ -1,11 +1,12 @@
 /* Generate a data structure containing information on which clones are duplicated
  * and to which directory.
  * Also need to make sure total number of clones is correct.
+ * determines logistics for which clones are deleted/replicated
  */
 
 void build_clone_list()
 {
-	
+
 }
 
 void generate_logistics()
