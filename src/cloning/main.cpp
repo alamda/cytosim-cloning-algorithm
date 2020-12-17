@@ -2,17 +2,17 @@
 // Output to the executable: genealogy.clone, directories with clones from each iteration
 
 #include "cloning_params.h"
+#include "create_clones.h"
 
 #include <string>
 
 int main()
 {
+	/* Read input file specifying the parameters for cloning algo
+	* cloning_params.cpp, cloning_params.h
+	*/
 
-
-	// Read input file specifying the parameters for cloning algo
-	// cloning_params.cpp
-
-	//Declare cloning objects
+	// Declare cloning objects
 	Clones clones ;
 
 	// Define the name of the cloning config file
@@ -20,8 +20,15 @@ int main()
 
 	get_cloning_params(clones, configFileName) ;
 
-	// Generate cytosim input files for each clone
-	// create_clones.cpp
+	/* Generate cytosim input files for each clone
+	* create_clones.cpp
+	*/
+
+	// Create the first round of empty directories (for zeroth iteration)
+	create_empty_directories(clones) ;
+
+	// Generate cytosim input files
+	
 
 	// For each iteration of cloning algo, loop following functions
 
@@ -42,5 +49,7 @@ int main()
 
 		// Generate cytosim "restart" files
 		// cytosim_interface.cpp (maybe have a separate file)
+
+		// increment clones.idxIter
 
 }

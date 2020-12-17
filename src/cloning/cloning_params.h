@@ -20,6 +20,9 @@ typedef struct Clones_s
 	// length of simulation for a single iteration, seconds
 	float iterLength ;
 
+	// Index to count iterations
+	int idxIter = 0;
+
 } Clones ;
 
 void get_cloning_params(Clones & clones, std::string configFileName) ;
