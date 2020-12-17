@@ -13,18 +13,16 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
 # add some cmake options
-option(BUILD_OBSERVABLE_EXECUTABLE 
-	"build the executable which calculates the observable (in this case, rate of work wDot) from an input of Cytosim data" 
+option(BUILD_OBSERVABLE_EXECUTABLE
+	"build the executable which calculates the observable (in this case, rate of work wDot) from an input of Cytosim data"
 	ON
 	)
 
-option(BUILD_CLONING_EXECUTABLE 
-	"build the executable which performs cloning algorithm with Cytosim" 
+option(BUILD_CLONING_EXECUTABLE
+	"build the executable which performs cloning algorithm with Cytosim"
 	OFF
 	)
 
 # add subdirectories (each containing its own CMakeLists.txt)
 add_subdirectory(src/cloning)
 add_subdirectory(src/observable)
-
-

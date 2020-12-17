@@ -1,11 +1,24 @@
 // Input to the executable: config.clone
 // Output to the executable: genealogy.clone, directories with clones from each iteration
+
+#include "cloning_params.h"
+
+#include <string>
+
 int main()
 {
 
 
 	// Read input file specifying the parameters for cloning algo
 	// cloning_params.cpp
+
+	//Declare cloning objects
+	Clones clones ;
+
+	// Define the name of the cloning config file
+	const std::string configFileName = "config.clone" ;
+
+	get_cloning_params(clones, configFileName) ;
 
 	// Generate cytosim input files for each clone
 	// create_clones.cpp
