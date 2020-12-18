@@ -1,0 +1,36 @@
+set fiber actin
+{
+    rigidity = 0.1
+    segmentation = 0.1
+    confine = inside, 1, cell
+}
+
+new 200 actin
+{
+    length = 0.25
+}
+
+set hand myosin
+{
+	binding_rate = 10
+	binding_range = 0.1
+	unbinding_rate = 1
+	unbinding_force = 10
+
+	activity = move
+	unloaded_speed = 0.001
+	stall_force = 10
+}
+
+set couple motor
+{
+	hand1 = myosin
+	hand2 = myosin
+	stiffness = 1
+	fast_diffusion = 1
+
+}
+
+new 1000 motor
+
+import objects objects.cmi

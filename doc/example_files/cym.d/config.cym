@@ -1,0 +1,10 @@
+read simul.cym
+
+read space.cym
+
+read objects.cym
+
+
+read run.cym
+
+read report.cym
