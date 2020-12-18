@@ -59,10 +59,15 @@ void get_cloning_params(Clones & clones, std::string configFileName)
 		}
 	}
 
+	clones.fullSimulLength = clones.numIters * clones.iterLength ;
+
+	printf("clones.biasParam:\t\t%f\n", clones.biasParam) ;
 	printf("clones.numClones:\t\t%i\n", clones.numClones) ;
 	printf("clones.numIters:\t\t%i\n", clones.numIters) ;
-	printf("clones.biasParam:\t\t%f\n", clones.biasParam) ;
-	printf("clones.iterLength:\t\t%f\n", clones.iterLength) ;
+	printf("clones.iterLength:\t\t%f\ts\n", clones.iterLength) ;
+	printf("clones.fullSimulLength:\t\t%f\ts\n", clones.fullSimulLength) ;
+
+	printf("\n") ;
 
 	configFile.close() ;
 }

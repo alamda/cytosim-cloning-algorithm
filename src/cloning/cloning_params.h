@@ -23,6 +23,8 @@ typedef struct Clones_s
 	// Index to count iterations
 	int idxIter = 0;
 
+	float fullSimulLength ; 
+
 } Clones ;
 
 void get_cloning_params(Clones & clones, std::string configFileName) ;

@@ -7,6 +7,7 @@
 
 #include <string>
 
+
 int main()
 {
 	/* Read input file specifying the parameters for cloning algo
@@ -14,26 +15,25 @@ int main()
 	*/
 
 	// Define the name of the cloning config file
-	const std::string configFileName = "config.clone" ;
+	const std::string cloneConfigFileName = "config.clone" ;
 
 	// Declare cloning objects and get params
 	Clones clones ;
-	get_cloning_params(clones, configFileName) ;
+	get_cloning_params(clones, cloneConfigFileName) ;
 
 	// Declare cytosim object and get some params
 	Cytosim cytosim ;
-	get_cytosim_params(cytosim, configFileName) ;
+	get_cytosim_params(cytosim, cloneConfigFileName) ;
 	calculate_num_time_steps_and_frames(cytosim, clones) ;
 	// edit config.cym to include the correct number of time steps and frames
-	const std::string cytosimConfigFileName = "config.cym" ;
-	// not done, pick up here!!!
+	edit_cytosim_config_files(cytosim) ;
 
 	/* Generate cytosim input files for each clone
 	* create_clones.cpp
 	*/
 
 	// Create the first round of empty directories (for zeroth iteration)
-	create_empty_directories(clones) ;
+	// create_empty_directories(clones) ;
 
 	// Generate cytosim input files
 
