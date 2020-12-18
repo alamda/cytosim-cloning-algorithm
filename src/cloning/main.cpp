@@ -1,7 +1,8 @@
-// Input to the executable: config.clone
-// Output to the executable: genealogy.clone, directories with clones from each iteration
+// Input to the executable: config.clone, config.cym
+// Output to the executable: genealogy.clone, config.cym, directories with clones from each iteration
 
 #include "cloning_params.h"
+#include "cytosim_params.h"
 #include "create_clones.h"
 
 #include <string>
@@ -12,13 +13,20 @@ int main()
 	* cloning_params.cpp, cloning_params.h
 	*/
 
-	// Declare cloning objects
-	Clones clones ;
-
 	// Define the name of the cloning config file
 	const std::string configFileName = "config.clone" ;
 
+	// Declare cloning objects and get params
+	Clones clones ;
 	get_cloning_params(clones, configFileName) ;
+
+	// Declare cytosim object and get some params
+	Cytosim cytosim ;
+	get_cytosim_params(cytosim, configFileName) ;
+	calculate_num_time_steps_and_frames(cytosim, clones) ;
+	// edit config.cym to include the correct number of time steps and frames
+	const std::string cytosimConfigFileName = "config.cym" ;
+	// not done, pick up here!!!
 
 	/* Generate cytosim input files for each clone
 	* create_clones.cpp
@@ -28,7 +36,7 @@ int main()
 	create_empty_directories(clones) ;
 
 	// Generate cytosim input files
-	
+
 
 	// For each iteration of cloning algo, loop following functions
 

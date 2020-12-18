@@ -5,7 +5,6 @@
 #include <regex>
 #include <string>
 #include <fstream>
-#include <cstdio>
 
 void get_cloning_params(Clones & clones, std::string configFileName)
 {

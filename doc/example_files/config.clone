@@ -1,0 +1,9 @@
+[ Cloning Algo Params ]
+n_clones = 101
+n_iters = 135
+bias_param = 0.24
+iter_length = 1000
+
+[ Some Cytosim Params ]
+time_step_len = 0.01
+time_per_frame = 0.5
