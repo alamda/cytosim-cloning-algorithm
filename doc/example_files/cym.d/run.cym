@@ -1,6 +1,0 @@
-run system
-{
-	duration = 10
-	nb_frames = 100
-}
-

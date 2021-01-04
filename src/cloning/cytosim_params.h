@@ -15,13 +15,20 @@ typedef struct Cytosim_s
 	float lenTimeStep ;
 	float timePerFrame ;
 
+	// Values from cloning algo
+	float lenSimul ;
+
 	// Values calculated using iteration length cloning param
-	int numTimeStep ;
+	int numTimeSteps ;
 	int numFrames ;
 } Cytosim ;
 
 void get_cytosim_params(Cytosim & cytosim, std::string configFileName) ;
 
 void calculate_num_time_steps_and_frames(Cytosim & cytosim, Clones & clones) ;
+
+bool exist_check(std::string path);
+
+void gen_cytosim_config_file(Cytosim & cytosim) ;
 
 #endif // CYTOSIM_PARAMS_H

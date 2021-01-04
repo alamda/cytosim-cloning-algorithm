@@ -6,4 +6,6 @@ add_executable(clone
 	create_clones.h
 	cytosim_params.cpp
 	cytosim_params.h
+	analyze_clones.cpp
+	analyze_clones.h
 	)

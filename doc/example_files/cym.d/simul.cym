@@ -6,4 +6,3 @@ set simul system
 	temperature = 1
 }
 
-change system { time_step = 0.1 ;}

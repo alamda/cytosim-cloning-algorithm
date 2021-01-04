@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.10)
 project(CloningCytosim VERSION 1.0 LANGUAGES CXX)
 
 # specify the C++ standard
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # set the output directories
@@ -20,9 +20,9 @@ option(BUILD_OBSERVABLE_EXECUTABLE
 
 option(BUILD_CLONING_EXECUTABLE
 	"build the executable which performs cloning algorithm with Cytosim"
-	OFF
+	ON
 	)
 
 # add subdirectories (each containing its own CMakeLists.txt)
-add_subdirectory(src/cloning)
 add_subdirectory(src/observable)
+add_subdirectory(src/cloning)
