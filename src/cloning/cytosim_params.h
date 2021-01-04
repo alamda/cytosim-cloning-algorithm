@@ -29,6 +29,6 @@ void calculate_num_time_steps_and_frames(Cytosim & cytosim, Clones & clones) ;
 
 bool exist_check(std::string path);
 
-void edit_cytosim_config_files(Cytosim & cytosim) ;
+void gen_cytosim_config_file(Cytosim & cytosim) ;
 
 #endif // CYTOSIM_PARAMS_H

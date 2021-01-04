@@ -82,18 +82,9 @@ bool exist_check(std::string path)
 	fs::file_status s = fs::file_status{} ;
 
 	return fs::status_known(s) ? fs::exists(s) : fs::exists(path) ;
-
-	// if(fs::status_known(s) ? fs::exists(s) : fs::exists(path))
-	// {
-	// 	printf("%s exists\n", path.c_str()) ;
-	// }
-	// else
-	// {
-	// 	printf("%s does not exist\n", path.c_str()) ;
-	// }
 }
 
-void edit_cytosim_config_files(Cytosim & cytosim)
+void gen_cytosim_config_file(Cytosim & cytosim)
 {
 	// check for the directory containing precursor *.cym files, return error and exit if not found
 	// https://en.cppreference.com/w/cpp/filesystem/exists
@@ -112,7 +103,7 @@ void edit_cytosim_config_files(Cytosim & cytosim)
 		char runEditBuff [100] ;
 		int runEditLen = sprintf(runEditBuff, "run system { duration = %f ; nb_frames = %i ; }\n\n", cytosim.lenSimul, cytosim.numFrames) ;
 
-		// concatennate precursor files and edits into config.cym
+		// concatenate precursor files and edits into config.cym
 		// simul.cym  simul_edit space.cym objects.cym run_edit report.cym > config.cym
 		std::ifstream if_simul("cym.d/simul.cym", std::ios_base::binary);
 		std::ifstream if_space("cym.d/space.cym", std::ios_base::binary);
@@ -134,8 +125,6 @@ void edit_cytosim_config_files(Cytosim & cytosim)
 
 		printf("\nTerminating program\n") ;
 
-		exit(0);
+		exit(1);
 	}
-
-
 }

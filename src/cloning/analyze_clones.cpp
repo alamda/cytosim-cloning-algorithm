@@ -5,6 +5,48 @@
  * Start new iteration
  * Calculate n_a for each clone
  */
+#include "analyze_clones.h"
+
+#include <iostream>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <cstdio>
+#include <cstdlib>
+
+void calc_observable()
+{
+	// calls the calculate executable to calculate wdot from the cytosim ouput data
+
+	// https://stackoverflow.com/a/13558040
+
+	// Create child process to run calculate executable
+	pid_t pid = fork() ;
+	int status ;
+
+	switch (pid)
+	{
+	case -1: //error
+		perror("fork") ;
+		exit(1) ;
+
+	case 0: // child process
+	// https://stackoverflow.com/a/20509563
+	// run the command
+	execl("calculate", "calculate", (char*)NULL);
+	// execl doesn't return unless there is a problem
+	perror("execl");
+	exit(1);
+
+	default: // parent process, pid now contains the child pid
+		// wait for child to complete
+		while (-1 == waitpid(pid, &status, 0)) ;
+		 	if (WIFSIGNALED(status) || WEXITSTATUS(status) != 0)
+			{
+				std::cerr << "process (pid=" << pid << ") failed" << std::endl ;
+			}
+		break ;
+	}
+}
 
 void calc_exponential()
 {

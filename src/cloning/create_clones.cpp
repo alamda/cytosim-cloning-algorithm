@@ -10,6 +10,8 @@
 #include <cstdio>		/*printf */
 #include <math.h>		/* log10, floor */
 #include <sys/stat.h>	/* mkdir */
+#include <filesystem>
+namespace fs = std::filesystem ;
 
 void create_empty_directories(Clones & clones)
 {
@@ -50,9 +52,16 @@ void create_empty_directories(Clones & clones)
 		// Check if there are any errors in creating the directory
 		if (-1 == dirErr)
 		{
-			printf("Error creating directory!\n");
+			printf("Error creating directories! Check that directories don't already exist.\n");
 			exit(1);
 		}
+
+		// copy the config.cym file into directory
+		// https://stackoverflow.com/a/48871008
+		fs::path configFile = "config.cym";
+		auto targetDir = std::string(dirNameBuff) / configFile.filename();
+
+		fs::copy_file(configFile, targetDir, fs::copy_options::overwrite_existing);
 
 	} // exit the for loop creating the directories
 }
@@ -63,6 +72,7 @@ void generate_data_files()
 // for clones which will be deleted
 
 // will call Cytosim's frametool executable
+// frametool objects.cmo last > objects.cmi
 }
 
 void copy_simulation_files()
