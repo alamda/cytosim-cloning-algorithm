@@ -31,7 +31,7 @@ void calc_observable()
 
 	case 0: // child process
 	// https://stackoverflow.com/a/20509563
-	// run the command
+	// run the calculate executable
 	execl("calculate", "calculate", (char*)NULL);
 	// execl doesn't return unless there is a problem
 	perror("execl");

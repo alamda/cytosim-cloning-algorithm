@@ -5,6 +5,7 @@
 #include "cytosim_params.h"
 #include "create_clones.h"
 #include "analyze_clones.h"
+#include "cytosim_interface.h"
 
 #include <string>
 #include <cstdio>
@@ -42,7 +43,16 @@ int main()
 	// cytosim_interface.cpp
 	// pick up here !!!
 
+	// run the executable that calculates rate of work for a trajectory
 	calc_observable() ;
+
+	run_frametool() ;
+
+	run_sim() ;
+
+	run_report() ;
+
+
 
 	// For each iteration of cloning algo, loop following functions
 

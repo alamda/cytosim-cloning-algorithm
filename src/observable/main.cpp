@@ -34,7 +34,7 @@ int main()
 	const std::string wDotIntegralFileName = "wDotIntegral.txt" ;
 
 	// Do the Thing
-	//process_data_file(simul, dataFileName, wDotOutputFileName, wDotIntegralFileName);
+	process_data_file(simul, dataFileName, wDotOutputFileName, wDotIntegralFileName);
 
 	return 0;
 }
