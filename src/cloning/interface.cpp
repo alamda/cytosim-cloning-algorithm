@@ -1,6 +1,5 @@
 // wrappers for calling cytosim executables
 
-#include "cytosim_interface.h"
 #include "interface.h"
 
 #include <iostream>
@@ -68,9 +67,37 @@ void run_sim(Interface & interface)
 	exec_container(interface, "sim2") ;
 }
 
-void run_report(Interface & interface)
+void calc_observable(std::string executableName)
 {
-	// call the report executable
+	// calls the calculate executable to calculate wdot from the cytosim ouput data
 
-	exec_container(interface, "report2") ;
+	// https://stackoverflow.com/a/13558040
+
+	// Create child process to run calculate executable
+	pid_t pid = fork() ;
+	int status ;
+
+	switch (pid)
+	{
+	case -1: //error
+		perror("fork") ;
+		exit(1) ;
+
+	case 0: // child process
+	// https://stackoverflow.com/a/20509563
+	// run the calculate executable
+	execl(executableName.c_str(), executableName.c_str(), (char*)NULL);
+	// execl doesn't return unless there is a problem
+	perror("execl");
+	exit(1);
+
+	default: // parent process, pid now contains the child pid
+		// wait for child to complete
+		while (-1 == waitpid(pid, &status, 0)) ;
+		 	if (WIFSIGNALED(status) || WEXITSTATUS(status) != 0)
+			{
+				std::cerr << "process (pid=" << pid << ") failed" << std::endl ;
+			}
+		break ;
+	}
 }

@@ -6,9 +6,13 @@ add_executable(clone
 	create_clones.h
 	cytosim_params.cpp
 	cytosim_params.h
-	analyze_clones.cpp
-	analyze_clones.h
-	cytosim_interface.cpp
-	cytosim_interface.h
+	cloning_calculations.cpp
+	cloning_calculations.h
+	interface.cpp
 	interface.h
+	interface.h
+	iterator.cpp
+	iterator.h
+	cloning_logistics.cpp
+	cloning_logistics.h
 	)
