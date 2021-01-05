@@ -1,6 +1,7 @@
 // wrappers for calling cytosim executables
 
 #include "cytosim_interface.h"
+#include "interface.h"
 
 #include <iostream>
 #include <sys/wait.h>
@@ -9,7 +10,18 @@
 #include <cstdlib>
 #include <string>
 
-void exec_container(std::string commandName)
+void set_interface(Interface & interface, std::string singularityPath, std::string cytosimContainerPath)
+{
+	interface.singularityPath = singularityPath ;
+	interface.cytosimContainerPath = cytosimContainerPath ;
+
+	printf("interface.singularityPath = %s\n", interface.singularityPath.c_str()) ;
+	printf("interface.cytosimContainerPath = %s\n", interface.cytosimContainerPath.c_str()) ;
+
+	printf("\n") ;
+}
+
+void exec_container(Interface & interface, std::string commandName)
 {
 	std::string commandPath = "/home/cytosim/bin/" ;
 	commandPath.append(commandName) ;
@@ -28,7 +40,7 @@ void exec_container(std::string commandName)
 	case 0: // child process
 	// https://stackoverflow.com/a/20509563
 	// run the calculate executable
-	execl("/usr/bin/singularity", "singularity", "exec", "/home/alexandra/temp/singularity/cytosim_container/cytosim.sif", commandPath.c_str(), (char*)NULL);
+	execl(interface.singularityPath.c_str(), "singularity", "exec", interface.cytosimContainerPath.c_str(), commandPath.c_str(), (char*)NULL);
 	// execl doesn't return unless there is a problem
 	perror("execl");
 	exit(1);
@@ -44,21 +56,21 @@ void exec_container(std::string commandName)
 	}
 }
 
-void run_frametool()
+void run_frametool(Interface & interface)
 {
-	exec_container("frametool") ;
+	exec_container(interface, "frametool") ;
 }
 
-void run_sim()
+void run_sim(Interface & interface)
 {
 	// call sim executable
 
-	exec_container("sim2") ;
+	exec_container(interface, "sim2") ;
 }
 
-void run_report()
+void run_report(Interface & interface)
 {
 	// call the report executable
 
-	exec_container("report2") ;
+	exec_container(interface, "report2") ;
 }

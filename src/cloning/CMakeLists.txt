@@ -10,4 +10,5 @@ add_executable(clone
 	analyze_clones.h
 	cytosim_interface.cpp
 	cytosim_interface.h
+	interface.h
 	)
