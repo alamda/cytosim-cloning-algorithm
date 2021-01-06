@@ -6,7 +6,7 @@
 
 #include <string>
 
-typedef struct Clones_s
+typedef struct CloningParams_s
 {
 	// number of clones
 	int numClones;
@@ -23,11 +23,11 @@ typedef struct Clones_s
 	// Index to count iterations
 	int idxIter = 0;
 
-	float fullSimulLength ; 
+	float fullSimulLength ;
 
-} Clones ;
+} CloningParams ;
 
-void get_cloning_params(Clones & clones, std::string configFileName) ;
+void get_cloning_params(CloningParams & cloningParams, std::string configFileName) ;
 
 
 #endif // CLONING_PARAMS_H

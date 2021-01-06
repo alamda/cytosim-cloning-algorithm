@@ -6,11 +6,11 @@
 // wait for all processes (clones) to finish simulating before moving on
 //
 
-void iterate(Clones & clones, Cytosim & cytosim)
+void iterate(CloningParams & cloningParams, Cytosim & cytosim)
 {
 
 	// loop over clones (each is a separate process)
-	for (int cloneIdx = 0 ; cloneIdx < clones.numClones ; ++cloneIdx )
+	for (int cloneIdx = 0 ; cloneIdx < cloningParams.numClones ; ++cloneIdx )
 	{
 		// start cytosim simulation for clone - done
 

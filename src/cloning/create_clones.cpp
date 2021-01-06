@@ -13,19 +13,19 @@
 #include <filesystem>
 namespace fs = std::filesystem ;
 
-void create_empty_directories(Clones & clones)
+void create_empty_directories(CloningParams & cloningParams)
 {
 	/* Directory naming convention: cN_iM
 	 * N: clone number, M: iteration number
-	 * zero padding for each depends on length of clonse.numClones and clones.numIters
+	 * zero padding for each depends on length of clonse.numClones and cloningParams.numIters
 	 */
 
 	// Index to count clones and iterations
 	int idxClone ;
 
 	// Calculate the zero padding required for clone idx and iter idx
-	int nZerosClone = static_cast<int>( floor(log10(clones.numClones)) ) + 1;
-	int nZerosIter = static_cast<int>( floor(log10(clones.numIters)) ) + 1 ;
+	int nZerosClone = static_cast<int>( floor(log10(cloningParams.numClones)) ) + 1;
+	int nZerosIter = static_cast<int>( floor(log10(cloningParams.numIters)) ) + 1 ;
 
 	// Declare the buffer large enough to accommodate each directory name
 	char dirNameBuff [1 + 				// leading c character
@@ -35,14 +35,14 @@ void create_empty_directories(Clones & clones)
 					  nZerosIter		// iteration index
 					  ] ;
 
-	for (idxClone = 0 ; idxClone < clones.numClones; ++idxClone)
+	for (idxClone = 0 ; idxClone < cloningParams.numClones; ++idxClone)
 	{
 		// Fill the directory name buffer
 		// sprintf actually returns an int specifying the length
 		// of the string in the buffer (not used here)
 		int dirNameLen =
 			sprintf(dirNameBuff, "c%0*i_i%0*i",
-					nZerosClone, idxClone, nZerosIter, clones.idxIter) ;
+					nZerosClone, idxClone, nZerosIter, cloningParams.idxIter) ;
 
 		// Create the directory with correct name
 		// https://codeyarns.com/tech/2014-08-07-how-to-create-directory-using-c-on-linux.html

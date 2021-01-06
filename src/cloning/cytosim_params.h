@@ -25,7 +25,7 @@ typedef struct Cytosim_s
 
 void get_cytosim_params(Cytosim & cytosim, std::string configFileName) ;
 
-void calculate_num_time_steps_and_frames(Cytosim & cytosim, Clones & clones) ;
+void calculate_num_time_steps_and_frames(Cytosim & cytosim, CloningParams & cloningParams) ;
 
 bool exist_check(std::string path);
 

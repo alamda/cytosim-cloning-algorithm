@@ -37,13 +37,13 @@ int main()
 	const std::string cloneConfigFileName = "config.clone" ;
 
 	// Declare cloning struct and get params
-	Clones clones ;
-	get_cloning_params(clones, cloneConfigFileName) ;
+	CloningParams cloningParams ;
+	get_cloning_params(cloningParams, cloneConfigFileName) ;
 
 	// Declare cytosim struct and get some params
 	Cytosim cytosim ;
 	get_cytosim_params(cytosim, cloneConfigFileName) ;
-	calculate_num_time_steps_and_frames(cytosim, clones) ;
+	calculate_num_time_steps_and_frames(cytosim, cloningParams) ;
 
 	// generate config.cym that include the correct number of time steps and frames
 	gen_cytosim_config_file(cytosim) ;
@@ -56,7 +56,7 @@ int main()
 		 * create_clones.cpp
 		 */
 		// Temporarily commented out
-		//create_empty_directories(clones) ;
+		//create_empty_directories(cloningParams) ;
 
 		/* Run iteration of simulation
 		 * interface.cpp, interface.h
@@ -83,6 +83,6 @@ int main()
 		 */
 		// run_frametool(interface) ;
 
-		// clones.idxIter++ ;
+		// cloningParams.idxIter++ ;
 
 }

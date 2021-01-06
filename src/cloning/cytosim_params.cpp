@@ -60,14 +60,14 @@ void get_cytosim_params(Cytosim & cytosim, std::string configFileName)
 	configFile.close() ;
 }
 
-void calculate_num_time_steps_and_frames(Cytosim & cytosim, Clones & clones)
+void calculate_num_time_steps_and_frames(Cytosim & cytosim, CloningParams & cloningParams)
 {
 
-	cytosim.numTimeSteps = static_cast<int>( ceil( clones.iterLength / cytosim.lenTimeStep ) ) ;
+	cytosim.numTimeSteps = static_cast<int>( ceil( cloningParams.iterLength / cytosim.lenTimeStep ) ) ;
 
-	cytosim.numFrames = static_cast<int>( ceil (clones.iterLength / cytosim.timePerFrame) ) ;
+	cytosim.numFrames = static_cast<int>( ceil (cloningParams.iterLength / cytosim.timePerFrame) ) ;
 
-	cytosim.lenSimul = clones.iterLength ;
+	cytosim.lenSimul = cloningParams.iterLength ;
 
 
 	printf("cytosim.numTimeStep:\t\t%i\n", cytosim.numTimeSteps) ;

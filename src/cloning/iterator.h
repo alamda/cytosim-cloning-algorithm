@@ -4,6 +4,6 @@
 #include "cloning_params.h"
 #include "cytosim_params.h"
 
-void iterate(Clones & clones, Cytosim & cytosim) ;
+void iterate(CloningParams & cloningParams, Cytosim & cytosim) ;
 
 #endif // ITERATOR_H
