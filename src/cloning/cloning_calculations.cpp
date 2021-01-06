@@ -6,67 +6,49 @@
  * Calculate n_a for each clone
  */
 #include "cloning_calculations.h"
+#include "clone.h"
 
 #include <string>
 #include <fstream>
 #include <regex>
+#include <cstdio>
+#include <math.h> // exp, floor
 
-void read_wDotIntegral(std::string filename)
-{
-	std::regex rgxNum("-?\\d+\\.?\\d*") ;
 
-	std::ifstream dataFile(filename.c_str()) ;
 
-	// If wDotIntegral file was opened successfully
-	while (dataFile)
-	{
-		// Declare empty string variable in which file line contents
-		// will be temporariliy stored
-		std::string line ;
-
-		/* There's technically only one line in the file, but I am setting up
-		 * the full regex line-by-line reading mechanism just in case/because
-		 * I don't feel like changing it. There likely is a faster way of getting
-		 * the single value out of the one-line file, but right now I'm mostly
-		 * concerned about the whole cloning code working. This is a minor
-		 * improvement that could be made but it is not high priority at the
-		 * moment.
-		 */
-
-		while (std::getline(dataFile,line))
-		{
-			std::smatch matchNum ;
-
-			if (std::regex_search(line, matchNum, rgxNum))
-			{	// If line contains number
-				printf("cloning_calculations.cpp/read_wDotIntegral() test\n") ;
-			}
-		}
-
-	}
-}
-
-void calc_exponential()
+void calc_exponential(CloningParams & cloningParams, Clone & clone)
 {
 // takes wDotIntegral.txt as input
 // extracts time stamp and integral value
 // needs to know biasing parameter h from the cloning configuration file
+
+	clone.expObservable = exp(cloningParams.biasParam * clone.timeStamp * clone.wDotIntegral) ;
 }
 
-void calc_s_a()
+void calc_s_a(CloningParams & cloningParams, Clone & currentClone, Clone & pastClone)
 {
 // needs to know exponential value from clone's previous iteration
 // s_a = calc_exp_now/calc_exp_previous
+
+	calc_exponential(cloningParams, currentClone) ;
+	printf("currentClone.expObservable:\t\t%f\n", currentClone.expObservable) ;
+	calc_exponential(cloningParams, pastClone) ;
+	printf("pastClone.expObservable:\t\t%f\n", pastClone.expObservable) ;
+
+	currentClone.s_a = currentClone.expObservable / pastClone.expObservable ;
+	printf("currentClone.s_a:\t\t\t%f\n", currentClone.s_a) ;
 }
 
-void sum_s_a()
+void sum_s_a(Iteration & iteration, Clone & clone)
 {
-// sum of s_a values for all clones in the iteration
+	iteration.sumOfExponentials += clone.expObservable ;
 }
 
-void calc_n_a()
+void calc_n_a(CloningParams & cloningParams, Iteration & iteration, Clone & clone)
 {
 // needs to know N_c (total number of clones) from cloning config file
 // generate random number between 0 and 1
 // needs to STORE the calculated values of n_a
+
+	iteration.numDuplications = static_cast <int>(floor(clone.s_a * cloningParams.numClones / iteration.sumOfExponentials + 0.0)) ;
 }

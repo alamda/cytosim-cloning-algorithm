@@ -15,4 +15,7 @@ add_executable(clone
 	iterator.h
 	cloning_logistics.cpp
 	cloning_logistics.h
+	clone.cpp
+	clone.h
+	iteration.h
 	)

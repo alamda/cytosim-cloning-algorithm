@@ -1,12 +1,19 @@
 #ifndef CLONING_CALCULATIONS_H
 #define CLONING_CALCULATIONS_H
 
-void calc_exponential() ;
+#include "clone.h"
+#include "cloning_params.h"
+#include "iteration.h"
 
-void calc_s_a() ;
+#include <string>
 
-void sum_s_a() ;
 
-void calc_n_a() ;
+void calc_exponential(CloningParams & cloningParams, Clone & clone) ;
+
+void calc_s_a(CloningParams & cloningParams, Clone & currentClone, Clone & pastClone) ;
+
+void sum_s_a(Iteration & iteration, Clone & clone) ;
+
+void calc_n_a(CloningParams & cloningParams, Iteration & iteration, Clone & clone) ;
 
 #endif // CLONING_CALCULATIONS_H
