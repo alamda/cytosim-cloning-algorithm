@@ -63,7 +63,7 @@ void get_cloning_params(CloningParams & cloningParams, std::string configFileNam
 
 	printf("cloningParams.biasParam:\t\t%f\n", cloningParams.biasParam) ;
 	printf("cloningParams.numClones:\t\t%i\n", cloningParams.numClones) ;
-	printf("cloningParams.numIters:\t\t%i\n", cloningParams.numIters) ;
+	printf("cloningParams.numIters:\t\t\t%i\n", cloningParams.numIters) ;
 	printf("cloningParams.iterLength:\t\t%f\ts\n", cloningParams.iterLength) ;
 	printf("cloningParams.fullSimulLength:\t\t%f\ts\n", cloningParams.fullSimulLength) ;
 

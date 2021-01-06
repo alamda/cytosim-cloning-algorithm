@@ -6,7 +6,7 @@
 // wait for all processes (clones) to finish simulating before moving on
 //
 
-void iterate(CloningParams & cloningParams, Cytosim & cytosim)
+void iterate(CloningParams & cloningParams, CytosimParams & cytosimParams)
 {
 
 	// loop over clones (each is a separate process)

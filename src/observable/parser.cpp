@@ -303,7 +303,7 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 	// Once all frames are processed, write integral value to file
 	wDotIntegralFile << simul.wDotIntegral ;
 
-	printf("\nsimul.wDotIntegral:\t\t%f\tpN.um\n", simul.wDotIntegral) ;
+	printf("\nsimul.wDotIntegral:\t\t\t%f\tpN.um\n", simul.wDotIntegral) ;
 	}
 
 	//Close the files
@@ -383,7 +383,7 @@ void get_simulation_params(Simul & simul, std::string configFileName)
 				{
 					simul.numFrames = std::stoll(matchNum.str(0));
 
-					printf("simul.numFrames:\t\t%d\n", simul.numFrames) ;
+					printf("simul.numFrames:\t\t\t%d\n", simul.numFrames) ;
 				}
 			}
 			else if (std::regex_search(line, matchLine, rgxNumSteps) ||
@@ -393,7 +393,7 @@ void get_simulation_params(Simul & simul, std::string configFileName)
 				{
 					simul.numSteps = std::stoi(matchNum.str(0));
 
-					printf("simul.numSteps:\t\t\t%d\n", simul.numSteps) ;
+					printf("simul.numSteps:\t\t\t\t%d\n", simul.numSteps) ;
 				}
 			}
 			else if (std::regex_search(line, matchLine, rgxDuration))
@@ -404,7 +404,7 @@ void get_simulation_params(Simul & simul, std::string configFileName)
 
 					simul.numSteps = simul.duration/simul.timeStepSize ;
 
-					printf("simul.numSteps:\t\t\t%d\n", simul.numSteps) ;
+					printf("simul.numSteps:\t\t\t\t%d\n", simul.numSteps) ;
 				}
 			}
 			else if ( std::regex_search(line, matchLine, rgxUnload) )
@@ -418,8 +418,8 @@ void get_simulation_params(Simul & simul, std::string configFileName)
 					simul.stallForce = std::stof(matchNum.str(0));
 			}
 		}
-		printf( "simul.unloadedSpeed:\t\t%f\tum/s\n",simul.unloadedSpeed ) ;
-		printf( "simul.stallForce:\t\t%f\tpN\n", simul.stallForce ) ;
+		printf( "simul.unloadedSpeed:\t\t\t%f\tum/s\n",simul.unloadedSpeed ) ;
+		printf( "simul.stallForce:\t\t\t%f\tpN\n", simul.stallForce ) ;
 	}
 
 	configFile.close() ;

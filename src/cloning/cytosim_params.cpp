@@ -13,11 +13,11 @@
 
 namespace fs = std::filesystem;
 
-void get_cytosim_params(Cytosim & cytosim, std::string configFileName)
+void get_cytosim_params(CytosimParams & cytosimParams, std::string configFileName)
 {
-	// cytosim.lenTimeStep
+	// cytosimParams.lenTimeStep
 	std::regex rgxLenTimeStep("time_step_len");
-	// cytosim.timePerFrame
+	// cytosimParams.timePerFrame
 	std::regex rgxTimePerFrame("time_per_frame") ;
 
 	// Regex string for all kinds of numbers
@@ -42,37 +42,37 @@ void get_cytosim_params(Cytosim & cytosim, std::string configFileName)
 			if (std::regex_search(line, matchLine, rgxLenTimeStep))
 			{	// If line contains time step length
 				if (std::regex_search(line, matchNum, rgxNum))
-					cytosim.lenTimeStep
+					cytosimParams.lenTimeStep
 					 = std::stof(matchNum.str(0)) ;
 			}
 			else if (std::regex_search(line, matchLine, rgxTimePerFrame))
 			{	// If line contains time per frame
 				if (std::regex_search(line, matchNum, rgxNum))
-					cytosim.timePerFrame = std::stof(matchNum.str(0)) ;
+					cytosimParams.timePerFrame = std::stof(matchNum.str(0)) ;
 			}
 		} // end while loop
 	} // end while loop
 
-	printf("cytosim.lenTimeStep:\t\t%f\ts\n", cytosim.lenTimeStep) ;
-	printf("cytosim.timePerFrame:\t\t%f\ts\n", cytosim.timePerFrame) ;
+	printf("cytosimParams.lenTimeStep:\t\t%f\ts\n", cytosimParams.lenTimeStep) ;
+	printf("cytosimParams.timePerFrame:\t\t%f\ts\n", cytosimParams.timePerFrame) ;
 	printf("\n") ;
 
 	configFile.close() ;
 }
 
-void calculate_num_time_steps_and_frames(Cytosim & cytosim, CloningParams & cloningParams)
+void calculate_num_time_steps_and_frames(CytosimParams & cytosimParams, CloningParams & cloningParams)
 {
 
-	cytosim.numTimeSteps = static_cast<int>( ceil( cloningParams.iterLength / cytosim.lenTimeStep ) ) ;
+	cytosimParams.numTimeSteps = static_cast<int>( ceil( cloningParams.iterLength / cytosimParams.lenTimeStep ) ) ;
 
-	cytosim.numFrames = static_cast<int>( ceil (cloningParams.iterLength / cytosim.timePerFrame) ) ;
+	cytosimParams.numFrames = static_cast<int>( ceil (cloningParams.iterLength / cytosimParams.timePerFrame) ) ;
 
-	cytosim.lenSimul = cloningParams.iterLength ;
+	cytosimParams.lenSimul = cloningParams.iterLength ;
 
 
-	printf("cytosim.numTimeStep:\t\t%i\n", cytosim.numTimeSteps) ;
-	printf("cytosim.numFrames:\t\t%i\n", cytosim.numFrames) ;
-	printf("cytosim.lenSimul:\t\t%f\ts\n", cytosim.lenSimul) ;
+	printf("cytosimParams.numTimeStep:\t\t%i\n", cytosimParams.numTimeSteps) ;
+	printf("cytosimParams.numFrames:\t\t%i\n", cytosimParams.numFrames) ;
+	printf("cytosimParams.lenSimul:\t\t\t%f\ts\n", cytosimParams.lenSimul) ;
 
 	printf("\n") ;
 }
@@ -84,7 +84,7 @@ bool exist_check(std::string path)
 	return fs::status_known(s) ? fs::exists(s) : fs::exists(path) ;
 }
 
-void gen_cytosim_config_file(Cytosim & cytosim)
+void gen_cytosim_config_file(CytosimParams & cytosimParams)
 {
 	// check for the directory containing precursor *.cym files, return error and exit if not found
 	// https://en.cppreference.com/w/cpp/filesystem/exists
@@ -98,10 +98,10 @@ void gen_cytosim_config_file(Cytosim & cytosim)
 		// define edits to files
 
 		char simulEditBuff [100] ;
-		int simulEditLen = sprintf(simulEditBuff, "change system\n{\n\ttime_step = %f ;\n}\n\n", cytosim.lenTimeStep) ;
+		int simulEditLen = sprintf(simulEditBuff, "change system\n{\n\ttime_step = %f ;\n}\n\n", cytosimParams.lenTimeStep) ;
 
 		char runEditBuff [100] ;
-		int runEditLen = sprintf(runEditBuff, "run system \n{\n\tduration = %f ;\n\t nb_frames = %i ; \n}\n\n", cytosim.lenSimul, cytosim.numFrames) ;
+		int runEditLen = sprintf(runEditBuff, "run system \n{\n\tduration = %f ;\n\t nb_frames = %i ; \n}\n\n", cytosimParams.lenSimul, cytosimParams.numFrames) ;
 
 		// concatenate precursor files and edits into config.cym
 		// simul.cym  simul_edit space.cym objects.cym run_edit report.cym > config.cym

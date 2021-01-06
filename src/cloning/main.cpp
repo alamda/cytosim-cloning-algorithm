@@ -41,12 +41,12 @@ int main()
 	get_cloning_params(cloningParams, cloneConfigFileName) ;
 
 	// Declare cytosim struct and get some params
-	Cytosim cytosim ;
-	get_cytosim_params(cytosim, cloneConfigFileName) ;
-	calculate_num_time_steps_and_frames(cytosim, cloningParams) ;
+	CytosimParams cytosimParams ;
+	get_cytosim_params(cytosimParams, cloneConfigFileName) ;
+	calculate_num_time_steps_and_frames(cytosimParams, cloningParams) ;
 
 	// generate config.cym that include the correct number of time steps and frames
-	gen_cytosim_config_file(cytosim) ;
+	gen_cytosim_config_file(cytosimParams) ;
 
 	/* For each iteration of cloning algo, loop following functions
 	 * iterator.cpp, iterator.h
