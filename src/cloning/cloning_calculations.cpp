@@ -15,10 +15,10 @@ void read_wDotIntegral(std::string filename)
 {
 	std::regex rgxNum("-?\\d+\\.?\\d*") ;
 
-	std::ifstream file(filename.c_str()) ;
+	std::ifstream dataFile(filename.c_str()) ;
 
 	// If wDotIntegral file was opened successfully
-	while file
+	while (dataFile)
 	{
 		// Declare empty string variable in which file line contents
 		// will be temporariliy stored
@@ -33,13 +33,13 @@ void read_wDotIntegral(std::string filename)
 		 * moment.
 		 */
 
-		while (std::getline(configFile,line))
+		while (std::getline(dataFile,line))
 		{
 			std::smatch matchNum ;
 
-			if (std::regex_search(line,))
+			if (std::regex_search(line, matchNum, rgxNum))
 			{	// If line contains number
-				
+				printf("cloning_calculations.cpp/read_wDotIntegral() test\n") ;
 			}
 		}
 
