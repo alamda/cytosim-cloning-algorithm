@@ -14,11 +14,13 @@ typedef struct Interface_s
 
 void set_interface(Interface & interface, std::string singularityPath, std::string cytosimContainerPath );
 
-void exec_container(Interface & interface, std::string commandName) ;
+void exec_container(Interface & interface, const char** argv) ;
 
 void run_frametool(Interface & interface) ;
 
 void run_sim(Interface & interface) ;
+
+void run_report(Interface & interface ) ;
 
 void calc_observable(std::string executableName) ;
 

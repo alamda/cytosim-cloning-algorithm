@@ -25,14 +25,16 @@
 	*/
 void calculate_frame(Simul & simul, Frame & frame)
 {
+	// Set wDot for frame to zero, will be adding linker wDot values to it
+	frame.wDot = 0.0 ;
+	// printf("frame.wDot = %f\n", frame.wDot ) ;
 	//* Number of linkers in current frame should be non-zero
 	if (frame.numLinkers > 0 )
 	{
 		std::vector <Linker>::iterator linkerPtr = frame.linkerObjects.begin(),
 									   endPtr = frame.linkerObjects.end() ;
 
-		// Set wDot for frame to zero, will be adding linker wDot values to it
-		frame.wDot = 0.0 ;
+
 
 		// printf("Frame number: %d\n", frame.frameNumber) ;
 
@@ -102,7 +104,7 @@ Eigen::VectorXf convert_std_vec_to_eigen_vec(std::vector <float> vector)
 
 	//* https://stackoverflow.com/questions/17036818/initialise-eigenvector-with-stdvector
 
-	// It is very important that the returns are in the if statements! 
+	// It is very important that the returns are in the if statements!
 
 	if (vecSizeInt == 2)
 	{

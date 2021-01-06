@@ -98,10 +98,10 @@ void gen_cytosim_config_file(Cytosim & cytosim)
 		// define edits to files
 
 		char simulEditBuff [100] ;
-		int simulEditLen = sprintf(simulEditBuff, "change system { time_step = %f ; }\n\n", cytosim.lenTimeStep) ;
+		int simulEditLen = sprintf(simulEditBuff, "change system\n{\n\ttime_step = %f ;\n}\n\n", cytosim.lenTimeStep) ;
 
 		char runEditBuff [100] ;
-		int runEditLen = sprintf(runEditBuff, "run system { duration = %f ; nb_frames = %i ; }\n\n", cytosim.lenSimul, cytosim.numFrames) ;
+		int runEditLen = sprintf(runEditBuff, "run system \n{\n\tduration = %f ;\n\t nb_frames = %i ; \n}\n\n", cytosim.lenSimul, cytosim.numFrames) ;
 
 		// concatenate precursor files and edits into config.cym
 		// simul.cym  simul_edit space.cym objects.cym run_edit report.cym > config.cym

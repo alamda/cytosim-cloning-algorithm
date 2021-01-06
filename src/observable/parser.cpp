@@ -226,6 +226,9 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 		Frame currentFrame;
 		Frame previousFrame ;
 
+		// set the wDot value for fresh frame to zero
+		currentFrame.wDot = 0.0 ;
+
 		// Set dt value for frames to zero so that calculation for
 		// the zeroth frame can occur
 		// currentFrame.dt = 0.0 ;
@@ -260,7 +263,10 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 				// issue for smaller time step sizes.
 				currentFrame.timeStamp = currentFrame.frameNumber * simul.timeStepSize * (simul.numSteps / simul.numFrames);
 
-				// printf("currentFrame.timeStamp: %f\n", currentFrame.timeStamp) ;
+				// printf("simul.timeStepSize: %f\n", simul.timeStepSize) ; // works fine
+				// printf("currentFrame.frameNumber: %i\n", currentFrame.frameNumber) ; // works fine
+				// printf("simul.numSteps: %i\n", simul.numSteps) ; // did not work, works now
+				// printf("currentFrame.timeStamp: %f\n", currentFrame.timeStamp) ; // works
 
 				currentFrame.dt = currentFrame.timeStamp - previousFrame.timeStamp ;
 
@@ -297,7 +303,7 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 	// Once all frames are processed, write integral value to file
 	wDotIntegralFile << simul.wDotIntegral ;
 
-	printf("\nsimul.wDotIntegral: %f\n", simul.wDotIntegral) ;
+	printf("\nsimul.wDotIntegral:\t\t%f\tpN.um\n", simul.wDotIntegral) ;
 	}
 
 	//Close the files
@@ -327,6 +333,12 @@ void get_simulation_params(Simul & simul, std::string configFileName)
 	//simul.numSteps ;
 	std::regex rgxNumSteps("run \\d+") ;
 	std::regex rgxNumSteps2("nb_steps") ;
+	std::regex rgxDuration("duration") ;
+
+	//simul.unloadedSpeed
+	std::regex rgxUnload("unloaded_speed");
+	//simul.stallForce ;
+	std::regex rgxStall("stall_force");
 
 	// Regex for all kinds of numbers: positive and negative ints and floats
 	std::regex rgxNum("-?\\d+\\.?\\d*") ;
@@ -342,6 +354,10 @@ void get_simulation_params(Simul & simul, std::string configFileName)
 		std::string line ;
 
 		// Read config file line-by-line
+		// Since each line is checked for all regex patterns, the most recent
+		// (latest) value of a parameter is what gets recorded
+		// For instance, if the time step is set at the beginning and then
+		// changed later, the second value will be stored as the time step length
 		while (std::getline(configFile, line))
 		{
 			// "Container-like class used to store the matches found on the
@@ -375,14 +391,35 @@ void get_simulation_params(Simul & simul, std::string configFileName)
 			{	// If line contains "run [### system_name]" command or nb_steps
 				if (std::regex_search(line, matchNum, rgxNum))
 				{
-					simul.numSteps = std::stoll(matchNum.str(0));
+					simul.numSteps = std::stoi(matchNum.str(0));
 
 					printf("simul.numSteps:\t\t\t%d\n", simul.numSteps) ;
 				}
 			}
+			else if (std::regex_search(line, matchLine, rgxDuration))
+			{	// If line contains duration parameter
+				if (std::regex_search(line, matchNum, rgxNum))
+				{
+					simul.duration = std::stof(matchNum.str(0)) ;
+
+					simul.numSteps = simul.duration/simul.timeStepSize ;
+
+					printf("simul.numSteps:\t\t\t%d\n", simul.numSteps) ;
+				}
+			}
+			else if ( std::regex_search(line, matchLine, rgxUnload) )
+			{	// If line contains unloaded speed string
+				if ( std::regex_search(line, matchNum, rgxNum))
+					simul.unloadedSpeed = std::stof(matchNum.str(0));
+			}
+			else if ( std::regex_search(line, matchLine, rgxStall))
+			{	// If line contains stall force string
+				if (std::regex_search(line, matchNum, rgxNum))
+					simul.stallForce = std::stof(matchNum.str(0));
+			}
 		}
-		printf( "simul.unloadedSpeed:\t\t%f\n",simul.unloadedSpeed ) ;
-		printf( "simul.stallForce:\t\t%f\n", simul.stallForce ) ;
+		printf( "simul.unloadedSpeed:\t\t%f\tum/s\n",simul.unloadedSpeed ) ;
+		printf( "simul.stallForce:\t\t%f\tpN\n", simul.stallForce ) ;
 	}
 
 	configFile.close() ;

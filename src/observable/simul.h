@@ -13,7 +13,7 @@ typedef struct Simul_s
 
 	float stallForce ;
 	float unloadedSpeed ;
-	
+
 	float wDotIntegral ;
 
 	float timeStepSize ;
@@ -21,6 +21,8 @@ typedef struct Simul_s
 	int dimension ;
 	int numFrames ;
 	int numSteps ;
+
+	float duration ;
 
 	std::vector < Couple_Prop > couplePropVec ;
 	std::vector < Hand_Prop > handPropVec ;

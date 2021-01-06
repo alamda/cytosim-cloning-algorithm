@@ -21,7 +21,9 @@ int main()
 
 	get_simulation_params(simul, configFileName ) ;
 
-	get_object_props(simul, propFileName) ;
+	// this function was part of the first few steps to differentiating
+	// between passive and active cross-linkers. temporarily commenting out.
+	// get_object_props(simul, propFileName) ;
 
 	// Set integral for the trajectory to zero, will be adding to it later
 	simul.wDotIntegral = 0.0 ;
