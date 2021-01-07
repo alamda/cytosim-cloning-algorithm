@@ -50,5 +50,7 @@ void calc_n_a(CloningParams & cloningParams, Iteration & iteration, Clone & clon
 // generate random number between 0 and 1
 // needs to STORE the calculated values of n_a
 
+	// TODO: need to add random number between 0 and 1 (instead of 0.0)
+
 	iteration.numDuplications = static_cast <int>(floor(clone.s_a * cloningParams.numClones / iteration.sumOfExponentials + 0.0)) ;
 }
