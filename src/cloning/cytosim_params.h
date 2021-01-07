@@ -9,7 +9,7 @@
 
 #include <string>
 
-typedef struct Cytosim_s
+typedef struct CytosimParams_s
 {
 	// values set by user
 	float lenTimeStep ;
@@ -21,14 +21,14 @@ typedef struct Cytosim_s
 	// Values calculated using iteration length cloning param
 	int numTimeSteps ;
 	int numFrames ;
-} Cytosim ;
+} CytosimParams ;
 
-void get_cytosim_params(Cytosim & cytosim, std::string configFileName) ;
+void get_cytosim_params(CytosimParams & cytosimParams, std::string configFileName) ;
 
-void calculate_num_time_steps_and_frames(Cytosim & cytosim, Clones & clones) ;
+void calculate_num_time_steps_and_frames(CytosimParams & cytosimParams, CloningParams & cloningParams) ;
 
 bool exist_check(std::string path);
 
-void gen_cytosim_config_file(Cytosim & cytosim) ;
+void gen_cytosim_config_file(CytosimParams & cytosimParams) ;
 
 #endif // CYTOSIM_PARAMS_H

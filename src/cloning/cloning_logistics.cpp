@@ -4,6 +4,8 @@
  * determines logistics for which clones are deleted/replicated
  */
 
+ #include "cloning_logistics.h"
+
 void build_clone_list()
 {
 

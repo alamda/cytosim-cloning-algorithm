@@ -21,7 +21,9 @@ int main()
 
 	get_simulation_params(simul, configFileName ) ;
 
-	get_object_props(simul, propFileName) ;
+	// this function was part of the first few steps to differentiating
+	// between passive and active cross-linkers. temporarily commenting out.
+	// get_object_props(simul, propFileName) ;
 
 	// Set integral for the trajectory to zero, will be adding to it later
 	simul.wDotIntegral = 0.0 ;
@@ -34,7 +36,7 @@ int main()
 	const std::string wDotIntegralFileName = "wDotIntegral.txt" ;
 
 	// Do the Thing
-	//process_data_file(simul, dataFileName, wDotOutputFileName, wDotIntegralFileName);
+	process_data_file(simul, dataFileName, wDotOutputFileName, wDotIntegralFileName);
 
 	return 0;
 }

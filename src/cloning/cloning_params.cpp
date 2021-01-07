@@ -6,15 +6,15 @@
 #include <string>
 #include <fstream>
 
-void get_cloning_params(Clones & clones, std::string configFileName)
+void get_cloning_params(CloningParams & cloningParams, std::string configFileName)
 {
-	// clones.numClones
+	// cloningParams.numClones
 	std::regex rgxNumClones("n_clones") ;
-	// clones.numIters
+	// cloningParams.numIters
 	std::regex rgxNumIters("n_iters") ;
-	// clones.biasParam
+	// cloningParams.biasParam
 	std::regex rgxBiasParam("bias_param") ;
-	// clones.iterLength
+	// cloningParams.iterLength
 	std::regex rgxIterLength("iter_length") ;
 
 	// Regex string for all kinds of numbers: positive and negative ints and floats
@@ -39,33 +39,33 @@ void get_cloning_params(Clones & clones, std::string configFileName)
 			if (std::regex_search(line, matchLine, rgxNumClones))
 			{	// If line contains num clones string
 				if (std::regex_search(line, matchNum, rgxNum))
-					clones.numClones = std::stoi(matchNum.str(0)) ;
+					cloningParams.numClones = std::stoi(matchNum.str(0)) ;
 			}
 			else if (std::regex_search(line, matchLine, rgxNumIters))
 			{	// If line contains num iters string
 				if (std::regex_search(line, matchNum, rgxNum))
-					clones.numIters = std::stoi(matchNum.str(0)) ;
+					cloningParams.numIters = std::stoi(matchNum.str(0)) ;
 			}
 			else if (std::regex_search(line, matchLine, rgxBiasParam))
 			{	// If line contains bias param string
 				if (std::regex_search(line, matchNum, rgxNum))
-				clones.biasParam = std::stof(matchNum.str(0)) ;
+				cloningParams.biasParam = std::stof(matchNum.str(0)) ;
 			}
 			else if (std::regex_search(line, matchLine, rgxIterLength))
 			{	// If line contains iter length string
 				if (std::regex_search(line, matchNum, rgxNum))
-					clones.iterLength = std::stof(matchNum.str(0)) ;
+					cloningParams.iterLength = std::stof(matchNum.str(0)) ;
 			}
 		}
 	}
 
-	clones.fullSimulLength = clones.numIters * clones.iterLength ;
+	cloningParams.fullSimulLength = cloningParams.numIters * cloningParams.iterLength ;
 
-	printf("clones.biasParam:\t\t%f\n", clones.biasParam) ;
-	printf("clones.numClones:\t\t%i\n", clones.numClones) ;
-	printf("clones.numIters:\t\t%i\n", clones.numIters) ;
-	printf("clones.iterLength:\t\t%f\ts\n", clones.iterLength) ;
-	printf("clones.fullSimulLength:\t\t%f\ts\n", clones.fullSimulLength) ;
+	printf("cloningParams.biasParam:\t\t%f\n", cloningParams.biasParam) ;
+	printf("cloningParams.numClones:\t\t%i\n", cloningParams.numClones) ;
+	printf("cloningParams.numIters:\t\t\t%i\n", cloningParams.numIters) ;
+	printf("cloningParams.iterLength:\t\t%f\ts\n", cloningParams.iterLength) ;
+	printf("cloningParams.fullSimulLength:\t\t%f\ts\n", cloningParams.fullSimulLength) ;
 
 	printf("\n") ;
 
