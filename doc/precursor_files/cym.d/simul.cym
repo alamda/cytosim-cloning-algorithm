@@ -1,0 +1,8 @@
+set simul system
+{
+	dim = 2
+	time_step = 0
+	viscosity = 0.001
+	temperature = 1
+}
+

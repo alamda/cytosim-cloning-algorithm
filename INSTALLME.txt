@@ -6,3 +6,5 @@ mdkdir build && cd build
 ccmake .. 
 
 make
+# cluster login node has 28 cores, so can add the -j28 flag for super speedy
+# compilation
