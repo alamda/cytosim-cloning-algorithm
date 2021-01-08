@@ -12,10 +12,29 @@
 
 #include <string>
 #include <cstdio>
+#include <typeinfo>
 
+#include <iostream> // std::cout
+
+#ifdef _SINGULARITY_PATH
+	#define SINGULARITY_PATH _SINGULARITY_PATH
+#else
+	//#define SINGULARITY_PATH "/software/singularity-3.4.0-el7-x86_64/bin/singularity" // type char
+	#define SINGULARITY_PATH "/usr/bin/singularity"
+#endif
+
+#ifdef _CYTOSIM_CONTAINER_PATH
+	#define CYTOSIM_CONTAINER_PATH _CYTOSIM_CONTAINER_PATH
+#else
+	// #define CYTOSIM_CONTAINER_PATH "/home/alexandral/cytosim_container/cytosim.sif"
+	#define CYTOSIM_CONTAINER_PATH "/home/alexandra/temp/singularity/cytosim_container/cytosim.sif"
+#endif
 
 int main()
 {
+	std::cout << typeid(SINGULARITY_PATH).name() << std::endl ;
+	std::cout << typeid(CYTOSIM_CONTAINER_PATH).name() << std::endl ;
+
 	/* Set up cytosim interface through singularity
 	 * interface.cpp, interface.h
 	 */
@@ -25,8 +44,14 @@ int main()
 	Interface interface ;
 
 	// Define strings with paths to singularity and cytosim singularity container
-	const std::string singularityPath = "/usr/bin/singularity" ;
-	const std::string cytosimContainerPath = "/home/alexandra/temp/singularity/cytosim_container/cytosim.sif" ;
+	// const std::string singularityPath = "/usr/bin/singularity" ;
+	// const std::string cytosimContainerPath = "/home/alexandra/temp/singularity/cytosim_container/cytosim.sif" ;
+
+	const std::string singularityPath = SINGULARITY_PATH ;
+	const std::string cytosimContainerPath = CYTOSIM_CONTAINER_PATH ;
+
+	std::cout << singularityPath << std::endl;
+	std::cout << cytosimContainerPath << std::endl ;
 
 	// Set interface path variables for later use
 	set_interface(interface, singularityPath, cytosimContainerPath) ;
@@ -107,6 +132,8 @@ int main()
 			calc_s_a(cloningParams, clone, pastClone) ;
 
 			sum_s_a(iteration, clone) ;
+
+			calc_n_a(cloningParams, iteration, clone) ;
 
 		/* Run cloning algorithm calculations
 		 * cloning_calculations.cpp, cloning_calculations.h

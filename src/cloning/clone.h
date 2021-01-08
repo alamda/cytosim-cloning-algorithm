@@ -15,7 +15,9 @@ typedef struct Clone_s
 
 	float expObservable ;
 
-	float s_a ; 
+	float s_a ;
+
+	int numDuplicates ; 
 
 
 } Clone ;

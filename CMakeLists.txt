@@ -32,6 +32,19 @@ option(BUILD_CLONING_EXECUTABLE
 	ON
 	)
 
+set(_SINGULARITY_PATH
+	"/usr/bin/singularity"
+	CACHE PATH
+	"specify the path of the sinularity executable"
+	)
+
+set(_CYTOSIM_CONTAINER_PATH
+	"/home/alexandra/temp/singularity/cytosim_container/cytosim.sif"
+	CACHE PATH
+	"specify the path of the cytosim singularity image file"
+	)
+
+
 # add subdirectories (each containing its own CMakeLists.txt)
 add_subdirectory(src/observable)
 add_subdirectory(src/cloning)

@@ -13,6 +13,7 @@
 #include <regex>
 #include <cstdio>
 #include <math.h> // exp, floor
+#include <random> // for safe generation of random numbers
 
 
 
@@ -44,6 +45,19 @@ void sum_s_a(Iteration & iteration, Clone & clone)
 	iteration.sumOfExponentials += clone.expObservable ;
 }
 
+float gen_noise()
+{
+	https://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution
+	std::random_device rd;  //Will be used to obtain a seed for the random number engine
+	std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+
+	//define function that generates a float uniformly distributed on [0,1] (both inclusive)
+	std::uniform_real_distribution<> dis(0.0, std::nextafter(1.0, std::numeric_limits<float>::max()));
+
+	return dis(gen) ;
+}
+
+
 void calc_n_a(CloningParams & cloningParams, Iteration & iteration, Clone & clone)
 {
 // needs to know N_c (total number of clones) from cloning config file
@@ -52,5 +66,14 @@ void calc_n_a(CloningParams & cloningParams, Iteration & iteration, Clone & clon
 
 	// TODO: need to add random number between 0 and 1 (instead of 0.0)
 
-	iteration.numDuplications = static_cast <int>(floor(clone.s_a * cloningParams.numClones / iteration.sumOfExponentials + 0.0)) ;
+	float noiseTerm = gen_noise() ;
+
+	// printf("noise term: %f\n", noiseTerm) ;
+
+	clone.numDuplicates = static_cast <int>(floor(clone.s_a * cloningParams.numClones / iteration.sumOfExponentials + noiseTerm)) ;
+
+	printf("clone.numDuplicates: %d\n", clone.numDuplicates) ;
+
+
+
 }
