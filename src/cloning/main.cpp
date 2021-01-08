@@ -89,13 +89,18 @@ int main()
 
 	Iteration iteration ;
 
-		/* Generate cytosim input files for each clone
-		 * create_clones.cpp
-		 */
-		// Temporarily commented out
-		//create_empty_directories(cloningParams) ;
+	// Doing the iterations and clones in a sloppy way for now - with for loops D:
 
-		/* For each clone, run cytosim simulation and calculate wDotIntegral: */
+	for (cloningParams.idxIter = 0 ; cloningParams.idxIter < cloningParams.numIters ; ++cloningParams.idxIter)
+	{
+		for (int cloneIdx = 0 ; cloneIdx < cloningParams.numClones ; ++cloneIdx)
+		{
+			/* Generate cytosim input files for each clone
+			 * create_clones.cpp
+			 */
+			//create_empty_directories(cloningParams) ;
+
+			/* For each clone, run cytosim simulation and calculate wDotIntegral: */
 
 			// Create clone object to store relevant data for the clone
 			Clone pastClone ;
@@ -129,32 +134,54 @@ int main()
 			read_wDotIntegral(clone, wDotIntFileName) ;
 			get_time_stamp(cloningParams, clone) ;
 
+			// Calculate the s_a value for the individual clone
 			calc_s_a(cloningParams, clone, pastClone) ;
 
-			sum_s_a(iteration, clone) ;
+			// Add the clone object to the clone object vector for the iteration
+			iteration.cloneVector.push_back(clone) ;
 
-			calc_n_a(cloningParams, iteration, clone) ;
+			/* Generate cytosim "restart" files
+			 * interface.cpp, interface.h
+			 */
+			// run_frametool(interface) ;
 
-		/* Run cloning algorithm calculations
+		}
+
+		/* Perform the cloning operations that require values for all clones
+		 * in the iteration
 		 * cloning_calculations.cpp, cloning_calculations.h
 		 */
 
-			/* For each clone, perform the cloning algorithm calculations */
+		for (Clone & clone : iteration.cloneVector)
+		{
+			// Calculate the sum of values of s_a for all clones in the iteration
+			sum_s_a(iteration, clone) ;
 
-			printf("iteration.sumOfExponentials:\t\t%f\n", iteration.sumOfExponentials) ;
 
 
+			// Calculate n_a, the number of duplicates for each clone
+			calc_n_a(cloningParams, iteration, clone) ;
+
+			// Add the number of duplicates for the clone to the genealogy vector
+			iteration.genealogy.push_back(clone.numDuplicates) ;
+
+		}
+
+		printf("iteration.sumOfExponentials:\t\t%f\n", iteration.sumOfExponentials) ;
 
 		/* Determine the logistics of copying
 		 * cloning_logistics.cpp, cloning_logistics.h
 		 */
 
-		/* Generate cytosim "restart" files
-		 * interface.cpp, interface.h
-		 */
-		// run_frametool(interface) ;
+		// Make sure the total number of clones matches the value specified in clone.config
+		adjust_population(cloningParams, iteration) ;
 
+		for (int num: iteration.genealogy)
+		{
+			std::cout << num << std::endl ;
+		}
 
+	}
 
 
 

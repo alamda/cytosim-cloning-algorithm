@@ -72,6 +72,8 @@ void calc_n_a(CloningParams & cloningParams, Iteration & iteration, Clone & clon
 
 	clone.numDuplicates = static_cast <int>(floor(clone.s_a * cloningParams.numClones / iteration.sumOfExponentials + noiseTerm)) ;
 
+	iteration.numClonesPredicted += clone.numDuplicates ;
+
 	printf("clone.numDuplicates: %d\n", clone.numDuplicates) ;
 
 
