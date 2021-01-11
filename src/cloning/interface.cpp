@@ -41,10 +41,11 @@ void exec_container(Interface & interface, const char** argv)
 		{
 			// https://stackoverflow.com/a/20509563
 			// run the command
-			const char * strMatch = strstr(argv[3], "report");
+			const char * strMatchReport = strstr(argv[3], "report");
+			const char * strMatchFrametool = strstr(argv[3], "frametool") ;
 
 			// if the command is the report command, write output to file
-			if (strMatch != NULL )
+			if (strMatchReport != NULL )
 			{
 				// https://pubs.opengroup.org/onlinepubs/009604499/basedefs/fcntl.h.html
 
@@ -55,6 +56,15 @@ void exec_container(Interface & interface, const char** argv)
 				dup2(out, 1); // replace standard output with output file
 
 				// run the cytosim command
+				execv(interface.singularityPath.c_str(), (char * const *) argv);
+
+				close(out) ;
+			}
+			else if (strMatchFrametool != NULL)
+			{
+				int out = open("objects.cmi", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR) ;
+				dup2(out,1) ;
+
 				execv(interface.singularityPath.c_str(), (char * const *) argv);
 
 				close(out) ;
@@ -81,7 +91,7 @@ void exec_container(Interface & interface, const char** argv)
 
 void run_frametool(Interface & interface)
 {
-	const char* argv[] = {"singularity", "exec", interface.cytosimContainerPath.c_str(), "/home/cytosim/bin/frametool", NULL} ;
+	const char* argv[] = {"singularity", "exec", interface.cytosimContainerPath.c_str(), "/home/cytosim/bin/frametool", "last", NULL} ;
 	exec_container(interface,  argv) ;
 }
 
@@ -99,7 +109,7 @@ void run_report(Interface & interface)
 	exec_container(interface, argv) ;
 }
 
-void calc_observable(std::string executableName)
+void calc_observable(std::string executableName, std::string executablePath)
 {
 	// calls the calculate executable to calculate wdot from the cytosim ouput data
 
@@ -121,7 +131,7 @@ void calc_observable(std::string executableName)
 		{
 			// https://stackoverflow.com/a/20509563
 			// run the calculate executable
-			execl(executableName.c_str(), executableName.c_str(), (char*)NULL);
+			execl(executablePath.c_str(), executableName.c_str(), (char*)NULL);
 			// execl doesn't return unless there is a problem
 			perror("execl");
 			exit(1);
@@ -132,7 +142,7 @@ void calc_observable(std::string executableName)
 			while (-1 == waitpid(pid, &status, 0)) ;
 			 	if (WIFSIGNALED(status) || WEXITSTATUS(status) != 0)
 				{
-					std::cerr << "process (pid=" << pid << ") failed" << std::endl ;
+					std::cerr << "process "<< executableName << " (pid=" << pid << ") failed" << std::endl ;
 				}
 			break ;
 		}

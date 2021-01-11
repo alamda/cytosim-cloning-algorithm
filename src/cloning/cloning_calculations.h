@@ -8,9 +8,9 @@
 #include <string>
 
 
-void calc_exponential(CloningParams & cloningParams, Clone & clone) ;
+// void calc_exponential(CloningParams & cloningParams, Clone & clone) ;
 
-void calc_s_a(CloningParams & cloningParams, Clone & currentClone, Clone & pastClone) ;
+void calc_s_a(CloningParams & cloningParams, Clone & clone) ;
 
 void sum_s_a(Iteration & iteration, Clone & clone) ;
 

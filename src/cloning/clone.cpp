@@ -8,7 +8,7 @@
 
 void read_wDotIntegral(Clone & clone, std::string filename)
 {
-	std::regex rgxNum("-?\\d+\\.?\\d*") ;
+	std::regex rgxNum("-?\\d+\\.?\\d*(?:e-?\\d+)?") ;
 
 	std::ifstream dataFile(filename.c_str()) ;
 
@@ -42,9 +42,9 @@ void read_wDotIntegral(Clone & clone, std::string filename)
 	}
 }
 
-void get_time_stamp(CloningParams & cloningParams, Clone & clone)
-{
-	clone.timeStamp = cloningParams.idxIter * cloningParams.iterLength ;
-
-	printf("clone.timeStamp:\t\t\t%f\n", clone.timeStamp) ;
-}
+// void get_time_stamp(CloningParams & cloningParams, Clone & clone)
+// {
+// 	clone.timeStamp = cloningParams.idxIter * cloningParams.iterLength ;
+//
+// 	printf("clone.timeStamp:\t\t\t%f\n", clone.timeStamp) ;
+// }

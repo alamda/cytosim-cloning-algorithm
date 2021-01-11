@@ -6,10 +6,12 @@
  */
 
 #include "cloning_params.h"
+#include "clone.h"
 
 #include <cstdio>		/*printf */
 #include <math.h>		/* log10, floor */
 #include <sys/stat.h>	/* mkdir */
+#include <fstream>
 #include <filesystem>
 namespace fs = std::filesystem ;
 
@@ -59,11 +61,43 @@ void create_empty_directories(CloningParams & cloningParams)
 		// copy the config.cym file into directory
 		// https://stackoverflow.com/a/48871008
 		fs::path configFile = "config.cym";
-		auto targetDir = std::string(dirNameBuff) / configFile.filename();
+		auto targetDirConfig = std::string(dirNameBuff) / configFile.filename();
 
-		fs::copy_file(configFile, targetDir, fs::copy_options::overwrite_existing);
+		fs::copy_file(configFile, targetDirConfig, fs::copy_options::overwrite_existing);
+
+		if (cloningParams.idxIter == 0 )
+		{
+			fs::path objectsFile = "objects.cmi" ;
+			auto targetDirObjects = std::string(dirNameBuff) / objectsFile.filename() ;
+
+			fs::create_directories(targetDirObjects.parent_path()) ;
+
+			std::ofstream ofs(targetDirObjects) ;
+			ofs.close() ;
+		}
 
 	} // exit the for loop creating the directories
+}
+
+void get_dir_name(CloningParams & cloningParams , Clone & clone, int idxClone)
+{
+	int nZerosClone = static_cast<int>( floor(log10(cloningParams.numClones)) ) + 1;
+	int nZerosIter = static_cast<int>( floor(log10(cloningParams.numIters)) ) + 1 ;
+
+	// Declare the buffer large enough to accommodate each directory name
+	char dirNameBuff [1 + 				// leading c character
+					  nZerosClone + 	// clone index
+					  1 + 				// underscore
+					  1 + 				// leading i character
+					  nZerosIter		// iteration index
+					  ] ;
+
+
+	int dirNameLen =
+		sprintf(dirNameBuff, "c%0*i_i%0*i",
+				nZerosClone, idxClone, nZerosIter, cloningParams.idxIter) ;
+
+	clone.dirName = dirNameBuff ;
 }
 
 void generate_data_files()

@@ -7,7 +7,7 @@
 
 typedef struct Iteration_s
 {
-	float sumOfExponentials = 0.0;
+	float sum_s_a = 0.0;
 
 	int numClonesPredicted = 0 ;
 

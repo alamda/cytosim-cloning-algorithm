@@ -22,6 +22,6 @@ void run_sim(Interface & interface) ;
 
 void run_report(Interface & interface ) ;
 
-void calc_observable(std::string executableName) ;
+void calc_observable(std::string executableName, std::string executablePath) ;
 
 #endif // INTERFACE_H
