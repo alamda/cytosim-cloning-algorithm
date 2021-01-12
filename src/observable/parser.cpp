@@ -263,10 +263,11 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 				// issue for smaller time step sizes.
 				currentFrame.timeStamp = currentFrame.frameNumber * simul.timeStepSize * (simul.numSteps / simul.numFrames);
 
-				// printf("simul.timeStepSize: %f\n", simul.timeStepSize) ; // works fine
-				// printf("currentFrame.frameNumber: %i\n", currentFrame.frameNumber) ; // works fine
-				// printf("simul.numSteps: %i\n", simul.numSteps) ; // did not work, works now
-				// printf("currentFrame.timeStamp: %f\n", currentFrame.timeStamp) ; // works
+				printf("simul.timeStepSize: %f\n", simul.timeStepSize) ; // works fine
+				printf("currentFrame.frameNumber: %i\n", currentFrame.frameNumber) ; // works fine
+				printf("simul.numSteps: %i\n", simul.numSteps) ; // did not work, works now
+				printf("simul.numFrames: %i\n", simul.numFrames) ;
+				printf("currentFrame.timeStamp: %f\n", currentFrame.timeStamp) ; // works
 
 				currentFrame.dt = currentFrame.timeStamp - previousFrame.timeStamp ;
 
@@ -402,7 +403,7 @@ void get_simulation_params(Simul & simul, std::string configFileName)
 				{
 					simul.duration = std::stof(matchNum.str(0)) ;
 
-					simul.numSteps = simul.duration/simul.timeStepSize ;
+					simul.numSteps = simul.duration/simul.timeStepSize +1 ;
 
 					// printf("simul.numSteps:\t\t\t\t%d\n", simul.numSteps) ;
 				}
