@@ -1,0 +1,12 @@
+add_executable(calc_n_a
+	main.cpp
+	cloning_calculations.cpp
+	cloning_calculations.h
+	clone.cpp
+	clone.h
+	iteration.h
+	cloning_logistics.cpp
+	cloning_logistics.h
+	cloning_params.cpp
+	cloning_params.h
+	)
