@@ -43,7 +43,11 @@ void increment_up(std::vector < Clone > & vec)
 {
 	int cloneIdx = pick_clone(vec) ;
 
+
 	vec[cloneIdx].n_a++ ;
+
+	printf("Incremented up clone number %i", cloneIdx) ;
+
 }
 
 void increment_down(std::vector < Clone > & vec)
@@ -55,7 +59,11 @@ void increment_down(std::vector < Clone > & vec)
 		int cloneIdx = pick_clone(vec) ;
 	}
 
+
+
 	vec[cloneIdx].n_a-- ;
+
+	printf("Incremented down clone number %i", cloneIdx) ;
 }
 
 void adjust_population(CloningParams & cloningParams, Iteration & iteration)

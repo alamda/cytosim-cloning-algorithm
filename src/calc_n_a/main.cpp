@@ -41,7 +41,7 @@ int main()
 		{
 			/* Initialize clone data struct */
 
-			std::cout << typeid(filenameStr).name() << std::endl ;
+			// std::cout << typeid(filenameStr).name() << std::endl ;
 
 			Clone clone ;
 
@@ -52,7 +52,7 @@ int main()
 
 			/* Read wDotIntegral.txt (clone.cpp) */
 
-			std::cout << fs::current_path() << std::endl ;
+			// std::cout << fs::current_path() << std::endl ;
 
 			const std::string wDotIntFileName = "wDotIntegral.txt" ;
 
