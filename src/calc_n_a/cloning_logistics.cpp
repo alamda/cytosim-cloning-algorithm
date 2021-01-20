@@ -76,6 +76,8 @@ void adjust_population(CloningParams & cloningParams, Iteration & iteration)
 	{
 		int diff = iteration.numClonesPredicted - cloningParams.numClones ;
 
+		printf("Difference between current number of clones and required number of clones: %i\n", diff) ;
+
 		if (diff < 0)
 		{
 			for (int idx = 0; idx<abs(diff); ++idx)
