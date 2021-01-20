@@ -94,6 +94,8 @@ void adjust_population(CloningParams & cloningParams, Iteration & iteration)
 		}
 
 		iteration.numClonesPredicted = calc_total_num_clones_predicted(iteration.cloneVector) ;
+
+		print("iteration.numClonesPredicted (Adjustment in progress): %i\n", iteration.numClonesPredicted) ;
 	}
 
 	printf("iteration.numClonesPredicted (After adjustment): %d\n", iteration.numClonesPredicted) ;
