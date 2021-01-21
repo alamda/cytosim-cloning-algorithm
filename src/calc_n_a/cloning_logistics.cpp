@@ -91,6 +91,7 @@ void adjust_population(CloningParams & cloningParams, Iteration & iteration)
 			printf("diff greater than or equal to 0\n") ;
 			for (int idx = 0; idx<abs(diff) ; ++idx)
 			{
+				printf("%i\n", idx) ;
 				increment_down(iteration.cloneVector) ;
 			}
 		}
