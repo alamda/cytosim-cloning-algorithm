@@ -56,7 +56,7 @@ void increment_down(std::vector < Clone > & vec)
 
 	while (vec[cloneIdx].n_a == 0)
 	{
-		int cloneIdx = pick_clone(vec) ;
+		cloneIdx = pick_clone(vec) ;
 	}
 
 
