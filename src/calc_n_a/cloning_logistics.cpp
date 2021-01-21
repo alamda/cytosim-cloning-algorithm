@@ -86,14 +86,18 @@ void adjust_population(CloningParams & cloningParams, Iteration & iteration)
 				increment_up(iteration.cloneVector) ;
 			}
 		}
-		else
+		else if (diff > 0)
 		{
-			printf("diff greater than or equal to 0\n") ;
+			printf("diff greater than 0\n") ;
 			for (int idx = 0; idx<abs(diff) ; ++idx)
 			{
 				printf("%i\n", idx) ;
 				increment_down(iteration.cloneVector) ;
 			}
+		}
+		else if (diff==0)
+		{
+			printf("diff is equal to 0") ;
 		}
 
 		iteration.numClonesPredicted = calc_total_num_clones_predicted(iteration.cloneVector) ;
