@@ -80,6 +80,7 @@ void adjust_population(CloningParams & cloningParams, Iteration & iteration)
 
 		if (diff < 0)
 		{
+			printf("diff less than 0\n") ;
 			for (int idx = 0; idx<abs(diff); ++idx)
 			{
 				increment_up(iteration.cloneVector) ;
@@ -87,6 +88,7 @@ void adjust_population(CloningParams & cloningParams, Iteration & iteration)
 		}
 		else
 		{
+			printf("diff greater than or equal to 0\n") ;
 			for (int idx = 0; idx<abs(diff) ; ++idx)
 			{
 				increment_down(iteration.cloneVector) ;
