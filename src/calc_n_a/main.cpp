@@ -58,7 +58,7 @@ int main()
 
 			read_wDotIntegral(clone, wDotIntFileName) ;
 
-			std::cout << clone.wDotIntegral << std::endl  ;
+			// std::cout << clone.wDotIntegral << std::endl  ;
 
 			/* Calculate s_a for clone (cloning_calculations.cpp) */
 
@@ -72,7 +72,7 @@ int main()
 
 			sum_s_a(iteration, clone) ;
 
-			std::cout << std::endl ;
+			// std::cout << std::endl ;
 		}
 
 	}
@@ -88,32 +88,32 @@ int main()
 		// Calculate n_a, the number of duplicates for each clone
 		calc_n_a(cloningParams, iteration, clone) ;
 
-		std::cout << clone.n_a << " " ;
+		// std::cout << clone.n_a << " " ;
 
 		// Add the number of duplicates for the clone to the genealogy vector
 		// iteration.genealogy.push_back(clone.n_a) ;
 
 	}
 
-	std::cout << std::endl ;
+	// std::cout << std::endl ;
 
 
-	for (Clone & clone : iteration.cloneVector)
-	{
-		std::cout << clone.n_a << " " ;
-	}
-
-	std::cout << std::endl ;
+	// for (Clone & clone : iteration.cloneVector)
+	// {
+	// 	std::cout << clone.n_a << " " ;
+	// }
+	//
+	// std::cout << std::endl ;
 
 	/* Adjust the population so the total number of of clones matches the value specified in clone.config */
 	adjust_population(cloningParams, iteration) ;
 
-	for (Clone & clone : iteration.cloneVector)
-	{
-		std::cout << clone.n_a << " " ;
-	}
-
-	std::cout << std::endl ;
+	// for (Clone & clone : iteration.cloneVector)
+	// {
+	// 	std::cout << clone.n_a << " " ;
+	// }
+	//
+	// std::cout << std::endl ;
 
 
 	/* Write clone ID and corresponding n_a to file */
@@ -132,5 +132,7 @@ int main()
 		genealogyFile << clone.n_a ;
 		genealogyFile << "\n" ;
 	}
+
+	genealogyFile.close() ;
 
 }
