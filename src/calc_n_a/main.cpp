@@ -29,6 +29,9 @@ int main()
 
 	fs::path rootPath = fs::current_path() ;
 
+	std::cout << "S_m:\t" << iteration.sum_s_a << std::endl ;
+
+
 	/* Iterate over subdirectories (one subdirectory per clone) */
 
 	// https://www.bfilipek.com/2019/04/dir-iterate.html#using-c17
@@ -64,7 +67,7 @@ int main()
 
 			calc_s_a(cloningParams, clone) ;
 
-			std::cout << clone.s_a << std::endl ;
+			// std::cout << clone.s_a << std::endl ;
 
 			iteration.cloneVector.push_back(clone) ;
 
@@ -72,12 +75,12 @@ int main()
 
 			sum_s_a(iteration, clone) ;
 
-			// std::cout << std::endl ;
+			std::cout << std::endl ;
 		}
 
 	}
 
-	std::cout << iteration.sum_s_a << std::endl ;
+	std::cout << "S_m:\t" << iteration.sum_s_a << std::endl ;
 
 	// Write iteration.sum_s_a (also known as S_m) to file
 
