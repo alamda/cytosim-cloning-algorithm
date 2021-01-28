@@ -79,6 +79,16 @@ int main()
 
 	std::cout << iteration.sum_s_a << std::endl ;
 
+	// Write iteration.sum_s_a (also known as S_m) to file
+
+	std::string SmFileName = "S_m.txt" ;
+
+	std::ofstream SmFile(SmFileName.c_str()) ;
+
+	SmFile << iteration.sum_s_a ;
+
+	SmFile.close() ;
+
 	/* Iterate over clones again */
 
 	/* Calculate n_a for each clone */
