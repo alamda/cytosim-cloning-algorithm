@@ -81,6 +81,8 @@ int main()
 
 	// Write iteration.sum_s_a (also known as S_m) to file
 
+	fs::current_path(rootPath) ;
+
 	std::string SmFileName = "S_m.txt" ;
 
 	std::ofstream SmFile(SmFileName.c_str()) ;
