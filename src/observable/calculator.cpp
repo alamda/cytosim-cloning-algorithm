@@ -29,7 +29,7 @@ void calculate_frame(Simul & simul, Frame & frame)
 	frame.wDot = 0.0 ;
 	// printf("frame.wDot = %f\n", frame.wDot ) ;
 	//* Number of linkers in current frame should be non-zero
-	if (frame.numLinkers > 0 )
+	if (frame.numLinkers > 0 && frame.frameNumber != 0 )
 	{
 		std::vector <Linker>::iterator linkerPtr = frame.linkerObjects.begin(),
 									   endPtr = frame.linkerObjects.end() ;
