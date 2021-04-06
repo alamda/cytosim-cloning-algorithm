@@ -15,7 +15,7 @@ typedef struct Clone_s
 
 	float wDotIntegral = 0.0 ;
 
-	float s_a ;
+	double s_a ;
 
 	int n_a ;
 
