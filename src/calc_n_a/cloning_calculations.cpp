@@ -14,7 +14,7 @@
 #include <cstdio>
 #include <math.h> // exp, floor
 #include <random> // for safe generation of random numbers
-
+#include <tgmath.h> // for expl(), taking exponentials of long doubles
 
 
 void calc_s_a(CloningParams & cloningParams, Clone & clone)
@@ -23,7 +23,7 @@ void calc_s_a(CloningParams & cloningParams, Clone & clone)
 // extracts integral value
 // needs to know biasing parameter h from the cloning configuration file
 
-	clone.s_a = exp(cloningParams.biasParam  * clone.wDotIntegral) ;
+	clone.s_a = expl(cloningParams.biasParam  * clone.wDotIntegral) ;
 
 	printf("clone.s_a:\t\t%f\n", clone.s_a);
 }
