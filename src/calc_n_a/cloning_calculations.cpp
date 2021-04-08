@@ -23,9 +23,11 @@ void calc_s_a(CloningParams & cloningParams, Clone & clone)
 // extracts integral value
 // needs to know biasing parameter h from the cloning configuration file
 
+	// printf("%Lf\n", expl(clone.wDotIntegral)) ;
+
 	clone.s_a = expl(cloningParams.biasParam  * clone.wDotIntegral) ;
 
-	printf("clone.s_a:\t\t%f\n", clone.s_a);
+	printf("clone.s_a:\t\t%Lf\n", clone.s_a);
 }
 //
 // void calc_s_a(CloningParams & cloningParams, Clone & currentClone, Clone & pastClone)
