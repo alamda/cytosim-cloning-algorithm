@@ -1,5 +1,0 @@
-<map id="process_frame" name="process_frame">
-<area shape="rect" id="node1" title="Takes info from Frame object, then creates and populates Linker objects." alt="" coords="5,35,124,61"/>
-<area shape="rect" id="node2" href="$parse_8cpp.html#a8ea5737d9075c49b931c9886e892125c" title="Check if simulation output data is 2D or 3D, returns true if 3D." alt="" coords="179,5,313,32"/>
-<area shape="rect" id="node3" href="$calculate_8cpp.html#a0d42d2d1aed00bc455bc672cb9dbc8c4" title="Convert std::vector to Eigen::MatrixXf for snappy maths." alt="" coords="172,57,320,98"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="check_dimension" name="check_dimension">
-<area shape="rect" id="node1" title="Check if simulation output data is 2D or 3D, returns true if 3D." alt="" coords="505,5,640,32"/>
-<area shape="rect" id="node2" href="$parse_8h.html#a570eeacaa210304c51f11a31fabca337" title="Takes info from Frame object, then creates and populates Linker objects." alt="" coords="339,5,457,32"/>
-<area shape="rect" id="node3" href="$parse_8h.html#aaefbc85f6ea2147f99967851a49768a6" title="Extract and process data from output file previously created by Cytosim." alt="" coords="108,5,291,32"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
-</map>

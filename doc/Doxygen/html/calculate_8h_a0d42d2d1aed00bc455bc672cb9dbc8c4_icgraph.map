@@ -1,6 +1,0 @@
-<map id="convert_std_vec_to_eigen_vec" name="convert_std_vec_to_eigen_vec">
-<area shape="rect" id="node1" title="Convert std::vector to Eigen::MatrixXf for snappy maths." alt="" coords="505,5,653,47"/>
-<area shape="rect" id="node2" href="$parse_8h.html#a570eeacaa210304c51f11a31fabca337" title="Takes info from Frame object, then creates and populates Linker objects." alt="" coords="339,13,457,39"/>
-<area shape="rect" id="node3" href="$parse_8h.html#aaefbc85f6ea2147f99967851a49768a6" title="Extract and process data from output file previously created by Cytosim." alt="" coords="108,13,291,39"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="calculate_velocity_vector" name="calculate_velocity_vector">
-<area shape="rect" id="node1" title="Calculate the velocity vector of a hand of a linker for a given frame." alt="" coords="513,5,653,47"/>
-<area shape="rect" id="node2" href="$calculate_8h.html#af62e05bef6145fc2d70095dd1c0c1ad4" title="Do calculations on a frame for each eligible* linker." alt="" coords="339,13,465,39"/>
-<area shape="rect" id="node3" href="$parse_8h.html#aaefbc85f6ea2147f99967851a49768a6" title="Extract and process data from output file previously created by Cytosim." alt="" coords="108,13,291,39"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
-</map>
