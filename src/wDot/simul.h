@@ -14,7 +14,7 @@ typedef struct Simul_s
 	float stallForce ;
 	float unloadedSpeed ;
 
-	float wDotIntegral ;
+	float observableIntegral ;
 
 	float timeStepSize ;
 

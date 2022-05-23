@@ -17,6 +17,6 @@ void calculate_force_vector(Linker & linker) ;
 
 void calculate_velocity_vector(Simul & simul, Linker & linker) ;
 
-void calculate_linker_w_dot(Linker & linker) ;
+void calculate_linker_observable(Linker & linker) ;
 
 #endif // CALCULATE_H

@@ -13,7 +13,7 @@ typedef struct Clone_s
 {
 	std::string dirName ;
 
-	float wDotIntegral = 0.0 ;
+	float observable_integral = 0.0 ;
 
 	long double s_a ;
 
@@ -26,7 +26,7 @@ typedef struct Clone_s
 
 } Clone ;
 
-void read_wDotIntegral(Clone & clone, fs::path filePath) ;
+void read_observable_integral(Clone & clone, fs::path filePath) ;
 
 // void get_time_stamp(CloningParams & cloningParams, Clone & clone) ;
 

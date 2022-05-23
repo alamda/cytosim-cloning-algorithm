@@ -9,13 +9,13 @@
 
 namespace fs = std::filesystem ;
 
-void read_wDotIntegral(Clone & clone, fs::path filePath)
+void read_observable_integral(Clone & clone, fs::path filePath)
 {
 	std::regex rgxNum("-?\\d+\\.?\\d*(?:e-?\\d+)?") ;
 
 	std::ifstream dataFile(filePath) ;
 
-	// If wDotIntegral file was opened successfully
+	// If observable_integral file was opened successfully
 	while (dataFile)
 	{
 		// Declare empty string variable in which file line contents
@@ -37,8 +37,8 @@ void read_wDotIntegral(Clone & clone, fs::path filePath)
 
 			if (std::regex_search(line, matchNum, rgxNum))
 			{	// If line contains number
-				clone.wDotIntegral = std::stof(matchNum.str(0)) ;
-				// printf("clone.wDotIntegral:\t\t\t%f\n", clone.wDotIntegral) ;
+				clone.observable_integral = std::stof(matchNum.str(0)) ;
+				// printf("clone.observable_integral:\t\t\t%f\n", clone.observable_integral) ;
 			}
 		}
 

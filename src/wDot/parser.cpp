@@ -196,22 +196,22 @@ void process_frame(Simul & simul, Frame & frame)
 
 	@param	simul					-	reference to Simul object
 	@param 	dataFileName 			- 	std::string
-	@param	wDotsFileName			-	std::string
-	@param	wDotIntegralFileName	- std::string
+	@param	observableDataFileName			-	std::string
+	@param	observableIntegralFileName	- std::string
 
 	Used as reference: https://thispointer.com/c-how-to-read-a-file-line-by-line-into-a-vector/
 
 	*/
-void process_data_file( Simul & simul, std::string dataFileName, std::string wDotsFileName, std::string wDotIntegralFileName  )
+void process_data_file( Simul & simul, std::string dataFileName, std::string observableDataFileName, std::string observableIntegralFileName  )
 {
 	// Open file with Cytosim data for reading
 	std::ifstream dataFile(dataFileName.c_str());
 
-	// Open file for writing wDot data for each frame in trajectory
-	std::ofstream wDotsFile(wDotsFileName.c_str()) ;
+	// Open file for writing observable data for each frame in trajectory
+	std::ofstream observableDataFile(observableDataFileName.c_str()) ;
 
-	// Open file for writing wDotIntegral value for the trajectory
-	std::ofstream wDotIntegralFile(wDotIntegralFileName.c_str()) ;
+	// Open file for writing observableIntegral value for the trajectory
+	std::ofstream observableIntegralFile(observableIntegralFileName.c_str()) ;
 
 	// If input dataFile was opened successfully
 	while (dataFile)
@@ -226,8 +226,8 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 		Frame currentFrame;
 		Frame previousFrame ;
 
-		// set the wDot value for fresh frame to zero
-		currentFrame.wDot = 0.0 ;
+		// set the observable value for fresh frame to zero
+		currentFrame.observable = 0.0 ;
 
 		// Set dt value for frames to zero so that calculation for
 		// the zeroth frame can occur
@@ -235,7 +235,7 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 		previousFrame.dt = 0.0 ;
 
 		// Set trajectory value to zero, will be adding to it later
-		simul.wDotIntegral = 0.0 ;
+		simul.observableIntegral = 0.0 ;
 
 		// Read line by line and sort into frames, line is a c string
 		while (std::getline(dataFile, line))
@@ -278,15 +278,15 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 				// printf("frame.frameNumber %d\tframe.numLinkers %d\tframe.timeStamp %f\n", currentFrame.frameNumber, currentFrame.numLinkers, currentFrame.timeStamp) ;
 
 				// Perform calculations on data
-				// - calculate wDot for frame
-				// - update simul.wDotIntegral
+				// - calculate observable for frame
+				// - update simul.observableIntegral
 				calculate_frame(simul, currentFrame) ;
 
-				// Write wDot values for each frame to file
-				wDotsFile << currentFrame.timeStamp ;
-				wDotsFile << "\t" ;
-				wDotsFile << currentFrame.wDot ;
-				wDotsFile << "\n" ;
+				// Write observable values for each frame to file
+				observableDataFile << currentFrame.timeStamp ;
+				observableDataFile << "\t" ;
+				observableDataFile << currentFrame.observable ;
+				observableDataFile << "\n" ;
 
 				// Store currentFrame object in the previousFrame object
 				previousFrame = currentFrame ;
@@ -299,18 +299,18 @@ void process_data_file( Simul & simul, std::string dataFileName, std::string wDo
 			}
 		}
 	// printf("Total number of frames: %d\n", frameIdx);
-	// printf("w dot integral for trajectory: %f\n", simul.wDotIntegral) ;
+	// printf("w dot integral for trajectory: %f\n", simul.observableIntegral) ;
 
 	// Once all frames are processed, write integral value to file
-	wDotIntegralFile << simul.wDotIntegral ;
+	observableIntegralFile << simul.observableIntegral ;
 
-	printf("\nsimul.wDotIntegral:\t\t\t%f\tpN.um\n", simul.wDotIntegral) ;
+	printf("\nsimul.observableIntegral:\t\t\t%f\tpN.um\n", simul.observableIntegral) ;
 	}
 
 	//Close the files
 	dataFile.close();
-	wDotsFile.close()  ;
-	wDotIntegralFile.close() ;
+	observableDataFile.close()  ;
+	observableIntegralFile.close() ;
 }
 
 /**	@brief 	Obtain simulation parameters from *.cym Cytosim config file

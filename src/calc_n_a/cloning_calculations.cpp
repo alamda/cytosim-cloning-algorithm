@@ -19,13 +19,13 @@
 
 void calc_s_a(CloningParams & cloningParams, Clone & clone)
 {
-// takes wDotIntegral.txt as input
+// takes observable_integral.txt as input
 // extracts integral value
 // needs to know biasing parameter h from the cloning configuration file
 
-	// printf("%Lf\n", expl(clone.wDotIntegral)) ;
+	// printf("%Lf\n", expl(clone.observable_integral)) ;
 
-	clone.s_a = expl(cloningParams.biasParam  * clone.wDotIntegral) ;
+	clone.s_a = expl(cloningParams.biasParam  * clone.observable_integral) ;
 
 	printf("clone.s_a:\t\t%Lf\n", clone.s_a);
 }

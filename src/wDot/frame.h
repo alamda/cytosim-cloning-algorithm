@@ -32,7 +32,7 @@ typedef struct Frame_s
 	int numLinkers ;
 
 	// Values that are calculated
-	float wDot ;
+	float observable ;
 	float dt ;
 } Frame ;
 

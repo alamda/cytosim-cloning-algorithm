@@ -26,17 +26,17 @@ int main()
 	// get_object_props(simul, propFileName) ;
 
 	// Set integral for the trajectory to zero, will be adding to it later
-	simul.wDotIntegral = 0.0 ;
+	simul.observableIntegral = 0.0 ;
 
 	// Name of data file to be read:
 	const std::string dataFileName = "link.txt";
 
 	// Name of output files:
-	const std::string wDotOutputFileName = "wDots.txt" ;
-	const std::string wDotIntegralFileName = "wDotIntegral.txt" ;
+	const std::string observableOutputFileName = "wDots.txt" ;
+	const std::string observableIntegralFileName = "observable_integral.txt" ;
 
 	// Do the Thing
-	process_data_file(simul, dataFileName, wDotOutputFileName, wDotIntegralFileName);
+	process_data_file(simul, dataFileName, observableOutputFileName, observableIntegralFileName);
 
 	return 0;
 }

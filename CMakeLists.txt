@@ -46,6 +46,7 @@ set(_CYTOSIM_CONTAINER_PATH
 
 
 # add subdirectories (each containing its own CMakeLists.txt)
-add_subdirectory(src/observable)
+add_subdirectory(src/wDot)
+#add_subdirectory(src/axial_forces)
 add_subdirectory(src/cloning)
 add_subdirectory(src/calc_n_a)

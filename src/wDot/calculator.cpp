@@ -26,7 +26,7 @@
 void calculate_frame(Simul & simul, Frame & frame)
 {
 	// Set wDot for frame to zero, will be adding linker wDot values to it
-	frame.wDot = 0.0 ;
+	frame.observable = 0.0 ;
 	// printf("frame.wDot = %f\n", frame.wDot ) ;
 	//* Number of linkers in current frame should be non-zero
 	if (frame.numLinkers > 0 && frame.frameNumber != 0 )
@@ -64,12 +64,12 @@ void calculate_frame(Simul & simul, Frame & frame)
 			// std::cout << currentLinker.handOne.velocityVector <<std::endl ;
 			// std::cout << currentLinker.handTwo.velocityVector << std::endl ;
 
-			calculate_linker_w_dot(currentLinker) ;
+			calculate_linker_observable(currentLinker) ;
 
 			// std::cout << "w dot for linker: " << currentLinker.wDot<<std::endl ;
 
 			//* Add linker wDot contribution to the running total for wDot for the frame
-			frame.wDot += currentLinker.wDot ;
+			frame.observable += currentLinker.observable ;
 
 			// Increment the linker pointer (go to next linker in frame)
 			++linkerPtr ;
@@ -79,10 +79,10 @@ void calculate_frame(Simul & simul, Frame & frame)
 	// 	printf("Frame number: %d\n--- No linkers in current and/or previous frame\n",
 	// 		   frame.frameNumber) ;
 
-	// printf("wDot for frame is %f\n", frame.wDot) ;
+	// printf("observable for frame is %f\n", frame.observable) ;
 
-	//* Add frame wDot contribution to the running total for wDot for the trajectory
-	simul.wDotIntegral += frame.wDot * frame.dt ;
+	//* Add frame observable contribution to the running total for observable for the trajectory
+	simul.observableIntegral += frame.observable * frame.dt ;
 }
 
 /**	@brief	Convert std::vector to Eigen::MatrixXf for snappy maths.
@@ -168,9 +168,9 @@ void calculate_velocity_vector(Simul & simul, Linker & linker)
 	@param	linker		-	reference to Linker object
 
 	*/
-void calculate_linker_w_dot(Linker & linker)
+void calculate_linker_observable(Linker & linker)
 {
-	//* wDot for the linker is the sum of wDot contributions from each linker hand
-	linker.wDot = linker.handOne.forceVector.dot(linker.handOne.velocityVector)
+	//* observable for the linker is the sum of contributions from each linker hand
+	linker.observable = linker.handOne.forceVector.dot(linker.handOne.velocityVector)
 				+ linker.handTwo.forceVector.dot(linker.handTwo.velocityVector) ;
 }

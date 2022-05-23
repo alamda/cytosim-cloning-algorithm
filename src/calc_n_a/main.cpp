@@ -53,15 +53,15 @@ int main()
 
 			fs::current_path(entry) ;
 
-			/* Read wDotIntegral.txt (clone.cpp) */
+			/* Read observable_integral.txt (clone.cpp) */
 
 			// std::cout << fs::current_path() << std::endl ;
 
-			const std::string wDotIntFileName = "wDotIntegral.txt" ;
+			const std::string wDotIntFileName = "observable_integral.txt" ;
 
-			read_wDotIntegral(clone, wDotIntFileName) ;
+			read_observable_integral(clone, wDotIntFileName) ;
 
-			// std::cout << clone.wDotIntegral << std::endl  ;
+			// std::cout << clone.observable_integral << std::endl  ;
 
 			/* Calculate s_a for clone (cloning_calculations.cpp) */
 
