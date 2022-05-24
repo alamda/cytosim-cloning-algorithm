@@ -1,7 +1,7 @@
 # set the directory of the Eigen library
 set(EIGEN_DIR ${PROJECT_SOURCE_DIR}/lib/eigen-3.3.7)
 
-add_executable(calculate_wDot
+add_executable(calculate_axial_forces
 	main.cpp
 	parser.cpp
 	parser.h
@@ -16,4 +16,4 @@ add_executable(calculate_wDot
 	couple_prop.h
 	)
 
-target_include_directories(calculate_wDot PUBLIC ${EIGEN_DIR})
+target_include_directories(calculate_axial_forces PUBLIC ${EIGEN_DIR})
